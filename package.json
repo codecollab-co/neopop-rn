@@ -15,7 +15,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/neopop-rn.git"
+    "url": "https://github.com/codecollab-co/neopop-rn.git"
   },
   "keywords": [
     "react-native",

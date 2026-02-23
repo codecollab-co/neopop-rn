@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/neopop-rn.svg)](https://www.npmjs.com/package/neopop-rn)
 [![license](https://img.shields.io/npm/l/neopop-rn.svg)](./LICENSE)
-[![CI](https://github.com/your-org/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/neopop-rn/actions)
+[![CI](https://github.com/codecollab-co/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/codecollab-co/neopop-rn/actions)
 
 ---
 
