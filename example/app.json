@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "neopop-rn-example",
+    "slug": "neopop-rn-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#0d0d0d"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.neopop.rn.example"
+    },
+    "android": {
+      "package": "com.neopop.rn.example"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.8.0"
+          }
+        }
+      ]
+    ]
+  }
+}

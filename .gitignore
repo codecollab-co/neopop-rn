@@ -1,0 +1,13 @@
+node_modules/
+lib/
+.DS_Store
+*.log
+yarn-error.log
+coverage/
+.env
+.env.local
+
+# Example app
+example/node_modules/
+example/.expo/
+example/dist/
