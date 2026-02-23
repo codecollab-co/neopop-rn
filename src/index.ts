@@ -126,6 +126,7 @@ export type { NeoPopScoreMeterProps } from './components/NeoPopScoreMeter';
 
 export { NeoPopTypography } from './components/NeoPopTypography';
 export type { NeoPopTypographyProps } from './components/NeoPopTypography';
+// FontType, FontWeight, TextOverflow are already exported from './primitives/typography' above
 
 export { Row, Column, PageContainer, HorizontalDivider, HorizontalSpacer, VerticalSpacer } from './components/layout';
 export type { RowProps, ColumnProps, PageContainerProps, HorizontalDividerProps, HorizontalSpacerProps, VerticalSpacerProps } from './components/layout';

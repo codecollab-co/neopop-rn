@@ -1,17 +1,32 @@
 /**
- * NeoPop3DSurface — the core five-surface Skia painter.
+ * NeoPop3DSurface — core five-surface Skia painter.
  *
- * Renders a 3D extruded rectangle with configurable edge surfaces.
- * Used internally by NeoPopButton, NeoPopCard, and NeoPopCheckbox.
+ * Canvas layout (with right + bottom edges):
  *
- * TODO: Implement with @shopify/react-native-skia
- * The actual Skia Canvas + Path drawing goes here.
- * Stub is in place for TypeScript compilation and API surface.
+ *   ┌──────────────────────┬───┐
+ *   │                      │ R │  ← right edge parallelogram
+ *   │       face           │ i │
+ *   │    (width × height)  │ g │
+ *   │                      │ h │
+ *   ├──────────────────────┤ t │
+ *   │  bottom edge         └───┘
+ *   └──────────────────────────┘
+ *
+ * Total canvas = (width + rightDepth + leftDepth) × (height + bottomDepth + topDepth)
+ *
+ * Each edge is a parallelogram drawn as a Skia Path.
+ * The face is a simple Rect with an optional border stroke.
  */
 
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
 import type { StyleProp, ViewStyle } from 'react-native';
+import {
+  Canvas,
+  Path,
+  Rect,
+  Skia,
+} from '@shopify/react-native-skia';
 import { deriveEdgeColors } from './EdgeColorDeriver';
 
 export interface NeoPop3DSurfaceProps {
@@ -37,12 +52,6 @@ export interface NeoPop3DSurfaceProps {
   style?: StyleProp<ViewStyle>;
 }
 
-/**
- * Renders the NeoPop 3D surface effect using Skia Canvas.
- *
- * The canvas total size is (width + depth) × (height + depth)
- * to accommodate the protruding edge surfaces.
- */
 export function NeoPop3DSurface({
   width,
   height,
@@ -55,69 +64,137 @@ export function NeoPop3DSurface({
   children,
   style,
 }: NeoPop3DSurfaceProps) {
-  const derived = deriveEdgeColors({ faceColor, overrides: edgeColorOverrides });
+  const derived = useMemo(
+    () => deriveEdgeColors({ faceColor, overrides: edgeColorOverrides }),
+    [faceColor, edgeColorOverrides],
+  );
 
-  const canvasWidth  = width  + (edges.right  ? depth : 0) + (edges.left  ? depth : 0);
-  const canvasHeight = height + (edges.bottom ? depth : 0) + (edges.top   ? depth : 0);
+  const leftDepth   = edges.left   ? depth : 0;
+  const rightDepth  = edges.right  ? depth : 0;
+  const topDepth    = edges.top    ? depth : 0;
+  const bottomDepth = edges.bottom ? depth : 0;
 
-  // TODO: Replace this View-based stub with full Skia Canvas implementation.
-  // The Skia implementation will:
-  // 1. Draw face rectangle at (leftDepth, topDepth, width, height)
-  // 2. Draw bottom edge parallelogram if edges.bottom
-  // 3. Draw right edge parallelogram if edges.right
-  // 4. Draw top/left edges if requested
-  // 5. Draw border stroke on face if borderColor is provided
+  const canvasWidth  = width  + leftDepth  + rightDepth;
+  const canvasHeight = height + topDepth   + bottomDepth;
+
+  // Face origin within canvas
+  const faceX = leftDepth;
+  const faceY = topDepth;
+
+  const paths = useMemo(() => {
+    const result: Array<{ path: ReturnType<typeof Skia.Path.Make>; color: string }> = [];
+
+    // ── Bottom edge parallelogram ────────────────────────────────────────────
+    // Top-left  = (faceX,           faceY + height)
+    // Top-right = (faceX + width,   faceY + height)
+    // Bot-right = (faceX + width + rightDepth, faceY + height + bottomDepth)
+    // Bot-left  = (faceX - leftDepth,          faceY + height + bottomDepth)
+    if (edges.bottom && derived.bottom) {
+      const p = Skia.Path.Make();
+      p.moveTo(faceX,                      faceY + height);
+      p.lineTo(faceX + width,              faceY + height);
+      p.lineTo(faceX + width + rightDepth, faceY + height + bottomDepth);
+      p.lineTo(faceX - leftDepth,          faceY + height + bottomDepth);
+      p.close();
+      result.push({ path: p, color: derived.bottom });
+    }
+
+    // ── Right edge parallelogram ─────────────────────────────────────────────
+    // Top-left  = (faceX + width,              faceY)
+    // Top-right = (faceX + width + rightDepth, faceY - topDepth)
+    // Bot-right = (faceX + width + rightDepth, faceY + height + bottomDepth - topDepth)
+    // Bot-left  = (faceX + width,              faceY + height)
+    if (edges.right && derived.right) {
+      const p = Skia.Path.Make();
+      p.moveTo(faceX + width,              faceY);
+      p.lineTo(faceX + width + rightDepth, faceY - topDepth);
+      p.lineTo(faceX + width + rightDepth, faceY + height + bottomDepth - topDepth);
+      p.lineTo(faceX + width,              faceY + height);
+      p.close();
+      result.push({ path: p, color: derived.right });
+    }
+
+    // ── Top edge parallelogram ───────────────────────────────────────────────
+    // Top-left  = (faceX - leftDepth,          faceY - topDepth)
+    // Top-right = (faceX + width + rightDepth, faceY - topDepth)
+    // Bot-right = (faceX + width,              faceY)
+    // Bot-left  = (faceX,                      faceY)
+    if (edges.top && derived.top) {
+      const p = Skia.Path.Make();
+      p.moveTo(faceX - leftDepth,          faceY - topDepth);
+      p.lineTo(faceX + width + rightDepth, faceY - topDepth);
+      p.lineTo(faceX + width,              faceY);
+      p.lineTo(faceX,                      faceY);
+      p.close();
+      result.push({ path: p, color: derived.top });
+    }
+
+    // ── Left edge parallelogram ──────────────────────────────────────────────
+    // Top-left  = (faceX - leftDepth, faceY - topDepth)
+    // Top-right = (faceX,             faceY)
+    // Bot-right = (faceX,             faceY + height)
+    // Bot-left  = (faceX - leftDepth, faceY + height + bottomDepth)
+    if (edges.left && derived.left) {
+      const p = Skia.Path.Make();
+      p.moveTo(faceX - leftDepth, faceY - topDepth);
+      p.lineTo(faceX,             faceY);
+      p.lineTo(faceX,             faceY + height);
+      p.lineTo(faceX - leftDepth, faceY + height + bottomDepth);
+      p.close();
+      result.push({ path: p, color: derived.left });
+    }
+
+    return result;
+  }, [derived, edges, faceX, faceY, width, height, leftDepth, rightDepth, topDepth, bottomDepth]);
 
   return (
-    <View
-      style={[
-        {
-          width: canvasWidth,
-          height: canvasHeight,
-        },
-        style,
-      ]}
-    >
-      {/* Face */}
-      <View
-        style={[
-          StyleSheet.absoluteFillObject,
-          {
+    <View style={[{ width: canvasWidth, height: canvasHeight }, style]}>
+      <Canvas style={{ width: canvasWidth, height: canvasHeight }}>
+        {/* Face rectangle */}
+        <Rect
+          x={faceX}
+          y={faceY}
+          width={width}
+          height={height}
+          color={faceColor}
+        />
+
+        {/* Edge parallelograms */}
+        {paths.map(({ path, color }, i) => (
+          <Path key={i} path={path} color={color} />
+        ))}
+
+        {/* Border stroke on face — drawn as a separate unfilled rect */}
+        {borderColor && (
+          <Rect
+            x={faceX + borderWidth / 2}
+            y={faceY + borderWidth / 2}
+            width={width - borderWidth}
+            height={height - borderWidth}
+            color={borderColor}
+            style="stroke"
+            strokeWidth={borderWidth}
+          />
+        )}
+      </Canvas>
+
+      {/* Children overlay — positioned over the face area */}
+      {children && (
+        <View
+          style={{
+            position: 'absolute',
+            left: faceX,
+            top: faceY,
             width,
             height,
-            backgroundColor: faceColor,
-            borderWidth: borderColor ? borderWidth : 0,
-            borderColor: borderColor ?? 'transparent',
-          },
-        ]}
-      />
-      {/* Bottom edge stub */}
-      {edges.bottom && (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: width + depth,
-            height: depth,
-            backgroundColor: derived.bottom,
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+          pointerEvents="box-none"
+        >
+          {children}
+        </View>
       )}
-      {/* Right edge stub */}
-      {edges.right && (
-        <View
-          style={{
-            position: 'absolute',
-            top: depth,
-            right: 0,
-            width: depth,
-            height,
-            backgroundColor: derived.right,
-          }}
-        />
-      )}
-      {children}
     </View>
   );
 }
