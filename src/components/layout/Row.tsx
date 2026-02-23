@@ -2,6 +2,16 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import type { RowProps } from './layout.types';
 
+/**
+ * A horizontal flex container.
+ *
+ * @param align - Cross-axis alignment (default: 'center')
+ * @param justify - Main-axis justification (default: 'flex-start')
+ * @param gap - Gap between children in logical pixels
+ * @param wrap - Whether children should wrap to the next line (default: false)
+ * @param flex - Flex grow value passed to the View
+ * @param style - Additional style overrides
+ */
 export function Row({
   children,
   align = 'center',

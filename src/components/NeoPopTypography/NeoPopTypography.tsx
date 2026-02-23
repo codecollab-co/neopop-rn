@@ -13,6 +13,23 @@ import {
 } from '../../primitives/typography';
 import { useNeoPopTheme } from '../../theme/NeoPopProvider';
 
+/**
+ * NeoPop-styled text component.
+ *
+ * Automatically resolves line height, letter spacing, text transform, and font
+ * family from the `fontType` token, then merges with any explicit overrides.
+ * Font scaling is disabled (`allowFontScaling=false`) to preserve layout fidelity.
+ *
+ * @param fontType - Semantic type token: HEADING, BODY, LABEL, etc. (default: BODY)
+ * @param fontWeight - CSS-compatible weight string (default: REGULAR / '400')
+ * @param fontSize - Font size in logical pixels (default: 14)
+ * @param color - Text color; falls back to `theme.colors.text` then '#ffffff'
+ * @param fontFamily - Overrides the default family for the given fontType
+ * @param lineHeight - Overrides the auto-computed line height
+ * @param overflow - CLIP or ELLIPSIS truncation behavior
+ * @param lineClamp - Maximum number of visible lines (maps to numberOfLines)
+ * @param style - Additional TextStyle overrides
+ */
 export function NeoPopTypography({
   fontType = FontType.BODY,
   fontWeight = FontWeight.REGULAR,

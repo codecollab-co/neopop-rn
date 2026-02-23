@@ -1,8 +1,16 @@
+/**
+ * Default light-mode theme for neopop-rn.
+ *
+ * Token values are drawn from the NeoPop design system's light palette.
+ * Override specific sections by passing a partial `theme` to `NeoPopProvider`.
+ */
 import type { ThemeConfig } from './types';
 import { COLOR_BLACK, COLOR_WHITE, POP_BLACK, POP_WHITE, COLOR_GREEN, SEMANTIC_ERROR, SEMANTIC_SUCCESS } from '../primitives/colors';
 
+/** Pre-built light theme — pass to NeoPopProvider via `colorMode="light"`. */
 export const defaultLightTheme: ThemeConfig = {
   colorMode: 'light',
+  // ── Global surface colors ──────────────────────────────────────────────────
   colors: {
     background: COLOR_WHITE,
     surface:    POP_WHITE[300],
@@ -10,6 +18,7 @@ export const defaultLightTheme: ThemeConfig = {
     subtext:    POP_BLACK[100],
     border:     POP_WHITE[100],
   },
+  // ── NeoPopButton ──────────────────────────────────────────────────────────
   button: {
     color:              COLOR_BLACK,
     edgeColors:         { bottom: POP_BLACK[100], right: POP_BLACK[100] },
@@ -17,14 +26,17 @@ export const defaultLightTheme: ThemeConfig = {
     disabledColor:      POP_WHITE[100],
     disabledEdgeColor:  POP_WHITE[200],
   },
+  // ── NeoPopCard ────────────────────────────────────────────────────────────
   card: {
     color:      COLOR_WHITE,
     edgeColors: { bottom: POP_WHITE[100], right: POP_WHITE[100] },
     borderColor: POP_WHITE[100],
   },
+  // ── NeoPopShimmer ─────────────────────────────────────────────────────────
   shimmer: {
     color: 'rgba(255,255,255,0.6)',
   },
+  // ── NeoPopCheckbox ────────────────────────────────────────────────────────
   checkbox: {
     background:         COLOR_BLACK,
     border:             COLOR_BLACK,
@@ -33,12 +45,14 @@ export const defaultLightTheme: ThemeConfig = {
     topPlunk:           POP_BLACK[200],
     disabledBackground: POP_WHITE[100],
   },
+  // ── NeoPopRadio ───────────────────────────────────────────────────────────
   radio: {
     background:   COLOR_WHITE,
     border:       COLOR_BLACK,
     plunk:        POP_WHITE[100],
     dotBackground: COLOR_BLACK,
   },
+  // ── NeoPopToggle ──────────────────────────────────────────────────────────
   toggle: {
     on: {
       switchBackground:     COLOR_GREEN,
@@ -55,6 +69,7 @@ export const defaultLightTheme: ThemeConfig = {
       buttonMarkBackground: POP_WHITE[100],
     },
   },
+  // ── NeoPopInputField ──────────────────────────────────────────────────────
   inputField: {
     textColor:        COLOR_BLACK,
     labelColor:       POP_BLACK[100],
@@ -65,22 +80,26 @@ export const defaultLightTheme: ThemeConfig = {
     activeBorderColor: COLOR_BLACK,
     backgroundColor:  COLOR_WHITE,
   },
+  // ── NeoPopDropdown ────────────────────────────────────────────────────────
   dropdown: {
     border:     POP_WHITE[100],
     text:       COLOR_BLACK,
     chevron:    COLOR_BLACK,
     background: COLOR_WHITE,
   },
+  // ── NeoPopTags ────────────────────────────────────────────────────────────
   tags: {
     background: POP_WHITE[300],
     color:      COLOR_BLACK,
   },
+  // ── NeoPopBottomSheet ─────────────────────────────────────────────────────
   bottomSheet: {
     background:   COLOR_WHITE,
     notchColor:   POP_WHITE[100],
     overlayColor: 'rgba(0,0,0,0.4)',
     plunkColor:   POP_WHITE[100],
   },
+  // ── NeoPopFloatingButton ──────────────────────────────────────────────────
   floatingButton: {
     color:        COLOR_BLACK,
     borderColor:  COLOR_BLACK,
@@ -88,12 +107,14 @@ export const defaultLightTheme: ThemeConfig = {
     shadowColor:  POP_WHITE[200],
     disabledColor: POP_WHITE[100],
   },
+  // ── NeoPopTiltedButton ────────────────────────────────────────────────────
   tiltedButton: {
     color:       COLOR_BLACK,
     plunkColor:  POP_WHITE[100],
     shadowColor: POP_WHITE[200],
     borderColor: COLOR_BLACK,
   },
+  // ── NeoPopScoreMeter ──────────────────────────────────────────────────────
   scoreMeter: {
     meterStrokeColor: {
       excellent: SEMANTIC_SUCCESS[4],

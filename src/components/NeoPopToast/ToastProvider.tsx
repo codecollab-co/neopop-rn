@@ -2,22 +2,39 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { ToastConfig, ToastProviderProps } from './NeoPopToast.types';
 import { NeoPopToast } from './NeoPopToast';
 
+/** Internal shape stored in state — extends ToastConfig with runtime id + visibility flag. */
 interface ToastItem extends ToastConfig {
   id: string;
   visible: boolean;
 }
 
+/** Context shape exposed to consumers via useToastContext(). */
 interface ToastContextValue {
   toasts: ToastItem[];
+  /** Enqueue a new toast; returns its auto-generated or caller-supplied id. */
   addToast: (config: ToastConfig) => string;
+  /** Remove a specific toast by id. */
   removeToast: (id: string) => void;
+  /** Dismiss all active toasts at once. */
   removeAll: () => void;
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
+/** Monotonically increasing counter for auto-generated toast ids. */
 let toastCounter = 0;
 
+/**
+ * Provides a toast queue to its subtree.
+ *
+ * Wrap your app (or screen) with `ToastProvider`, then call `useToast()`
+ * from any descendant to enqueue and dismiss toasts.
+ *
+ * @param maxToasts - Maximum number of toasts shown simultaneously (default: 3)
+ * @param defaultDuration - Auto-dismiss duration in ms; 0 = manual only (default: 3000)
+ * @param position - Vertical anchor for the toast stack (default: 'bottom')
+ * @param offset - Distance from the screen edge in px (default: 32)
+ */
 export function ToastProvider({
   children,
   maxToasts = 3,
@@ -69,6 +86,13 @@ export function ToastProvider({
   );
 }
 
+/**
+ * Returns the raw toast context value (toasts array + add/remove helpers).
+ * Prefer the higher-level `useToast()` hook from `NeoPopToast/index` which
+ * exposes only the `showToast` / `hideToast` / `hideAll` API.
+ *
+ * @throws if called outside a `<ToastProvider>`.
+ */
 export function useToastContext(): ToastContextValue {
   const ctx = useContext(ToastContext);
   if (!ctx) {
