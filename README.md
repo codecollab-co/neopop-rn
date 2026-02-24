@@ -1,9 +1,9 @@
-# neopop-rn
+# @codecollab.co/neopop-rn
 
 > NeoPop design system for React Native — every feature from CRED's iOS, Android, Web, and Flutter libraries unified into one Expo-compatible TypeScript package.
 
-[![npm version](https://img.shields.io/npm/v/neopop-rn.svg)](https://www.npmjs.com/package/neopop-rn)
-[![license](https://img.shields.io/npm/l/neopop-rn.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@codecollab.co/neopop-rn.svg)](https://www.npmjs.com/package/@codecollab.co/neopop-rn)
+[![license](https://img.shields.io/npm/l/@codecollab.co/neopop-rn.svg)](./LICENSE)
 [![CI](https://github.com/codecollab-co/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/codecollab-co/neopop-rn/actions)
 
 ---
@@ -32,13 +32,13 @@ NeoPop is CRED's "next generation of beautiful, affirmative design" — a 3D vis
 
 ```bash
 # With npm
-npm install neopop-rn
+npm install @codecollab.co/neopop-rn
 
 # With yarn
-yarn add neopop-rn
+yarn add @codecollab.co/neopop-rn
 
 # With Expo
-npx expo install neopop-rn
+npx expo install @codecollab.co/neopop-rn
 ```
 
 ### Peer Dependencies
@@ -86,7 +86,7 @@ Wrap your app with `NeoPopProvider` and `GestureHandlerRootView`:
 // App.tsx
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { NeoPopProvider } from 'neopop-rn';
+import { NeoPopProvider } from '@codecollab.co/neopop-rn';
 import { RootNavigator } from './navigation';
 
 export default function App() {
@@ -109,7 +109,7 @@ export default function App() {
 The centrepiece of NeoPop. A 3D extruded button with press-down animation, shimmer, and adjacency support.
 
 ```tsx
-import { NeoPopButton, NeoPopTypography, FontType, FontWeight } from 'neopop-rn';
+import { NeoPopButton, NeoPopTypography, FontType, FontWeight } from '@codecollab.co/neopop-rn';
 
 // Elevated (default)
 <NeoPopButton
@@ -176,7 +176,7 @@ import { NeoPopButton, NeoPopTypography, FontType, FontWeight } from 'neopop-rn'
 Skewed 3D button with optional continuous floating animation.
 
 ```tsx
-import { NeoPopTiltedButton } from 'neopop-rn';
+import { NeoPopTiltedButton } from '@codecollab.co/neopop-rn';
 
 // Static tilt
 <NeoPopTiltedButton
@@ -204,7 +204,7 @@ import { NeoPopTiltedButton } from 'neopop-rn';
 Dedicated floating button with continuous levitation loop and imperative API.
 
 ```tsx
-import { NeoPopFloatingButton, type NeoPopFloatingButtonRef } from 'neopop-rn';
+import { NeoPopFloatingButton, type NeoPopFloatingButtonRef } from '@codecollab.co/neopop-rn';
 
 const ref = useRef<NeoPopFloatingButtonRef>(null);
 
@@ -230,7 +230,7 @@ ref.current?.enable();
 Standalone 3D surface container. Use as a card, panel, or any elevated content block.
 
 ```tsx
-import { NeoPopCard } from 'neopop-rn';
+import { NeoPopCard } from '@codecollab.co/neopop-rn';
 
 <NeoPopCard
   color="#161616"
@@ -249,7 +249,7 @@ import { NeoPopCard } from 'neopop-rn';
 Wrap any component with a shimmer sweep — loading states, highlights, CTAs.
 
 ```tsx
-import { NeoPopShimmer } from 'neopop-rn';
+import { NeoPopShimmer } from '@codecollab.co/neopop-rn';
 
 <NeoPopShimmer
   enabled={isLoading}
@@ -266,7 +266,7 @@ import { NeoPopShimmer } from 'neopop-rn';
 #### NeoPopCheckbox
 
 ```tsx
-import { NeoPopCheckbox } from 'neopop-rn';
+import { NeoPopCheckbox } from '@codecollab.co/neopop-rn';
 
 const [checked, setChecked] = useState(false);
 
@@ -282,7 +282,7 @@ const [checked, setChecked] = useState(false);
 #### NeoPopRadio
 
 ```tsx
-import { NeoPopRadio } from 'neopop-rn';
+import { NeoPopRadio } from '@codecollab.co/neopop-rn';
 
 <NeoPopRadio
   isChecked={selected === 'option1'}
@@ -295,7 +295,7 @@ import { NeoPopRadio } from 'neopop-rn';
 #### NeoPopToggle
 
 ```tsx
-import { NeoPopToggle } from 'neopop-rn';
+import { NeoPopToggle } from '@codecollab.co/neopop-rn';
 
 const [on, setOn] = useState(false);
 
@@ -310,7 +310,7 @@ const [on, setOn] = useState(false);
 #### NeoPopInputField
 
 ```tsx
-import { NeoPopInputField } from 'neopop-rn';
+import { NeoPopInputField } from '@codecollab.co/neopop-rn';
 
 <NeoPopInputField
   label="Email"
@@ -328,7 +328,7 @@ import { NeoPopInputField } from 'neopop-rn';
 #### NeoPopDropdown
 
 ```tsx
-import { NeoPopDropdown } from 'neopop-rn';
+import { NeoPopDropdown } from '@codecollab.co/neopop-rn';
 
 <NeoPopDropdown
   label="Select City"
@@ -341,7 +341,7 @@ import { NeoPopDropdown } from 'neopop-rn';
 #### NeoPopSlider
 
 ```tsx
-import { NeoPopSlider } from 'neopop-rn';
+import { NeoPopSlider } from '@codecollab.co/neopop-rn';
 
 <NeoPopSlider
   min={0}
@@ -362,7 +362,7 @@ import { NeoPopSlider } from 'neopop-rn';
 #### NeoPopBottomSheet
 
 ```tsx
-import { NeoPopBottomSheet, type NeoPopBottomSheetRef } from 'neopop-rn';
+import { NeoPopBottomSheet, type NeoPopBottomSheetRef } from '@codecollab.co/neopop-rn';
 
 const sheetRef = useRef<NeoPopBottomSheetRef>(null);
 
@@ -386,7 +386,7 @@ sheetRef.current?.close();
 #### NeoPopHeader
 
 ```tsx
-import { NeoPopHeader } from 'neopop-rn';
+import { NeoPopHeader } from '@codecollab.co/neopop-rn';
 
 <NeoPopHeader
   heading="Payment"
@@ -398,7 +398,7 @@ import { NeoPopHeader } from 'neopop-rn';
 #### NeoPopBack
 
 ```tsx
-import { NeoPopBack } from 'neopop-rn';
+import { NeoPopBack } from '@codecollab.co/neopop-rn';
 
 <NeoPopBack
   heading="Go Back"
@@ -414,7 +414,7 @@ import { NeoPopBack } from 'neopop-rn';
 #### NeoPopTags
 
 ```tsx
-import { NeoPopTags } from 'neopop-rn';
+import { NeoPopTags } from '@codecollab.co/neopop-rn';
 
 <NeoPopTags type="success" colorConfig={{ background: '#E6F9F1', color: '#06C270' }}>
   Verified
@@ -428,7 +428,7 @@ import { NeoPopTags } from 'neopop-rn';
 #### NeoPopToast
 
 ```tsx
-import { ToastProvider, useToast } from 'neopop-rn';
+import { ToastProvider, useToast } from '@codecollab.co/neopop-rn';
 
 // In App.tsx — wrap your app
 <ToastProvider position="bottom" maxToasts={3}>
@@ -450,7 +450,7 @@ addToast({
 #### NeoPopScoreMeter
 
 ```tsx
-import { NeoPopScoreMeter } from 'neopop-rn';
+import { NeoPopScoreMeter } from '@codecollab.co/neopop-rn';
 
 <NeoPopScoreMeter
   reading={750}
@@ -467,7 +467,7 @@ import { NeoPopScoreMeter } from 'neopop-rn';
 ### Typography
 
 ```tsx
-import { NeoPopTypography, FontType, FontWeight, TextOverflow } from 'neopop-rn';
+import { NeoPopTypography, FontType, FontWeight, TextOverflow } from '@codecollab.co/neopop-rn';
 
 <NeoPopTypography
   fontType={FontType.HEADING}
@@ -502,7 +502,7 @@ import { NeoPopTypography, FontType, FontWeight, TextOverflow } from 'neopop-rn'
 ### Layout Helpers
 
 ```tsx
-import { Row, Column, PageContainer, HorizontalDivider, HorizontalSpacer, VerticalSpacer } from 'neopop-rn';
+import { Row, Column, PageContainer, HorizontalDivider, HorizontalSpacer, VerticalSpacer } from '@codecollab.co/neopop-rn';
 
 <PageContainer>
   <Column gap={16}>
@@ -531,7 +531,7 @@ import { Row, Column, PageContainer, HorizontalDivider, HorizontalSpacer, Vertic
 ### Icon Helpers
 
 ```tsx
-import { Chevron, Cross, Pointer } from 'neopop-rn';
+import { Chevron, Cross, Pointer } from '@codecollab.co/neopop-rn';
 
 <Chevron direction="south" size={16} color="#ffffff" animated />
 <Chevron direction="north" size={12} color="#8A8A8A" />
@@ -564,7 +564,7 @@ import { Chevron, Cross, Pointer } from 'neopop-rn';
 ### Access Theme in Components
 
 ```tsx
-import { useNeoPopTheme } from 'neopop-rn';
+import { useNeoPopTheme } from '@codecollab.co/neopop-rn';
 
 function MyComponent() {
   const theme = useNeoPopTheme();
@@ -609,7 +609,7 @@ import {
   BUTTON_DEPTH,
   FontType, FontWeight,
   OPACITY, DISABLED_OPACITY,
-} from 'neopop-rn';
+} from '@codecollab.co/neopop-rn';
 ```
 
 ### Color Palettes
@@ -648,7 +648,7 @@ import {
   mergeDeep,
   currencyFormatter,
   generateTextStyle,
-} from 'neopop-rn';
+} from '@codecollab.co/neopop-rn';
 
 // Auto-derive 3D edge colors from any face color
 const { right, bottom } = deriveEdgeColor('#06C270');
@@ -669,7 +669,7 @@ const style = generateTextStyle(FontType.CAPS, 14, FontWeight.BOLD, '#ffffff');
 ## Custom Hooks
 
 ```tsx
-import { useAutoFocus, useClientHeight, useDelayMount, useScrollIntoView } from 'neopop-rn';
+import { useAutoFocus, useClientHeight, useDelayMount, useScrollIntoView } from '@codecollab.co/neopop-rn';
 
 // Auto-focus a TextInput after 100ms
 const inputRef = useAutoFocus();
@@ -700,13 +700,13 @@ Run the interactive component explorer:
 
 ```bash
 # Run on iOS simulator
-yarn example ios
+npm run example ios
 
 # Run on Android emulator
-yarn example android
+npm run example android
 
 # Run on web
-yarn example web
+npm run example web
 ```
 
 ---
@@ -726,7 +726,7 @@ yarn example web
 1. Fork the repo
 2. Create a feature branch: `git checkout -b feat/your-feature`
 3. Follow [Conventional Commits](https://www.conventionalcommits.org/)
-4. Run `yarn typecheck && yarn lint && yarn test` before pushing
+4. Run `npm run typecheck && npm run lint && npm test` before pushing
 5. Open a pull request
 
 ### Commit Format
