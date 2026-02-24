@@ -9,7 +9,7 @@
  *  - Shimmer overlay via NeoPopShimmer
  *  - Full color theming via `decoration` + theme defaults
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -31,9 +31,7 @@ import { NeoPopShimmer } from '../NeoPopShimmer/NeoPopShimmer';
 import { useNeoPopTheme } from '../../theme/NeoPopProvider';
 import { triggerHaptic } from '../../utils/haptics';
 import { computeTiltGeometry } from '../../skia/NeoPopTiltGeometry';
-import { useClientHeight } from '../../hooks/useClientHeight';
 import {
-  BUTTON_PRESS_DURATION_MS,
   BUTTON_RELEASE_DAMPING,
   BUTTON_RELEASE_STIFFNESS,
   TILTED_BUTTON_DEPTH,
@@ -66,7 +64,7 @@ export function NeoPopTiltedButton({
   children,
   isFloating = false,
   floatingDuration = TILTED_BUTTON_FLOATING_MS,
-  floatingDelay = TILTED_BUTTON_FLOAT_DELAY_MS,
+  floatingDelay: _floatingDelay = TILTED_BUTTON_FLOAT_DELAY_MS,
   tapDuration = TILTED_BUTTON_TAP_MS,
   tiltDirection = 'left',
   tiltAngle,

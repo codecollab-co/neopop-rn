@@ -39,8 +39,8 @@ export function ToastProvider({
   children,
   maxToasts = 3,
   defaultDuration = 3000,
-  position = 'bottom',
-  offset = 32,
+  position: _position = 'bottom',
+  offset: _offset = 32,
 }: ToastProviderProps) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 

@@ -1,9 +1,9 @@
 import type { StyleProp, ViewStyle } from 'react-native';
-import type { ColorMode, NeoPopButtonColorConfig } from '../../theme/types';
+import type { ColorMode, NeoPopFloatingButtonColorConfig } from '../../theme/types';
 
 export type FloatingButtonShape = 'rectangle' | 'pill' | 'circle';
 
-export interface NeoPopFloatingButtonColorConfig extends NeoPopButtonColorConfig {}
+export type { NeoPopFloatingButtonColorConfig };
 
 export interface NeoPopFloatingButtonProps {
   children?: React.ReactNode;

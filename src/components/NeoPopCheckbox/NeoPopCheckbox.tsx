@@ -9,7 +9,6 @@ import Animated, {
 import type { NeoPopCheckboxProps } from './NeoPopCheckbox.types';
 import { NeoPopTypography } from '../NeoPopTypography/NeoPopTypography';
 import { Row } from '../layout/Row';
-import { HorizontalSpacer } from '../layout/HorizontalSpacer';
 import { useNeoPopTheme } from '../../theme/NeoPopProvider';
 import { triggerHaptic } from '../../utils/haptics';
 import {

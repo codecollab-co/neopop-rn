@@ -9,8 +9,8 @@
  *         ╰──────────────╯
  *
  * The arc spans 180° (left → right). The filled stroke animates from `oldReading`
- * to `reading` using Reanimated withTiming + useSharedValueEffect to drive
- * a Skia Path length, keeping all rendering on the UI thread.
+ * to `reading` using Reanimated withTiming + useDerivedValue to produce
+ * a Skia Path that is passed directly to Skia as an AnimatedProp.
  *
  * Score range: [lowerLimit, upperLimit] → arc [0% = leftmost, 100% = rightmost].
  * Type-based stroke color: 'excellent' → green, 'average' → orange, 'poor' → red.
@@ -22,12 +22,10 @@ import {
   Path,
   Skia,
   Circle,
-  useDerivedValue,
-  useSharedValueEffect,
-  useValue,
 } from '@shopify/react-native-skia';
 import {
   useSharedValue,
+  useDerivedValue,
   withTiming,
   Easing,
   runOnJS,
@@ -126,11 +124,6 @@ export function NeoPopScoreMeter({
     (theme.scoreMeter?.scoreColor as string | undefined) ??
     '#8A8A8A';
 
-  const legendTextColor =
-    colorConfig?.legendTextColor ??
-    (theme.scoreMeter?.scoreColor as string | undefined) ??
-    '#8A8A8A';
-
   // Resolve stroke color from `type` or auto-derive from reading value
   function resolveStrokeColor(): string {
     if (type === 'excellent') return excellentColor;
@@ -159,18 +152,14 @@ export function NeoPopScoreMeter({
 
   // ── Reanimated → Skia bridge ───────────────────────────────────────────────
   // `sweepAnim` drives the arc from oldSweep to targetSweep on the UI thread.
-  const sweepAnim  = useSharedValue(oldSweep);
+  const sweepAnim = useSharedValue(oldSweep);
 
-  // Skia useValue mirrors sweepAnim on the Skia/UI thread via useSharedValueEffect
-  const skiaSweep  = useValue(oldSweep);
-  useSharedValueEffect(() => {
-    skiaSweep.current = sweepAnim.value;
-  }, sweepAnim);
-
-  // Build the animated filled-arc path as a Skia derived value
-  const filledPath = useDerivedValue(() => {
-    return buildArcPath(cx, cy, radius, skiaSweep.current);
-  }, [skiaSweep]);
+  // Skia 1.x accepts AnimatedProp<T> = T | SharedValue<T>, so we derive a
+  // SharedValue<SkPath> directly using Reanimated's useDerivedValue and pass
+  // it straight to <Path path={...}> — no useSharedValueEffect needed.
+  const filledPath = useDerivedValue(() =>
+    buildArcPath(cx, cy, radius, sweepAnim.value),
+  );
 
   // ── Kick off animation ─────────────────────────────────────────────────────
   useEffect(() => {

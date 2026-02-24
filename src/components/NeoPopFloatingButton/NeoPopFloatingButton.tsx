@@ -42,7 +42,6 @@ import {
   BUTTON_RELEASE_DAMPING,
   BUTTON_RELEASE_STIFFNESS,
   TILTED_BUTTON_FLOATING_MS,
-  TILTED_BUTTON_FLOAT_DELAY_MS,
 } from '../../primitives/buttons';
 
 /** Default levitation travel distance in logical pixels. */

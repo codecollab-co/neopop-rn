@@ -38,18 +38,17 @@ export interface TiltGeometryResult {
   canvasHeight: number;
 }
 
-const DEFAULT_ANGLE        = (2 * Math.PI) / 5;  // 72°
-const DEFAULT_PLUNK_ANGLE  = Math.PI / 3;          // 60°
-const DEFAULT_SHADOW_DIST  = 20;
+const DEFAULT_ANGLE       = (2 * Math.PI) / 5;  // 72°
+const DEFAULT_SHADOW_DIST = 20;
 
 export function computeTiltGeometry(config: TiltConfig): TiltGeometryResult {
   const {
     width,
     height,
-    depth,
-    angle        = DEFAULT_ANGLE,
+    depth: _depth,
+    angle          = DEFAULT_ANGLE,
     shadowDistance = DEFAULT_SHADOW_DIST,
-    direction    = 'left',
+    direction      = 'left',
   } = config;
 
   const dx = height * Math.tan(angle) * (direction === 'left' ? 1 : -1);

@@ -15,7 +15,7 @@ export function Chevron({
   size = 24,
   color = '#000000',
   strokeWidth = 2,
-  animated = false,
+  animated: _animated = false,
   style,
   onPress,
 }: ChevronProps & { onPress?: () => void }) {

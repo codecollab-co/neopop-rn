@@ -41,7 +41,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "example": "yarn --cwd example",
+    "example": "npm --prefix example",
     "release": "release-it"
   },
   "peerDependencies": {
@@ -122,7 +122,7 @@
   },
   "jest": {
     "preset": "jest-expo",
-    "setupFilesAfterFramework": [
+    "setupFilesAfterEnv": [
       "@testing-library/react-native/extend-expect"
     ],
     "transformIgnorePatterns": [
