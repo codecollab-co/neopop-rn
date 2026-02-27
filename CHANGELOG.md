@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-02-27
+
+### Added
+- `NeoPopOTPInput` — multi-box OTP/PIN entry with auto-advance focus, mask mode, error state, and `onComplete` callback
+- `NeoPopProgressBar` — horizontal bar and circular Skia arc variants with `withTiming` progress animation
+- `NeoPopAccordion` — spring expand/collapse with animated chevron rotation, controlled and uncontrolled modes
+
+### Changed
+- `NeoPopToast` — replaced stub with full implementation: spring slide-in from bottom, swipe-down-to-dismiss gesture, semantic type colors, icon slot, accessibility `liveRegion`
+- `Chevron` icon — migrated from View-based to Skia Path rendering (crisp at any pixel density)
+- `Cross` icon — migrated from View-based to Skia Path rendering
+- `Pointer` icon — migrated from View-based to Skia Path rendering
+
+### Added (DX)
+- Storybook stories for all 23 components in `example/src/stories/`
+- `NeoPopOTPInputColorConfig`, `NeoPopProgressBarColorConfig`, `NeoPopAccordionColorConfig` added to `ThemeConfig`
+
 ## [0.2.0] - 2026-02-24
 
 ### Added
