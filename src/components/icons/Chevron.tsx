@@ -1,15 +1,24 @@
 import React from 'react';
-import { Pressable, View, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
+import { Canvas, Path, Skia } from '@shopify/react-native-skia';
 import type { ChevronProps } from './icons.types';
 
-const DIRECTION_ROTATION: Record<string, string> = {
-  north: '0deg',
-  east:  '90deg',
-  south: '180deg',
-  west:  '270deg',
+const DIRECTION_DEGREES: Record<string, number> = {
+  north: 0,
+  east:  90,
+  south: 180,
+  west:  270,
 };
 
-/** TODO: Replace View-based chevron with Skia path rendering */
+/**
+ * Chevron (∨) icon rendered via Skia Path — crisp at any pixel density.
+ *
+ * @param direction - Pointing direction (default: 'south')
+ * @param size - Bounding box in logical pixels (default: 24)
+ * @param color - Stroke color (default: '#000000')
+ * @param strokeWidth - Line thickness (default: 2)
+ * @param onPress - Optional press handler; wraps output in a Pressable
+ */
 export function Chevron({
   direction = 'south',
   size = 24,
@@ -19,60 +28,46 @@ export function Chevron({
   style,
   onPress,
 }: ChevronProps & { onPress?: () => void }) {
-  const rotation = DIRECTION_ROTATION[direction] ?? '180deg';
+  const degrees = DIRECTION_DEGREES[direction] ?? 180;
+  const cx = size / 2;
+  const cy = size / 2;
+  const arm = size * 0.28;
 
-  const icon = (
-    <View
-      style={[
-        styles.container,
-        { width: size, height: size, transform: [{ rotate: rotation }] },
-        style,
-      ]}
-    >
-      {/* Left arm */}
-      <View
-        style={[
-          styles.arm,
-          {
-            width: strokeWidth,
-            height: size * 0.45,
-            backgroundColor: color,
-            transform: [{ rotate: '-45deg' }, { translateX: size * 0.18 }],
-            top: size * 0.25,
-            left: size * 0.18,
-          },
-        ]}
-      />
-      {/* Right arm */}
-      <View
-        style={[
-          styles.arm,
-          {
-            width: strokeWidth,
-            height: size * 0.45,
-            backgroundColor: color,
-            transform: [{ rotate: '45deg' }, { translateX: -size * 0.18 }],
-            top: size * 0.25,
-            right: size * 0.18,
-          },
-        ]}
-      />
-    </View>
+  // Downward ∨ centred in [0..size], rotated by direction
+  const tipY = cy + arm * 0.7;
+  const leftX = cx - arm;
+  const leftY = cy - arm * 0.35;
+  const rightX = cx + arm;
+
+  const path = Skia.Path.Make();
+  path.moveTo(leftX, leftY);
+  path.lineTo(cx, tipY);
+  path.lineTo(rightX, leftY);
+
+  const matrix = Skia.Matrix();
+  matrix.identity();
+  matrix.translate(cx, cy);
+  matrix.rotate((degrees * Math.PI) / 180);
+  matrix.translate(-cx, -cy);
+  path.transform(matrix);
+
+  const paint = Skia.Paint();
+  paint.setColor(Skia.Color(color));
+  paint.setStrokeWidth(strokeWidth);
+  paint.setStyle(1 /* Stroke */);
+  paint.setStrokeCap(1 /* Round */);
+  paint.setStrokeJoin(1 /* Round */);
+  paint.setAntiAlias(true);
+
+  const canvas = (
+    <Canvas style={[{ width: size, height: size }, style]}>
+      <Path path={path} paint={paint} />
+    </Canvas>
   );
 
   if (onPress) {
-    return <Pressable onPress={onPress}>{icon}</Pressable>;
+    return <Pressable onPress={onPress}>{canvas}</Pressable>;
   }
 
-  return icon;
+  return canvas;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-  },
-  arm: {
-    position: 'absolute',
-    borderRadius: 2,
-  },
-});

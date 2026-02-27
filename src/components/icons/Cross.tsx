@@ -1,8 +1,17 @@
 import React from 'react';
-import { Pressable, View, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
+import { Canvas, Path, Skia } from '@shopify/react-native-skia';
 import type { CrossProps } from './icons.types';
 
-/** View-based Cross (X) icon. TODO: Replace with Skia path rendering. */
+/**
+ * Cross (×) icon rendered via Skia Path.
+ *
+ * @param size - Bounding box in logical pixels (default: 24)
+ * @param color - Stroke color (default: '#000000')
+ * @param strokeWidth - Line thickness (default: 2)
+ * @param onPress - Optional press handler; wraps output in a Pressable
+ * @param hitSlop - Hit slop passed to Pressable
+ */
 export function Cross({
   size = 24,
   color = '#000000',
@@ -11,53 +20,33 @@ export function Cross({
   hitSlop,
   style,
 }: CrossProps) {
-  const icon = (
-    <View style={[{ width: size, height: size }, style]}>
-      {/* Diagonal from top-left to bottom-right */}
-      <View
-        style={[
-          styles.line,
-          {
-            width: strokeWidth,
-            height: Math.sqrt(2) * size,
-            backgroundColor: color,
-            top: 0,
-            left: (size - strokeWidth) / 2,
-            transform: [{ rotate: '45deg' }],
-          },
-        ]}
-      />
-      {/* Diagonal from top-right to bottom-left */}
-      <View
-        style={[
-          styles.line,
-          {
-            width: strokeWidth,
-            height: Math.sqrt(2) * size,
-            backgroundColor: color,
-            top: 0,
-            left: (size - strokeWidth) / 2,
-            transform: [{ rotate: '-45deg' }],
-          },
-        ]}
-      />
-    </View>
+  const pad = strokeWidth / 2;
+  const path = Skia.Path.Make();
+  path.moveTo(pad, pad);
+  path.lineTo(size - pad, size - pad);
+  path.moveTo(size - pad, pad);
+  path.lineTo(pad, size - pad);
+
+  const paint = Skia.Paint();
+  paint.setColor(Skia.Color(color));
+  paint.setStrokeWidth(strokeWidth);
+  paint.setStyle(1 /* Stroke */);
+  paint.setStrokeCap(1 /* Round */);
+  paint.setAntiAlias(true);
+
+  const canvas = (
+    <Canvas style={[{ width: size, height: size }, style]}>
+      <Path path={path} paint={paint} />
+    </Canvas>
   );
 
   if (onPress) {
     return (
       <Pressable onPress={onPress} hitSlop={hitSlop}>
-        {icon}
+        {canvas}
       </Pressable>
     );
   }
 
-  return icon;
+  return canvas;
 }
-
-const styles = StyleSheet.create({
-  line: {
-    position: 'absolute',
-    borderRadius: 2,
-  },
-});
