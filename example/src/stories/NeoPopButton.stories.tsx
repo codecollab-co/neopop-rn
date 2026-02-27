@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-native';
 import { View } from 'react-native';
-import { NeoPopButton, NeoPopTypography, FontType, FontWeight } from 'neopop-rn';
+import { NeoPopButton, NeoPopTypography, FontType, FontWeight } from '@codecollab.co/neopop-rn';
 
 const meta: Meta<typeof NeoPopButton> = {
   title: 'Components/NeoPopButton',

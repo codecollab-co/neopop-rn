@@ -24,7 +24,7 @@
     "@storybook/addon-ondevice-actions": "^7.6.17",
     "@storybook/addon-ondevice-notes": "^7.6.17",
     "@storybook/addon-ondevice-backgrounds": "^7.6.17",
-    "neopop-rn": "*"
+    "@codecollab.co/neopop-rn": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
