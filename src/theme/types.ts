@@ -134,6 +134,28 @@ export interface NeoPopTiltedButtonColorConfig {
   borderColor?: string;
 }
 
+export interface NeoPopOTPInputColorConfig {
+  borderColor?: string;
+  activeBorderColor?: string;
+  errorBorderColor?: string;
+  backgroundColor?: string;
+  textColor?: string;
+}
+
+export interface NeoPopProgressBarColorConfig {
+  trackColor?: string;
+  fillColor?: string;
+  labelColor?: string;
+}
+
+export interface NeoPopAccordionColorConfig {
+  headerBackground?: string;
+  headerTextColor?: string;
+  chevronColor?: string;
+  bodyBackground?: string;
+  edgeColor?: string;
+}
+
 // ─── Full Theme Config ────────────────────────────────────────────────────────
 
 export interface ThemeConfig {
@@ -158,6 +180,9 @@ export interface ThemeConfig {
   floatingButton?: NeoPopFloatingButtonColorConfig;
   tiltedButton?: NeoPopTiltedButtonColorConfig;
   scoreMeter?: NeoPopScoreMeterColorConfig;
+  otpInput?: NeoPopOTPInputColorConfig;
+  progressBar?: NeoPopProgressBarColorConfig;
+  accordion?: NeoPopAccordionColorConfig;
 }
 
 export interface NeoPopContextValue extends ThemeConfig {}

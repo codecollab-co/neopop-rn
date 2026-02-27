@@ -41,6 +41,9 @@ export type {
   NeoPopToggleOnOffColors, NeoPopInputFieldColorConfig, NeoPopDropdownColorConfig,
   NeoPopTagsColorConfig, NeoPopToastColorConfig, NeoPopScoreMeterColorConfig,
   NeoPopBottomSheetColorConfig, NeoPopFloatingButtonColorConfig, NeoPopTiltedButtonColorConfig,
+  NeoPopOTPInputColorConfig as NeoPopOTPInputThemeColorConfig,
+  NeoPopProgressBarColorConfig as NeoPopProgressBarThemeColorConfig,
+  NeoPopAccordionColorConfig as NeoPopAccordionThemeColorConfig,
 } from './theme/types';
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
@@ -133,3 +136,12 @@ export type { RowProps, ColumnProps, PageContainerProps, HorizontalDividerProps,
 
 export { Chevron, Pointer, Cross } from './components/icons';
 export type { ChevronProps, ChevronDirection, PointerProps, CrossProps } from './components/icons';
+
+export { NeoPopOTPInput } from './components/NeoPopOTPInput';
+export type { NeoPopOTPInputProps, NeoPopOTPInputColorConfig } from './components/NeoPopOTPInput';
+
+export { NeoPopProgressBar } from './components/NeoPopProgressBar';
+export type { NeoPopProgressBarProps, NeoPopProgressBarColorConfig, ProgressBarVariant } from './components/NeoPopProgressBar';
+
+export { NeoPopAccordion } from './components/NeoPopAccordion';
+export type { NeoPopAccordionProps, NeoPopAccordionColorConfig } from './components/NeoPopAccordion';
