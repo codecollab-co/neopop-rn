@@ -1,0 +1,269 @@
+# Migration Guide: v0.x to v1.0
+
+v0.x is the pre-stability development period for neopop-rn. v1.0 will be the
+first stable, semver-guaranteed release. This guide documents every breaking
+change and deprecation that you need to address before upgrading.
+
+---
+
+## Table of Contents
+
+1. [Peer dependency requirements](#peer-dependency-requirements)
+2. [Removed prop: NeoPopFloatingButton `delayTouchEvents`](#removed-prop-neopopfloatingbutton-delaytouchevents)
+3. [Type alias renames](#type-alias-renames)
+4. [Internal helpers removed from the public API](#internal-helpers-removed-from-the-public-api)
+5. [Summary checklist](#summary-checklist)
+
+---
+
+## Peer dependency requirements
+
+v1.0 enforces explicit minimum peer dependency versions. Make sure your project
+satisfies all of them before upgrading.
+
+| Package                        | Required version |
+|-------------------------------|-----------------|
+| `react`                       | >= 18.0.0       |
+| `react-native`                | >= 0.71.0       |
+| `@shopify/react-native-skia`  | >= 1.0.0        |
+| `react-native-reanimated`     | >= 3.0.0        |
+| `react-native-gesture-handler`| >= 2.0.0        |
+| `expo-haptics` (optional)     | >= 13.0.0       |
+
+Note: although `react-native >= 0.71` is the minimum required version, the
+library is actively tested and developed against `react-native >= 0.73`. We
+recommend upgrading to 0.73 or later for the best compatibility with
+`@shopify/react-native-skia >= 1.0`.
+
+### Upgrade steps
+
+```bash
+# Update the library
+npm install @codecollab.co/neopop-rn@^1.0.0 --legacy-peer-deps
+
+# Ensure peer dependencies are at or above the required versions
+npm install react@^18 react-native@^0.73 \
+  @shopify/react-native-skia@^1.3 \
+  react-native-reanimated@^3.6 \
+  react-native-gesture-handler@^2.14 \
+  --legacy-peer-deps
+```
+
+---
+
+## Removed prop: NeoPopFloatingButton `delayTouchEvents`
+
+### What changed
+
+The `delayTouchEvents` prop was declared in the
+`NeoPopFloatingButtonProps` interface but was never implemented in the
+component body. It had no effect on the component's behaviour in any v0.x
+release. The prop has been removed from the interface in v1.0 to keep the
+public API clean and to avoid misleading consumers.
+
+### Before (v0.x — prop accepted but silently ignored)
+
+```tsx
+<NeoPopFloatingButton
+  delayTouchEvents={true}   // was accepted, but never did anything
+  onPress={handlePress}
+>
+  {/* ... */}
+</NeoPopFloatingButton>
+```
+
+### After (v1.0 — prop no longer exists)
+
+```tsx
+<NeoPopFloatingButton
+  onPress={handlePress}
+>
+  {/* ... */}
+</NeoPopFloatingButton>
+```
+
+### Required action
+
+Search your codebase for any usage of `delayTouchEvents` on
+`NeoPopFloatingButton` and remove it. Because the prop never had any
+effect, removing it does not change runtime behaviour.
+
+```bash
+# Find all usages
+grep -r "delayTouchEvents" src/ app/ --include="*.tsx" --include="*.ts"
+```
+
+---
+
+## Type alias renames
+
+Three component-level color config types have historically shared the same
+shape as their corresponding theme-level types but were exported under
+different names. In v1.0, the theme-level re-exports are being aligned under
+a consistent `Theme`-suffixed alias so the two surfaces are clearly
+distinguished.
+
+### NeoPopOTPInput
+
+| Location              | v0.x export name             | v1.0 export name                    |
+|-----------------------|------------------------------|-------------------------------------|
+| Component (`NeoPopOTPInput`) | `NeoPopOTPInputColorConfig`  | `NeoPopOTPInputColorConfig` (unchanged) |
+| Theme (`src/theme/types.ts`) | `NeoPopOTPInputColorConfig`  | `NeoPopOTPInputThemeColorConfig`    |
+
+These two types are structurally identical. The theme re-export from
+`src/index.ts` now uses the `ThemeColorConfig` suffix to make it clear which
+surface you are importing from:
+
+```ts
+// v0.x — both names pointed at the same underlying type; ambiguous
+import type { NeoPopOTPInputColorConfig } from '@codecollab.co/neopop-rn';
+
+// v1.0 — component prop type (unchanged)
+import type { NeoPopOTPInputColorConfig } from '@codecollab.co/neopop-rn';
+
+// v1.0 — theme-level type (renamed)
+import type { NeoPopOTPInputThemeColorConfig } from '@codecollab.co/neopop-rn';
+```
+
+### NeoPopProgressBar
+
+| Location              | v0.x export name                  | v1.0 export name                        |
+|-----------------------|-----------------------------------|-----------------------------------------|
+| Component             | `NeoPopProgressBarColorConfig`    | `NeoPopProgressBarColorConfig` (unchanged) |
+| Theme                 | `NeoPopProgressBarColorConfig`    | `NeoPopProgressBarThemeColorConfig`     |
+
+```ts
+// v1.0 — component prop type (unchanged)
+import type { NeoPopProgressBarColorConfig } from '@codecollab.co/neopop-rn';
+
+// v1.0 — theme-level type (renamed)
+import type { NeoPopProgressBarThemeColorConfig } from '@codecollab.co/neopop-rn';
+```
+
+### NeoPopAccordion
+
+| Location              | v0.x export name                  | v1.0 export name                        |
+|-----------------------|-----------------------------------|-----------------------------------------|
+| Component             | `NeoPopAccordionColorConfig`      | `NeoPopAccordionColorConfig` (unchanged) |
+| Theme                 | `NeoPopAccordionColorConfig`      | `NeoPopAccordionThemeColorConfig`       |
+
+```ts
+// v1.0 — component prop type (unchanged)
+import type { NeoPopAccordionColorConfig } from '@codecollab.co/neopop-rn';
+
+// v1.0 — theme-level type (renamed)
+import type { NeoPopAccordionThemeColorConfig } from '@codecollab.co/neopop-rn';
+```
+
+### Required action
+
+If you import the theme-level color config types (that is, if you are building
+your own custom theme object and typing it explicitly), update the import names:
+
+```ts
+// Before
+import type {
+  NeoPopOTPInputColorConfig,
+  NeoPopProgressBarColorConfig,
+  NeoPopAccordionColorConfig,
+} from '@codecollab.co/neopop-rn';
+
+// After (when using theme-level types)
+import type {
+  NeoPopOTPInputThemeColorConfig,
+  NeoPopProgressBarThemeColorConfig,
+  NeoPopAccordionThemeColorConfig,
+} from '@codecollab.co/neopop-rn';
+```
+
+If you only use these types as `colorConfig` prop values passed directly to the
+components, the component-level names are unchanged — no action required.
+
+---
+
+## Internal helpers removed from the public API
+
+The following utilities were re-exported from the package root in v0.x but are
+implementation details that were never intended to form part of the stable API.
+They are marked `@internal` starting in v0.4 and will be removed from the
+public exports in v1.0.
+
+| Symbol                | Module                         | Replacement / alternative            |
+|-----------------------|--------------------------------|--------------------------------------|
+| `isEmpty`             | `src/utils/helpers.ts`         | Use a standard null/undefined check or a lodash equivalent |
+| `isObject`            | `src/utils/helpers.ts`         | Use `typeof value === 'object' && value !== null` |
+| `mergeDeep`           | `src/utils/helpers.ts`         | Pass overrides to `NeoPopProvider`'s `theme` prop instead |
+| `getRandomInt`        | `src/utils/helpers.ts`         | Use `Math.floor(Math.random() * (max - min + 1)) + min` |
+| `isImageLoaded`       | `src/utils/helpers.ts`         | Use React Native `Image` `onLoad` / `onError` callbacks |
+| `currencyFormatter`   | `src/utils/helpers.ts`         | Use `Intl.NumberFormat` directly     |
+| `generateTextStyle`   | `src/utils/helpers.ts`         | Use `NeoPopTypography` or compose `TextStyle` manually |
+| `deriveEdgeColors`    | `src/skia/EdgeColorDeriver.ts` | Pass explicit `colorConfig` to each component |
+| `computeTiltGeometry` | `src/skia/NeoPopTiltGeometry.ts` | Internal to `NeoPopTiltedButton` — no public replacement |
+| `SkiaLoadingGuard`    | `src/skia/SkiaLoadingGuard.ts` | Internal Skia wrapper — no public replacement |
+
+### Required action
+
+If any of the symbols above appear in your application code, migrate away from
+them before upgrading to v1.0.
+
+```bash
+# Check for usages of internal helpers
+grep -r "isEmpty\|isObject\|mergeDeep\|getRandomInt\|isImageLoaded\|currencyFormatter\|generateTextStyle\|deriveEdgeColors\|computeTiltGeometry\|SkiaLoadingGuard" \
+  src/ app/ --include="*.ts" --include="*.tsx"
+```
+
+Common migration patterns:
+
+**`mergeDeep` for theme construction**
+
+```ts
+// Before
+import { mergeDeep, defaultDarkTheme } from '@codecollab.co/neopop-rn';
+const myTheme = mergeDeep(defaultDarkTheme, { button: { color: '#7C5CFC' } });
+<NeoPopProvider theme={myTheme}>...</NeoPopProvider>
+
+// After — pass the partial override directly; the provider merges internally
+<NeoPopProvider colorMode="dark" theme={{ button: { color: '#7C5CFC' } }}>
+  ...
+</NeoPopProvider>
+```
+
+**`generateTextStyle`**
+
+```ts
+// Before
+import { generateTextStyle, FontType, FontWeight } from '@codecollab.co/neopop-rn';
+const textStyle = generateTextStyle(FontType.BODY, 16, FontWeight.REGULAR, '#fff');
+
+// After — use NeoPopTypography component or compose TextStyle manually
+import { FontType, FontWeight, LINE_HEIGHT_MULTIPLIER, LETTER_SPACING_MAP } from '@codecollab.co/neopop-rn';
+
+const fontSize = 16;
+const textStyle: TextStyle = {
+  fontSize,
+  fontWeight: FontWeight.REGULAR,
+  lineHeight: Math.round(fontSize * LINE_HEIGHT_MULTIPLIER[FontType.BODY]),
+  letterSpacing: LETTER_SPACING_MAP[FontType.BODY],
+  color: '#fff',
+};
+```
+
+---
+
+## Summary checklist
+
+Use this checklist when migrating a project from v0.x to v1.0:
+
+- [ ] Peer dependencies updated to satisfy the minimum versions listed above
+- [ ] All usages of `delayTouchEvents` on `NeoPopFloatingButton` removed
+- [ ] Theme-level imports of `NeoPopOTPInputColorConfig` renamed to
+      `NeoPopOTPInputThemeColorConfig`
+- [ ] Theme-level imports of `NeoPopProgressBarColorConfig` renamed to
+      `NeoPopProgressBarThemeColorConfig`
+- [ ] Theme-level imports of `NeoPopAccordionColorConfig` renamed to
+      `NeoPopAccordionThemeColorConfig`
+- [ ] All usages of `isEmpty`, `isObject`, `mergeDeep`, `getRandomInt`,
+      `isImageLoaded`, `currencyFormatter`, `generateTextStyle`,
+      `deriveEdgeColors`, `computeTiltGeometry`, and `SkiaLoadingGuard`
+      removed or replaced with the alternatives described above
+- [ ] TypeScript compilation passes with no errors after the migration

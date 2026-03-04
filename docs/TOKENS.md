@@ -1,0 +1,457 @@
+# Design Token Reference
+
+This document is the canonical reference for every design token exported by
+`@codecollab.co/neopop-rn`. All tokens live under `src/primitives/` and are
+re-exported from the package root so you can import them directly.
+
+---
+
+## Table of Contents
+
+1. [Color tokens](#color-tokens)
+2. [Spacing tokens](#spacing-tokens)
+3. [Typography tokens](#typography-tokens)
+4. [Opacity tokens](#opacity-tokens)
+5. [Button size tokens](#button-size-tokens)
+6. [Animation constants](#animation-constants)
+
+---
+
+## Color tokens
+
+Source: `src/primitives/colors.ts`
+
+### Base colors
+
+| Constant       | Hex value   | Description                       |
+|----------------|-------------|-----------------------------------|
+| `COLOR_BLACK`  | `#0d0d0d`   | Primary black; used as page background in dark mode |
+| `COLOR_WHITE`  | `#ffffff`   | Primary white; used as page background in light mode |
+| `COLOR_RED`    | `#EE4D37`   | Accent red                        |
+| `COLOR_YELLOW` | `#F08D32`   | Accent amber/yellow               |
+| `COLOR_BLUE`   | `#144CC7`   | Accent blue                       |
+| `COLOR_GREEN`  | `#06C270`   | Accent green; used for success toggle state |
+| `TRANSPARENT`  | `transparent` | CSS-compatible transparent value |
+
+### POP_BLACK scale
+
+Steps run from 100 (lightest grey) to 500 (near-black). Used for dark-mode
+surface layers, borders, and disabled states.
+
+| Key  | Hex value | Usage example                      |
+|------|-----------|------------------------------------|
+| `100`| `#8A8A8A` | Subtext, disabled elements, plunks |
+| `200`| `#3D3D3D` | Borders, edge shadows              |
+| `300`| `#161616` | Card surfaces, bottom-sheet background |
+| `400`| `#121212` | Deep surface layer                 |
+| `500`| `#0d0d0d` | Same as COLOR_BLACK                |
+
+```ts
+import { POP_BLACK } from '@codecollab.co/neopop-rn';
+// POP_BLACK[200] → '#3D3D3D'
+```
+
+### POP_WHITE scale
+
+Steps run from 100 (medium grey) to 500 (pure white). Used for light-mode
+surface layers, borders, and disabled states.
+
+| Key  | Hex value | Usage example                         |
+|------|-----------|---------------------------------------|
+| `100`| `#D2D2D2` | Light-mode borders, shimmer underlay  |
+| `200`| `#E0E0E0` | Light-mode disabled elements          |
+| `300`| `#EFEFEF` | Light-mode card / tag background      |
+| `400`| `#FBFBFB` | Near-white surface                    |
+| `500`| `#ffffff` | Same as COLOR_WHITE                   |
+
+```ts
+import { POP_WHITE } from '@codecollab.co/neopop-rn';
+// POP_WHITE[100] → '#D2D2D2'
+```
+
+### Brand palettes
+
+Each palette is an 8-step array ordered lightest (index 0) to darkest (index 7).
+Step 4 is the canonical brand swatch.
+
+#### POLI_PURPLE
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#F5F0FF` | Tint 50      |
+| 1     | `#E8DFFF` | Tint 100     |
+| 2     | `#D4C4FF` | Tint 200     |
+| 3     | `#B59EFF` | Tint 300     |
+| 4     | `#7C5CFC` | Brand swatch |
+| 5     | `#5B35D5` | Shade 600    |
+| 6     | `#3A1FA0` | Shade 700    |
+| 7     | `#20104D` | Shade 800    |
+
+#### ORANGE_SUNSHINE
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FFF5EF` |              |
+| 1     | `#FFEFE6` |              |
+| 2     | `#FFD9BF` |              |
+| 3     | `#FFB985` |              |
+| 4     | `#FF8C3B` | Brand swatch |
+| 5     | `#D96020` |              |
+| 6     | `#A03610` |              |
+| 7     | `#4D2914` |              |
+
+#### PARK_GREEN
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#F0FFF8` |              |
+| 1     | `#DDFFF1` |              |
+| 2     | `#AAFFD9` |              |
+| 3     | `#6AFFB8` |              |
+| 4     | `#2ECC84` | Brand swatch |
+| 5     | `#1A9960` |              |
+| 6     | `#0F6640` |              |
+| 7     | `#124D34` |              |
+
+#### PINK_PONG
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FFF0F3` |              |
+| 1     | `#FFE1E9` |              |
+| 2     | `#FFC2D1` |              |
+| 3     | `#FF8DAA` |              |
+| 4     | `#FF4D72` | Brand swatch |
+| 5     | `#CC2248` |              |
+| 6     | `#99132C` |              |
+| 7     | `#4D1421` |              |
+
+#### MANNNA (amber/gold)
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FFFDF0` |              |
+| 1     | `#FFF8E5` |              |
+| 2     | `#FFF0BF` |              |
+| 3     | `#FFE080` |              |
+| 4     | `#FFCC33` | Brand swatch |
+| 5     | `#CC9900` |              |
+| 6     | `#996600` |              |
+| 7     | `#4D3D15` |              |
+
+#### NEO_PACCHA (lime green)
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FAFFF0` |              |
+| 1     | `#FBFFE6` |              |
+| 2     | `#F2FFBF` |              |
+| 3     | `#E0FF80` |              |
+| 4     | `#BBFF33` | Brand swatch |
+| 5     | `#88CC00` |              |
+| 6     | `#557A00` |              |
+| 7     | `#454C13` |              |
+
+#### YOYO (violet)
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FAF0FF` |              |
+| 1     | `#F4E5FF` |              |
+| 2     | `#E8CCFF` |              |
+| 3     | `#D1A3FF` |              |
+| 4     | `#A94DFF` | Brand swatch |
+| 5     | `#7B1FD4` |              |
+| 6     | `#52119E` |              |
+| 7     | `#33134D` |              |
+
+### Semantic colors
+
+Each semantic palette is a 5-step array (index 0 = lightest tint, index 4 =
+darkest / brand swatch). Use index 4 for prominent UI states such as error
+borders and success fills.
+
+#### SEMANTIC_ERROR
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#FCE2DD` | Subtle tint  |
+| 1     | `#F9C4BB` |              |
+| 2     | `#F59D90` |              |
+| 3     | `#F17060` |              |
+| 4     | `#EE4D37` | Error red    |
+
+#### SEMANTIC_WARNING
+
+| Index | Hex value | Note            |
+|-------|-----------|-----------------|
+| 0     | `#FBDDC2` | Subtle tint     |
+| 1     | `#F8C49A` |                 |
+| 2     | `#F5A870` |                 |
+| 3     | `#F29848` |                 |
+| 4     | `#F08D32` | Warning amber   |
+
+#### SEMANTIC_INFO
+
+| Index | Hex value | Note         |
+|-------|-----------|--------------|
+| 0     | `#C2D0F2` | Subtle tint  |
+| 1     | `#9BB0E8` |              |
+| 2     | `#6E8EDC` |              |
+| 3     | `#4068CF` |              |
+| 4     | `#144CC7` | Info blue    |
+
+#### SEMANTIC_SUCCESS
+
+| Index | Hex value | Note          |
+|-------|-----------|---------------|
+| 0     | `#E6F9F1` | Subtle tint   |
+| 1     | `#BFEDDA` |               |
+| 2     | `#86DDB8` |               |
+| 3     | `#3ECA8A` |               |
+| 4     | `#06C270` | Success green |
+
+---
+
+## Spacing tokens
+
+Source: `src/primitives/spacing.ts`
+
+### Base SPACING scale
+
+All values are multiples of 4 logical pixels (the 4-point grid).
+
+| Key  | Value (px) |
+|------|-----------|
+| `0`  | 0         |
+| `1`  | 4         |
+| `2`  | 8         |
+| `3`  | 12        |
+| `4`  | 16        |
+| `5`  | 20        |
+| `6`  | 24        |
+| `7`  | 28        |
+| `8`  | 32        |
+| `9`  | 36        |
+| `10` | 40        |
+| `12` | 48        |
+| `14` | 56        |
+| `16` | 64        |
+
+```ts
+import { SPACING } from '@codecollab.co/neopop-rn';
+// SPACING[4] → 16
+```
+
+### Semantic spacing aliases
+
+| Constant      | Value | Equivalent key |
+|---------------|-------|---------------|
+| `SPACING_XS`  | 4 px  | `SPACING[1]`  |
+| `SPACING_SM`  | 8 px  | `SPACING[2]`  |
+| `SPACING_MD`  | 16 px | `SPACING[4]`  |
+| `SPACING_LG`  | 24 px | `SPACING[6]`  |
+| `SPACING_XL`  | 32 px | `SPACING[8]`  |
+| `SPACING_2XL` | 48 px | `SPACING[12]` |
+
+### Component depth constants
+
+| Constant             | Value | Description                                         |
+|----------------------|-------|-----------------------------------------------------|
+| `BUTTON_DEPTH`       | 3     | Default 3D edge depth for NeoPopButton              |
+| `BUTTON_DEPTH_TILTED`| 8     | Default 3D edge depth for NeoPopTiltedButton        |
+| `CARD_DEPTH`         | 3     | Default 3D edge depth for NeoPopCard                |
+
+### Bottom sheet geometry constants
+
+| Constant                     | Value | Description                  |
+|------------------------------|-------|------------------------------|
+| `BOTTOM_SHEET_NOTCH_HEIGHT`  | 4 px  | Height of the drag notch     |
+| `BOTTOM_SHEET_NOTCH_WIDTH`   | 40 px | Width of the drag notch      |
+| `BOTTOM_SHEET_BORDER_RADIUS` | 16 px | Corner radius of the sheet   |
+
+---
+
+## Typography tokens
+
+Source: `src/primitives/typography.ts`
+
+### FontType enum
+
+| Enum value              | String value      | Description                              |
+|-------------------------|-------------------|------------------------------------------|
+| `FontType.HEADING`      | `'heading'`       | Display / heading — no text transform    |
+| `FontType.CAPS`         | `'caps'`          | All-caps label — forced uppercase        |
+| `FontType.BODY`         | `'body'`          | Body copy — no text transform            |
+| `FontType.SERIF_HEADING`| `'serif-heading'` | Serif display — renders in Georgia       |
+
+### FontWeight enum
+
+| Enum value               | CSS weight value |
+|--------------------------|-----------------|
+| `FontWeight.EXTRA_BOLD`  | `'800'`         |
+| `FontWeight.BOLD`        | `'700'`         |
+| `FontWeight.SEMI_BOLD`   | `'600'`         |
+| `FontWeight.MEDIUM`      | `'500'`         |
+| `FontWeight.REGULAR`     | `'400'`         |
+| `FontWeight.THIN`        | `'300'`         |
+
+### TextOverflow enum
+
+| Enum value           | String value  |
+|----------------------|---------------|
+| `TextOverflow.ELLIPSIS` | `'ellipsis'` |
+| `TextOverflow.CLIP`     | `'clip'`     |
+
+### LINE_HEIGHT_MULTIPLIER
+
+Multiply `fontSize` by the multiplier for the given `FontType` to obtain the
+recommended `lineHeight`.
+
+| FontType         | Multiplier |
+|------------------|-----------|
+| `HEADING`        | 1.2       |
+| `CAPS`           | 1.3       |
+| `BODY`           | 1.5       |
+| `SERIF_HEADING`  | 1.15      |
+
+Example: a `BODY` text at 16 px → `lineHeight = Math.round(16 * 1.5) = 24`.
+
+### LETTER_SPACING_MAP
+
+| FontType         | Letter spacing (px) | Effect                     |
+|------------------|--------------------|-----------------------------|
+| `HEADING`        | -0.5               | Slight tightening           |
+| `CAPS`           | 1.5                | Wide tracking for all-caps  |
+| `BODY`           | 0                  | Default tracking            |
+| `SERIF_HEADING`  | -0.3               | Minimal tightening          |
+
+### TEXT_TRANSFORM_MAP
+
+| FontType         | Transform  |
+|------------------|-----------|
+| `HEADING`        | `none`    |
+| `CAPS`           | `uppercase` |
+| `BODY`           | `none`    |
+| `SERIF_HEADING`  | `none`    |
+
+### DEFAULT_FONT_FAMILY
+
+| FontType         | Font family |
+|------------------|------------|
+| `HEADING`        | `System`   |
+| `CAPS`           | `System`   |
+| `BODY`           | `System`   |
+| `SERIF_HEADING`  | `Georgia`  |
+
+### Using generateTextStyle
+
+`generateTextStyle` is a helper (marked `@internal` for v1.0) that builds a
+React Native `TextStyle` from the token maps above.
+
+```ts
+import { generateTextStyle, FontType, FontWeight } from '@codecollab.co/neopop-rn';
+
+const style = generateTextStyle(
+  FontType.BODY,
+  16,
+  FontWeight.REGULAR,
+  '#ffffff',
+);
+// → { fontSize: 16, fontWeight: '400', lineHeight: 24, letterSpacing: 0,
+//     textTransform: 'none', color: '#ffffff' }
+```
+
+---
+
+## Opacity tokens
+
+Source: `src/primitives/opacity.ts`
+
+### OPACITY scale
+
+| Key   | Float value | Percentage |
+|-------|------------|------------|
+| `0`   | 0          | 0 %        |
+| `5`   | 0.05       | 5 %        |
+| `10`  | 0.1        | 10 %       |
+| `20`  | 0.2        | 20 %       |
+| `30`  | 0.3        | 30 %       |
+| `40`  | 0.4        | 40 %       |
+| `50`  | 0.5        | 50 %       |
+| `60`  | 0.6        | 60 %       |
+| `70`  | 0.7        | 70 %       |
+| `80`  | 0.8        | 80 %       |
+| `90`  | 0.9        | 90 %       |
+| `95`  | 0.95       | 95 %       |
+| `100` | 1          | 100 %      |
+
+### Semantic opacity aliases
+
+| Constant          | Value | Use case                              |
+|-------------------|-------|---------------------------------------|
+| `DISABLED_OPACITY`| 0.4   | Disabled interactive elements         |
+| `OVERLAY_OPACITY` | 0.6   | Modal / sheet backdrop overlay        |
+| `SHIMMER_OPACITY` | 0.5   | Shimmer highlight peak opacity        |
+| `PRESSED_OPACITY` | 0.8   | Pressed state feedback                |
+| `HINT_OPACITY`    | 0.6   | Hint / placeholder text               |
+
+---
+
+## Button size tokens
+
+Source: `src/primitives/buttons.ts`
+
+### BUTTON_SIZE
+
+Three named size variants are available: `big`, `medium`, and `small`.
+
+| Property            | `big` | `medium` | `small` |
+|---------------------|-------|----------|---------|
+| `height`            | 50 px | 40 px    | 30 px   |
+| `paddingHorizontal` | 30 px | 20 px    | 25 px   |
+| `iconHeight`        | 20 px | 16 px    | 14 px   |
+| `fontSize`          | 16 px | 14 px    | 12 px   |
+| `borderRadius`      | 0     | 0        | 0       |
+
+```ts
+import { BUTTON_SIZE } from '@codecollab.co/neopop-rn';
+// BUTTON_SIZE.big.height → 50
+```
+
+### Shimmer constants
+
+| Constant              | Value   | Description                                   |
+|-----------------------|---------|-----------------------------------------------|
+| `SHIMMER_WIDTH`       | 20 px   | Width of the shimmer highlight bar            |
+| `SHIMMER_GAP_WIDTH`   | 5 px    | Gap between shimmer bars                      |
+| `SHIMMER_DURATION_MS` | 2000 ms | Duration of one shimmer sweep animation       |
+| `SHIMMER_DELAY_MS`    | 2000 ms | Delay between shimmer animation repetitions   |
+
+---
+
+## Animation constants
+
+Source: `src/primitives/buttons.ts`
+
+### Button press animation
+
+| Constant                 | Value   | Description                                           |
+|--------------------------|---------|-------------------------------------------------------|
+| `BUTTON_PRESS_DURATION_MS`| 80 ms  | Duration of the sink-down animation on press-in       |
+| `BUTTON_RELEASE_DAMPING` | 15      | Spring damping for the release (bounce-back)          |
+| `BUTTON_RELEASE_STIFFNESS`| 300    | Spring stiffness for the release (bounce-back)        |
+
+### Tilted button animation
+
+| Constant                      | Value   | Description                                     |
+|-------------------------------|---------|-------------------------------------------------|
+| `TILTED_BUTTON_DEPTH`         | 8.0 px  | 3D edge depth of the tilted button face         |
+| `TILTED_BUTTON_SHADOW_DIST`   | 20.0 px | Maximum shadow displacement distance            |
+| `TILTED_BUTTON_Y_POS_FACTOR`  | 6.0     | Vertical position scaling factor for tilt       |
+| `TILTED_BUTTON_FLOATING_MS`   | 1500 ms | Duration of one levitation bob cycle            |
+| `TILTED_BUTTON_FLOAT_DELAY_MS`| 750 ms  | Delay before the levitation loop begins         |
+| `TILTED_BUTTON_TAP_MS`        | 100 ms  | Duration of the tap-down animation              |
+| `TILTED_BUTTON_SHIMMER_WIDTH` | 24.0 px | Width of the shimmer bar on the tilted button   |
+| `TILTED_BUTTON_SHIMMER_DELAY` | 2000 ms | Delay between shimmer passes on tilted button   |
+| `TILTED_BUTTON_SHIMMER_DUR`   | 1500 ms | Duration of one shimmer pass on tilted button   |

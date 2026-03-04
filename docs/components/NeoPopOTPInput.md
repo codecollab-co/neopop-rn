@@ -1,0 +1,91 @@
+# NeoPopOTPInput
+
+A row of digit boxes for one-time-password entry with focus highlighting, error state, mask mode, and configurable colors.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopOTPInput } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [otp, setOtp] = useState('');
+
+  return (
+    <NeoPopOTPInput
+      length={6}
+      value={otp}
+      colorMode="dark"
+      onChange={setOtp}
+      onComplete={(value) => console.log('OTP complete:', value)}
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopOTPInput } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [otp, setOtp] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <NeoPopOTPInput
+      length={4}
+      value={otp}
+      mask
+      hasError={hasError}
+      colorMode="light"
+      colorConfig={{
+        borderColor: '#cccccc',
+        activeBorderColor: '#0d0d0d',
+        errorBorderColor: '#EE4D37',
+        backgroundColor: '#ffffff',
+        textColor: '#0d0d0d',
+      }}
+      onChange={setOtp}
+      onComplete={(value) => {
+        if (value !== '1234') setHasError(true);
+      }}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `length` | `number` | `6` | Number of OTP digit boxes. |
+| `value` | `string` | — | Current OTP string; length must be ≤ `length`. |
+| `onChange` | `(value: string) => void` | — | Called on every keystroke with the updated string. |
+| `onComplete` | `(value: string) => void` | — | Called when all `length` boxes are filled. |
+| `mask` | `boolean` | — | When `true`, replaces each digit with a bullet `•`. |
+| `hasError` | `boolean` | — | Applies `errorBorderColor` to all boxes. |
+| `disabled` | `boolean` | — | Disables all interaction. |
+| `colorConfig` | `NeoPopOTPInputColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `containerStyle` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer row container. |
+| `boxStyle` | `StyleProp<ViewStyle>` | — | Additional style applied to each individual digit box. |
+| `textStyle` | `StyleProp<TextStyle>` | — | Additional style applied to each digit text. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `borderColor` | Box border color when inactive (not focused). |
+| `activeBorderColor` | Box border color when focused. |
+| `errorBorderColor` | Box border color when `hasError` is `true`. |
+| `backgroundColor` | Box background fill color. |
+| `textColor` | Digit text color. |
+
+## Notes
+
+- The component uses a single hidden `TextInput` to capture keystrokes; focus is managed by tapping any box.
+- `onComplete` fires only when `value.length === length`; it does not fire again if the user adds more characters (the input ignores characters beyond `length`).
+- `mask` and `hasError` are independent; both can be active simultaneously.
+- `boxStyle` overrides are applied per-box, allowing individual box styling via index if needed (extend via a custom render approach).

@@ -1,0 +1,82 @@
+# NeoPopStepper
+
+A minus/plus stepper control with an animated value label, configurable bounds and step size, and support for controlled and uncontrolled modes.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopStepper } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [qty, setQty] = useState(1);
+
+  return (
+    <NeoPopStepper
+      value={qty}
+      min={1}
+      max={10}
+      step={1}
+      colorMode="dark"
+      enableHaptics
+      onValueChange={setQty}
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopStepper } from 'neopop-rn';
+
+<NeoPopStepper
+  defaultValue={5}
+  min={0}
+  max={20}
+  step={5}
+  colorMode="light"
+  colorConfig={{
+    background: '#f5f5f5',
+    buttonColor: '#0d0d0d',
+    buttonEdgeColor: '#555555',
+    textColor: '#0d0d0d',
+    disabledColor: '#cccccc',
+  }}
+  onValueChange={(v) => console.log(v)}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | — | Controlled value. When provided, the component is in controlled mode. |
+| `defaultValue` | `number` | `min` | Initial value for uncontrolled usage (clamped to `[min, max]`). |
+| `min` | `number` | `0` | Minimum value; the decrement button dims and is disabled at this boundary. |
+| `max` | `number` | `10` | Maximum value; the increment button dims and is disabled at this boundary. |
+| `step` | `number` | `1` | Amount added or subtracted per press. |
+| `onValueChange` | `(value: number) => void` | — | Called with the new value on each step. |
+| `disabled` | `boolean` | `false` | Disables all interaction. |
+| `enableHaptics` | `boolean` | `false` | Fires a selection haptic on each step. |
+| `colorConfig` | `NeoPopStepperColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer row container. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `background` | Background color of the stepper container (default: `'transparent'`). |
+| `buttonColor` | Background fill of the minus and plus buttons (default: `'#ffffff'`). |
+| `buttonEdgeColor` | Border color of the minus and plus buttons (default: `'#3D3D3D'`). |
+| `textColor` | Color of the value label and button symbols (default: `'#ffffff'`). |
+| `disabledColor` | Color used for the disabled state indicator. |
+
+## Notes
+
+- The value label pops with a spring scale animation (`1 → 1.25 → 1`) on each value change.
+- The minus and plus buttons each have a fixed size of 40×40 pt with `borderRadius: 4`.
+- When `value` reaches `min`, the decrement button is automatically disabled (opacity `0.3`); similarly for `max` and the increment button.
+- In controlled mode, the parent must update `value` in `onValueChange` for the displayed number to change.
+- `disabled` overrides the min/max boundary logic and disables both buttons regardless of the current value.

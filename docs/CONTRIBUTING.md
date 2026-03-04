@@ -1,0 +1,369 @@
+# Contributing to neopop-rn
+
+Thank you for your interest in contributing to neopop-rn. This guide covers
+everything you need to get your development environment running, submit quality
+changes, and ship new components that fit the existing design system.
+
+---
+
+## Table of Contents
+
+1. [Prerequisites](#prerequisites)
+2. [Clone and setup](#clone-and-setup)
+3. [Running the example app](#running-the-example-app)
+4. [Running tests](#running-tests)
+5. [Typecheck and lint](#typecheck-and-lint)
+6. [Commit message conventions](#commit-message-conventions)
+7. [Pull request checklist](#pull-request-checklist)
+8. [How to add a new component](#how-to-add-a-new-component)
+9. [Code of conduct](#code-of-conduct)
+
+---
+
+## Prerequisites
+
+Before you start, make sure you have the following installed:
+
+- **Node.js 18 or later** — [nodejs.org](https://nodejs.org)
+- **npm 9 or later** (ships with Node 18)
+- **React Native development environment** — follow the official setup guide at
+  [reactnative.dev/docs/environment-setup](https://reactnative.dev/docs/environment-setup)
+  for both iOS (Xcode + CocoaPods) and Android (Android Studio + SDK)
+- **Expo CLI** (optional but recommended for the example app):
+  `npm install -g expo-cli`
+
+Peer dependencies that must be available in the example app:
+
+| Package                       | Minimum version |
+|-------------------------------|-----------------|
+| `react`                       | 18.0.0          |
+| `react-native`                | 0.73.0          |
+| `@shopify/react-native-skia`  | 1.0.0           |
+| `react-native-reanimated`     | 3.0.0           |
+| `react-native-gesture-handler`| 2.0.0           |
+| `expo-haptics` (optional)     | 13.0.0          |
+
+---
+
+## Clone and setup
+
+```bash
+# 1. Fork the repository on GitHub, then clone your fork.
+git clone https://github.com/<your-username>/neopop-rn.git
+cd neopop-rn
+
+# 2. Install library dependencies.
+#    --legacy-peer-deps is required because several React Native tooling
+#    packages have not yet declared peer dependency ranges for React 18.
+npm install --legacy-peer-deps
+
+# 3. Install example app dependencies.
+npm --prefix example install --legacy-peer-deps
+```
+
+After installation the workspace layout is:
+
+```
+neopop-rn/
+  src/                  # Library source code
+  example/              # Expo example app + Storybook
+  docs/                 # Documentation files
+  package.json          # Library manifest
+  example/package.json  # Example app manifest
+```
+
+---
+
+## Running the example app
+
+The example directory contains both a runnable Expo app and an on-device
+Storybook. Use the `npm run example` script to forward any npm command to the
+example workspace:
+
+```bash
+# Start the Expo development server
+npm run example start
+
+# Run on iOS simulator
+npm run example ios
+
+# Run on Android emulator / device
+npm run example android
+
+# Start the on-device Storybook
+npm run example storybook
+```
+
+When you make changes to `src/`, the example app hot-reloads because the
+package's `"react-native"` field in `package.json` points directly to
+`src/index`, bypassing the build step during development.
+
+---
+
+## Running tests
+
+The test suite uses **Jest** with `@testing-library/react-native`.
+
+```bash
+# Run the full test suite once
+npm test
+
+# Run tests in watch mode (re-runs on file save)
+npm run test:watch
+
+# Run tests and generate a coverage report
+npm run test:coverage
+```
+
+Coverage is collected from `src/**/*.{ts,tsx}` (excluding `.types.ts` files and
+barrel `index.ts` files). The project enforces minimum thresholds:
+
+| Scope                          | Statements | Branches | Functions | Lines |
+|-------------------------------|-----------|----------|-----------|-------|
+| Global (all of `src/`)        | 13 %      | 12 %     | 8 %       | 13 %  |
+| `src/utils/`                   | 85 %      | 75 %     | 80 %      | 90 %  |
+| `src/hooks/`                   | 90 %      | 80 %     | 85 %      | 90 %  |
+| `src/theme/NeoPopProvider.tsx` | 95 %      | 75 %     | 95 %      | 95 %  |
+
+Tests that fall below these thresholds will cause the CI build to fail. New
+code must be accompanied by tests that keep these numbers at or above the
+current thresholds.
+
+### Test file location
+
+Place test files adjacent to the source file they cover, using the
+`.test.tsx` or `.test.ts` suffix:
+
+```
+src/components/NeoPopButton/
+  NeoPopButton.tsx
+  NeoPopButton.test.tsx   <-- tests go here
+  NeoPopButton.types.ts
+  index.ts
+```
+
+---
+
+## Typecheck and lint
+
+```bash
+# TypeScript type-checking (no output files)
+npm run typecheck
+
+# ESLint — zero warnings allowed
+npm run lint
+
+# ESLint — auto-fix fixable issues
+npm run lint:fix
+
+# Prettier — format all source files
+npm run format
+```
+
+Both `typecheck` and `lint` run in CI on every pull request. A PR cannot be
+merged if either command exits with a non-zero status.
+
+---
+
+## Commit message conventions
+
+This project enforces [Conventional Commits](https://www.conventionalcommits.org/)
+via `commitlint`. Every commit message must follow the format:
+
+```
+<type>(<scope>): <short summary>
+```
+
+### Allowed types
+
+| Type       | When to use                                                        |
+|------------|--------------------------------------------------------------------|
+| `feat`     | A new feature or component                                         |
+| `fix`      | A bug fix                                                          |
+| `docs`     | Documentation-only changes (no source changes)                     |
+| `refactor` | Code change that neither fixes a bug nor adds a feature            |
+| `test`     | Adding or fixing tests                                             |
+| `chore`    | Build process, dependency updates, tooling configuration           |
+| `perf`     | Performance improvement                                            |
+| `ci`       | Changes to CI/CD configuration files                               |
+| `style`    | Formatting, white-space, semicolons (no logic changes)             |
+| `revert`   | Reverts a previous commit                                          |
+
+### Scope (optional)
+
+The scope should be the name of the affected package or component, for example:
+
+```
+feat(NeoPopButton): add shimmer config prop
+fix(NeoPopToggle): correct off-state border color in light mode
+docs(THEMING): document per-component colorConfig keys
+refactor(theme): simplify mergeDeep implementation
+test(NeoPopCheckbox): add disabled state coverage
+chore(deps): upgrade react-native-reanimated to 3.7
+```
+
+### Rules
+
+- The summary must be in the imperative present tense ("add", not "added" or "adds").
+- The summary must not end with a period.
+- The entire first line must not exceed 100 characters.
+- Breaking changes must append a `!` after the type/scope and include a
+  `BREAKING CHANGE:` footer explaining the change.
+
+---
+
+## Pull request checklist
+
+Before marking a pull request as ready for review, verify every item below:
+
+- [ ] `npm run typecheck` exits with no errors
+- [ ] `npm run lint` exits with no warnings or errors
+- [ ] `npm test` passes with all existing and new tests green
+- [ ] `npm run test:coverage` passes with coverage at or above the thresholds
+- [ ] A Storybook story has been added or updated in
+      `example/src/stories/<ComponentName>.stories.tsx`
+- [ ] If a new public API is introduced or changed, the relevant docs file in
+      `docs/` has been updated (for example, `THEMING.md` or `TOKENS.md`)
+- [ ] The commit messages follow the Conventional Commits format described above
+- [ ] The PR title itself follows Conventional Commits format (it becomes the
+      squash commit message on merge)
+
+---
+
+## How to add a new component
+
+Follow these steps to add a new component, for example `NeoPopBadge`.
+
+### 1. Create the directory and files
+
+```
+src/components/NeoPopBadge/
+  NeoPopBadge.tsx            # Component implementation
+  NeoPopBadge.types.ts       # Prop and color config type definitions
+  index.ts                   # Barrel export
+```
+
+**`NeoPopBadge.types.ts`** — define props and a typed color config:
+
+```ts
+import type { ColorMode } from '../../theme/types';
+
+export interface NeoPopBadgeColorConfig {
+  background?: string;
+  textColor?: string;
+  borderColor?: string;
+}
+
+export interface NeoPopBadgeProps {
+  label: string;
+  colorConfig?: NeoPopBadgeColorConfig;
+  colorMode?: ColorMode;
+}
+```
+
+**`NeoPopBadge.tsx`** — consume the theme via `useNeoPopTheme`:
+
+```tsx
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useNeoPopTheme } from '../../theme/NeoPopProvider';
+import type { NeoPopBadgeProps } from './NeoPopBadge.types';
+
+export function NeoPopBadge({ label, colorConfig }: NeoPopBadgeProps) {
+  const theme = useNeoPopTheme();
+
+  const bg   = colorConfig?.background ?? theme.badge?.background ?? '#ffffff';
+  const text = colorConfig?.textColor  ?? theme.badge?.textColor  ?? '#000000';
+
+  return (
+    <View style={[styles.container, { backgroundColor: bg }]}>
+      <Text style={[styles.label, { color: text }]}>{label}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4 },
+  label:     { fontSize: 12, fontWeight: '600' },
+});
+```
+
+**`index.ts`** — re-export the public surface:
+
+```ts
+export { NeoPopBadge } from './NeoPopBadge';
+export type { NeoPopBadgeProps, NeoPopBadgeColorConfig } from './NeoPopBadge.types';
+```
+
+### 2. Register the color config in ThemeConfig
+
+Open `src/theme/types.ts` and add:
+
+```ts
+export interface NeoPopBadgeColorConfig {
+  background?: string;
+  textColor?: string;
+  borderColor?: string;
+}
+
+// Inside ThemeConfig:
+export interface ThemeConfig {
+  // ... existing fields ...
+  badge?: NeoPopBadgeColorConfig;
+}
+```
+
+### 3. Add default theme values
+
+Open `src/theme/defaultDarkTheme.ts` and add under `// ── NeoPopBadge`:
+
+```ts
+badge: {
+  background: POP_BLACK[300],
+  textColor:  COLOR_WHITE,
+  borderColor: POP_BLACK[200],
+},
+```
+
+Open `src/theme/defaultLightTheme.ts` and add the light equivalents.
+
+### 4. Export from the package root
+
+Open `src/index.ts` and add:
+
+```ts
+export { NeoPopBadge } from './components/NeoPopBadge';
+export type { NeoPopBadgeProps, NeoPopBadgeColorConfig } from './components/NeoPopBadge';
+
+// In the theme types block:
+export type { NeoPopBadgeColorConfig as NeoPopBadgeThemeColorConfig } from './theme/types';
+```
+
+### 5. Add a Storybook story
+
+Create `example/src/stories/NeoPopBadge.stories.tsx` following the pattern used
+by existing stories (see `NeoPopButton.stories.tsx` for reference).
+
+### 6. Write tests
+
+Create `src/components/NeoPopBadge/NeoPopBadge.test.tsx` and cover at minimum:
+
+- Renders with default props
+- Applies `colorConfig` overrides
+- Reflects theme values from `NeoPopProvider`
+
+### 7. Update documentation
+
+If the component exposes ThemeConfig fields, add it to `docs/THEMING.md` under
+"Per-component colorConfig keys".
+
+---
+
+## Code of conduct
+
+This project adopts the
+[Contributor Covenant Code of Conduct v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
+
+All participants in the project — contributors, maintainers, and users — are
+expected to abide by its terms. Instances of unacceptable behaviour may be
+reported to the maintainers at the contact address listed in the repository.

@@ -1,0 +1,90 @@
+# NeoPopTiltedButton
+
+A skewed, optionally levitating 3D button with configurable tilt direction, plunk shadow, and shimmer decoration.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopTiltedButton } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<NeoPopTiltedButton
+  color="#06C270"
+  tiltDirection="right"
+  tiltAngle={12}
+  isFloating
+  floatingDuration={1200}
+  colorMode="dark"
+  decoration={{
+    plunkColor: '#025c33',
+    shadowColor: '#000000',
+    border: false,
+    showShimmer: true,
+  }}
+  onPress={() => console.log('tilted press')}
+>
+  <Text style={{ color: '#ffffff', fontWeight: '700' }}>Invest Now</Text>
+</NeoPopTiltedButton>
+```
+
+```tsx
+// light mode example
+import { NeoPopTiltedButton } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<NeoPopTiltedButton
+  color="#0d0d0d"
+  tiltDirection="left"
+  colorMode="light"
+  decoration={{ plunkColor: '#555555', border: true }}
+  onPress={() => {}}
+>
+  <Text style={{ color: '#ffffff' }}>CTA</Text>
+</NeoPopTiltedButton>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | — | Content rendered inside the button face. |
+| `color` | `string` | — | Face background color. |
+| `tiltDirection` | `'left' \| 'right'` | — | Direction the button is skewed. |
+| `tiltAngle` | `number` | — | Skew angle in degrees. |
+| `isFloating` | `boolean` | — | When `true`, the button continuously bobs vertically (levitation). |
+| `floatingDuration` | `number` | — | Duration of one levitation cycle in ms. |
+| `floatingDelay` | `number` | — | Initial delay before the levitation animation starts. |
+| `tapDuration` | `number` | — | Duration of the press-sink animation in ms. |
+| `buttonDepth` | `number` | — | Depth of the 3D extrusion. |
+| `shadowDistance` | `number` | — | Size of the drop shadow behind the button. |
+| `yPosFactor` | `number` | — | Vertical position factor used in shadow / plunk calculation. |
+| `enabled` | `boolean` | — | When `false`, disables all interaction. |
+| `decoration` | `NeoPopTiltedButtonDecoration` | — | Visual decoration options (see below). |
+| `onTapUp` | `() => void` | — | Called when the finger lifts after a press. |
+| `onTapDown` | `() => void` | — | Called when the finger touches down. |
+| `onPress` | `() => void` | — | Called on a completed tap. |
+| `enableHaptics` | `boolean` | — | Fires a haptic on press. |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+
+### NeoPopTiltedButtonDecoration
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `color` | `string` | Overrides face color via decoration (alternative to the top-level `color`). |
+| `plunkColor` | `string` | Color of the plunk (3D side shadow). |
+| `shadowColor` | `string` | Color of the drop shadow beneath the button. |
+| `border` | `boolean` | When `true`, renders a border around the face. |
+| `showShimmer` | `boolean` | When `true`, overlays a shimmer animation on the face. |
+
+## colorConfig
+
+NeoPopTiltedButton does not accept a `colorConfig` prop. Use `color` and `decoration` props for color control.
+
+## Notes
+
+- The component uses a CSS-like `skewX` transform for the tilt effect; on Android this requires the Reanimated renderer to apply correctly.
+- `isFloating` and `enabled: false` can coexist; when disabled, the levitation animation does not start.
+- `showShimmer` within `decoration` uses the default `NeoPopShimmer` configuration; there is no API to customise shimmer parameters from `NeoPopTiltedButton`.
+- `onTapDown` and `onTapUp` are fired in addition to `onPress` and can be used for sound effects or custom animations.

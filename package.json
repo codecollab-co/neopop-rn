@@ -1,6 +1,6 @@
 {
   "name": "@codecollab.co/neopop-rn",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "NeoPop design system for React Native — unified iOS, Android, Web & Flutter features in one Expo-compatible package",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

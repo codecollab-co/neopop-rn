@@ -1,0 +1,107 @@
+# NeoPopToast
+
+A spring-animated, swipe-dismissible toast notification managed through `ToastProvider` and the `useToast` hook.
+
+## Usage
+
+```tsx
+// dark mode example — provider setup
+import { ToastProvider } from 'neopop-rn';
+
+export default function App() {
+  return (
+    <ToastProvider
+      position="bottom"
+      offset={32}
+      maxToasts={3}
+      defaultDuration={3000}
+    >
+      <YourAppContent />
+    </ToastProvider>
+  );
+}
+```
+
+```tsx
+// light mode example — triggering a toast
+import { useToast } from 'neopop-rn';
+
+function PayButton() {
+  const { showToast, hideToast, hideAll } = useToast();
+
+  const handlePress = () => {
+    const id = showToast({
+      type: 'success',
+      message: 'Payment successful',
+      description: 'Your order has been placed.',
+      duration: 4000,
+      colorMode: 'light',
+    });
+    // optionally dismiss early:
+    // hideToast(id);
+  };
+
+  return <Button onPress={handlePress} title="Pay" />;
+}
+```
+
+## ToastProvider Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | — | Required. Your app tree. |
+| `maxToasts` | `number` | — | Maximum number of toasts shown simultaneously. |
+| `defaultDuration` | `number` | — | Auto-dismiss duration in ms for toasts that do not specify their own `duration`. |
+| `position` | `'top' \| 'bottom'` | — | Screen edge where toasts appear. |
+| `offset` | `number` | — | Pixel offset from the chosen screen edge. |
+
+## useToast API
+
+```ts
+const { showToast, hideToast, hideAll } = useToast();
+```
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `showToast` | `(config: ToastConfig) => string` | Enqueues a toast and returns its auto-generated `id`. |
+| `hideToast` | `(id: string) => void` | Dismisses a specific toast by id. |
+| `hideAll` | `() => void` | Dismisses all currently visible toasts. |
+
+## NeoPopToast Props (direct usage)
+
+`NeoPopToast` can also be used standalone without `ToastProvider`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `visible` | `boolean` | — | Required. Controls the enter/exit animation. |
+| `message` | `string` | — | Required. Primary text displayed in the toast. |
+| `description` | `string` | — | Optional secondary text below `message`. |
+| `type` | `'success' \| 'error' \| 'warning' \| 'custom'` | `'custom'` | Semantic type controlling default background and text colors. |
+| `icon` | `React.ReactNode` | — | Optional icon rendered to the left of the text block. |
+| `id` | `string` | — | Identifier used by `ToastProvider` for targeted dismissal. |
+| `duration` | `number` | — | Auto-dismiss delay in ms (handled externally by `ToastProvider`). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode hint. |
+| `onPress` | `() => void` | — | Called when the whole toast is tapped. |
+| `onDismiss` | `() => void` | — | Called after the exit animation completes. |
+| `onHide` | `() => void` | — | Internal callback invoked by `ToastProvider` to remove from state. |
+| `style` | `StyleProp<ViewStyle>` | — | Style applied to the toast container. |
+| `textStyle` | `StyleProp<TextStyle>` | — | Style applied to the message text. |
+
+## colorConfig
+
+| Type | Background | Text color |
+|------|-----------|------------|
+| `success` | `#06C270` | `#ffffff` |
+| `error` | `#EE4D37` | `#ffffff` |
+| `warning` | `#F7B500` | `#0d0d0d` |
+| `custom` | `#1C1C1C` | `#ffffff` |
+
+Use the `style` prop to override `backgroundColor` for fully custom colors.
+
+## Notes
+
+- The toast enters with a spring (`damping: 20, stiffness: 300`) from below and exits by animating back down.
+- Swipe down more than 60 logical pixels to dismiss imperatively; shorter swipes snap the toast back to its resting position.
+- `ToastProvider` must wrap the component tree at or above the point where `useToast` is called; calling `useToast` outside the provider throws.
+- `NeoPopToast` requires `react-native-gesture-handler` (`GestureDetector` + `Gesture.Pan`) for swipe-dismiss support.
+- The toast wrapper uses `position: 'absolute'`, `zIndex: 9999`; ensure a `GestureHandlerRootView` is present at the root of your app.

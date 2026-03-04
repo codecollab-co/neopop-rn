@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-03-04
+
+### Added (MS-15 — Documentation)
+- Per-component markdown docs for all 27 components + layout helpers + icons in `docs/components/`
+- `docs/THEMING.md` — comprehensive theming guide with mergeDeep system, dark/light comparison, colorConfig deep-dive
+- `docs/TOKENS.md` — full design token reference (colors, spacing, typography, opacity, button tokens)
+- `docs/CONTRIBUTING.md` — contributor guide with setup, commit conventions, PR checklist, how to add a component
+- `docs/MIGRATION.md` — v0.x → v1.0 migration guide including deprecated props and internal API removals
+- README refreshed: 27-component table with doc links, platform support, quick-start, docs index
+
+### Changed (MS-14 — API Stability Freeze)
+- Removed `NeoPopFloatingButton.delayTouchEvents` prop (OQ-04: was never implemented, always a no-op)
+- Added `@internal` JSDoc to all non-public helpers: `isEmpty`, `isObject`, `mergeDeep`, `getRandomInt`, `isImageLoaded`, `currencyFormatter`, `generateTextStyle`, `useAutoFocus`, `useClientHeight`, `useDelayMount`, `useScrollIntoView`, `deriveEdgeColors`, `computeTiltGeometry`, `SkiaLoadingGuard`
+- `src/index.ts` now separates public API from `@internal` sections with removal-in-v1.0 notices
+- Confirmed OQ-03 resolved: all icon components (`Chevron`, `Cross`, `Pointer`) consistently expose `style` prop
+- All type-only re-exports verified to use `export type` — confirmed clean
+
 ## [0.4.0] - 2026-03-04
 
 ### Added

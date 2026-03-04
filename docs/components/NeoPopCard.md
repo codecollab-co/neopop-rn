@@ -1,0 +1,79 @@
+# NeoPopCard
+
+A pressable 3D card that wraps arbitrary content in a configurable extruded surface rendered via `@shopify/react-native-skia`.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopCard } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<NeoPopCard
+  color="#1a1a1a"
+  depth={5}
+  edges={['right', 'bottom']}
+  size={{ width: 300, height: 180 }}
+  colorMode="dark"
+  onPress={() => console.log('card pressed')}
+>
+  <Text style={{ color: '#ffffff' }}>Card content</Text>
+</NeoPopCard>
+```
+
+```tsx
+// light mode example
+import { NeoPopCard } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<NeoPopCard
+  color="#f5f5f5"
+  depth={5}
+  edges={['right', 'bottom']}
+  edgeColors={{ right: '#bbbbbb', bottom: '#bbbbbb' }}
+  size={{ width: 300, height: 180 }}
+  colorMode="light"
+  onPress={() => console.log('card pressed')}
+>
+  <Text style={{ color: '#0d0d0d' }}>Card content</Text>
+</NeoPopCard>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | — | Content rendered inside the card face. |
+| `color` | `string` | `'#1a1a1a'` | Face background color (falls back to theme button color). |
+| `depth` | `number` | `CARD_DEPTH` | Pixel depth of the extruded edge surfaces. |
+| `edges` | `EdgeDirection[]` | `['right', 'bottom']` | Which edges to extrude. Accepted values: `'top'`, `'bottom'`, `'left'`, `'right'`. |
+| `borderColor` | `string` | — | Stroke color drawn around the card face. |
+| `edgeColors` | `NeoPopCardEdgeColors` | — | Per-edge color overrides (`top`, `bottom`, `left`, `right`). |
+| `size` | `{ width?: number; height?: number }` | `{ width: 300, height: 180 }` | Explicit dimensions of the card surface. |
+| `onPress` | `() => void` | — | Called when the card is tapped. Pressable interaction is disabled when `onPress` is omitted. |
+| `disabled` | `boolean` | `false` | Disables interaction and applies 40% opacity. |
+| `enableHaptics` | `boolean` | `false` | Fires a light impact haptic on press-in. |
+| `colorConfig` | `NeoPopButtonColorConfig` | — | Per-token color overrides (see colorConfig table below). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default color selection. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the animated pressable wrapper. |
+
+## colorConfig
+
+`NeoPopCard` reuses `NeoPopButtonColorConfig` from the theme.
+
+| Key | Description |
+|-----|-------------|
+| `color` | Face background color (takes precedence over the `color` prop). |
+| `edgeColors.top` | Color of the top edge surface. |
+| `edgeColors.right` | Color of the right edge surface. |
+| `edgeColors.bottom` | Color of the bottom edge surface. |
+| `edgeColors.left` | Color of the left edge surface. |
+| `borderColor` | Stroke color around the face (takes precedence over the `borderColor` prop). |
+| `disabledColor` | Face color when disabled. |
+| `disabledEdgeColor` | Edge color when disabled. |
+
+## Notes
+
+- Requires `@shopify/react-native-skia` — the card surface is rendered using `NeoPop3DSurface`. If Skia is not yet initialised, a `SkiaLoadingGuard` defers rendering until it is ready.
+- The card uses `alignSelf: 'flex-start'` by default; wrap it in a container with `alignItems: 'stretch'` if you need it to fill its parent.
+- The press-sink animation translates the face toward the active edges (right and/or bottom) by `depth` pixels using `react-native-reanimated`.
