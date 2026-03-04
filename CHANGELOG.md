@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-03-04
+
+### Fixed (CI)
+- Release workflow now auto-creates the GitHub release before uploading the package tarball, resolving the "release not found" failure that occurred during v0.5.0
+
 ## [0.5.0] - 2026-03-04
 
 ### Added (MS-15 — Documentation)
