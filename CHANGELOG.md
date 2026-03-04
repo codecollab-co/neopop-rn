@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-04
+
+### Added
+- `NeoPopStepper` — increment/decrement control with spring bounce label animation, controlled/uncontrolled modes, haptics, `accessibilityRole="adjustable"` + `accessibilityValue`
+- `NeoPopSwipeRow` — pan-gesture swipe row with configurable left/right action panels, velocity-aware snap, spring return on partial drag
+- `NeoPopCarousel` — horizontal item carousel with imperative ref API (`scrollToIndex`, `goNext`, `goPrev`), pan gesture with velocity bias, dot indicators
+- `NeoPopDatePicker` — three-column FlatList scroll wheels (Day/Month/Year) with `snapToInterval`, automatic day clamping on month/year change, `getItemLayout` optimization
+
+### Fixed (Accessibility — WCAG 2.1 AA)
+- `NeoPopSlider`: thumb now exposes `accessibilityValue={{ min, max, now }}` so screen readers announce the current position as a numeric value
+- `NeoPopBottomSheet`: sheet panel now sets `accessibilityViewIsModal={true}` when open, trapping VoiceOver/TalkBack focus correctly
+- `NeoPopCheckbox`: moved `accessibilityRole="checkbox"` and `accessibilityState` to the `Pressable` root (previously on inner `View`), making screen-reader activation reliable
+
+### Changed (DX)
+- Jest preset switched from `jest-expo` to `react-native` (removes Expo SDK dependency, works in any bare RN project)
+- Added 12 test suites / 155 tests covering: all utils, all hooks, theme system, and 4 key interactive components
+- Per-directory coverage thresholds enforced: utils ≥85% statements / ≥90% lines, hooks ≥90% statements/lines, NeoPopProvider ≥95% statements/lines
+- `moduleNameMapper` now also maps `@codecollab.co/neopop-rn` → `src/index` for scoped-package imports in tests
+
 ## [0.3.0] - 2026-02-27
 
 ### Added

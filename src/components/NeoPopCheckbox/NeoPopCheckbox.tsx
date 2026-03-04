@@ -127,8 +127,6 @@ export function NeoPopCheckbox({
         { width: boxSize + plunk, height: boxSize + plunk },
         disabled && styles.disabled,
       ]}
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked: isChecked, disabled }}
     >
       {/* Face */}
       <View
@@ -192,7 +190,13 @@ export function NeoPopCheckbox({
 
   if (!label) {
     return (
-      <Pressable onPress={handlePress} style={style} hitSlop={8}>
+      <Pressable
+        onPress={handlePress}
+        style={style}
+        hitSlop={8}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: isChecked, disabled }}
+      >
         {checkboxNode}
       </Pressable>
     );
@@ -209,7 +213,12 @@ export function NeoPopCheckbox({
   );
 
   return (
-    <Pressable onPress={handlePress} hitSlop={8}>
+    <Pressable
+      onPress={handlePress}
+      hitSlop={8}
+      accessibilityRole="checkbox"
+      accessibilityState={{ checked: isChecked, disabled }}
+    >
       <Row align="center" gap={8} style={style}>
         {labelPosition === 'left' && labelNode}
         {checkboxNode}
