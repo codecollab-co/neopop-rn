@@ -1,6 +1,7 @@
 /**
  * Computes the parallelogram geometry for NeoPopTiltedButton.
  * All angle constants mirror the Flutter kTiltedButtonAngle / kTiltedButtonPlunkAngle.
+ * @internal
  */
 
 export interface TiltConfig {

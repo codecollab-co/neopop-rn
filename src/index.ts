@@ -46,33 +46,46 @@ export type {
   NeoPopAccordionColorConfig as NeoPopAccordionThemeColorConfig,
 } from './theme/types';
 
-// ─── Utils ────────────────────────────────────────────────────────────────────
+// ─── Utils (public) ───────────────────────────────────────────────────────────
 export {
   hexToRGBA, getLuminance, isColorDark, getContrastColor, adjustLightness,
   getHorizontalShadow, getVerticalShadow, deriveEdgeColor, deriveHighlightEdgeColor,
 } from './utils/colorUtils';
 
+export { triggerHaptic } from './utils/haptics';
+export type { HapticType } from './utils/haptics';
+
+// ─── Utils (@internal — subject to removal in v1.0) ──────────────────────────
+/** @internal */
 export {
   isEmpty, isObject, mergeDeep, getRandomInt,
   isImageLoaded, currencyFormatter, generateTextStyle,
 } from './utils/helpers';
 
-export { triggerHaptic } from './utils/haptics';
-export type { HapticType } from './utils/haptics';
-
-// ─── Hooks ────────────────────────────────────────────────────────────────────
+// ─── Hooks (@internal — subject to removal in v1.0) ──────────────────────────
+/** @internal */
 export { useAutoFocus }      from './hooks/useAutoFocus';
+/** @internal */
 export { useClientHeight }   from './hooks/useClientHeight';
+/** @internal */
 export { useDelayMount }     from './hooks/useDelayMount';
+/** @internal */
 export { useScrollIntoView } from './hooks/useScrollIntoView';
 
 // ─── Skia Layer ───────────────────────────────────────────────────────────────
 export { NeoPop3DSurface }     from './skia/NeoPop3DSurface';
+export type { NeoPop3DSurfaceProps } from './skia/NeoPop3DSurface';
+
+// ─── Skia internals (@internal — subject to removal in v1.0) ─────────────────
+/** @internal */
 export { deriveEdgeColors }    from './skia/EdgeColorDeriver';
+/** @internal */
 export { computeTiltGeometry } from './skia/NeoPopTiltGeometry';
+/** @internal */
 export { SkiaLoadingGuard }    from './skia/SkiaLoadingGuard';
-export type { NeoPop3DSurfaceProps }              from './skia/NeoPop3DSurface';
+/** @internal */
 export type { DerivedEdgeColors, EdgeColorInput } from './skia/EdgeColorDeriver';
+/** @internal */
 export type { TiltConfig, TiltGeometryResult }   from './skia/NeoPopTiltGeometry';
 
 // ─── Components ───────────────────────────────────────────────────────────────

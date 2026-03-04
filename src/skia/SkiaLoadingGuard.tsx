@@ -10,6 +10,7 @@ interface SkiaLoadingGuardProps {
  * On web, Skia requires WASM to initialise before any Canvas can render.
  * This guard delays rendering children until Skia is ready.
  * On native (iOS/Android) it renders children immediately.
+ * @internal
  */
 export function SkiaLoadingGuard({ children, fallback = null }: SkiaLoadingGuardProps) {
   const [ready, setReady] = useState(Platform.OS !== 'web');

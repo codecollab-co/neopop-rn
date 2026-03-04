@@ -7,6 +7,7 @@ import type { TextInput } from 'react-native';
  * @param enabled - Whether auto-focus is active (default: true)
  * @param delay - Milliseconds to wait before focusing (default: 100)
  * @returns ref to attach to a TextInput
+ * @internal
  *
  * @example
  * const ref = useAutoFocus();

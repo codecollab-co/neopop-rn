@@ -14,7 +14,6 @@ export interface NeoPopFloatingButtonProps {
   levitationDuration?: number;
   onPress?: () => void;
   onLongPress?: () => void;
-  delayTouchEvents?: boolean;
   enableHaptics?: boolean;
   colorMode?: ColorMode;
   disabled?: boolean;

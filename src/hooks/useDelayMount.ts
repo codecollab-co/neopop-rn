@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
  *
  * @param delay - Milliseconds to wait before returning true (default: 0)
  * @returns boolean — false until delay has elapsed, then true
+ * @internal
  *
  * @example
  * const shouldRender = useDelayMount(300);

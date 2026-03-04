@@ -20,6 +20,7 @@ export interface DerivedEdgeColors {
 /**
  * Derive all four edge surface colors from a face color,
  * with optional per-edge manual overrides.
+ * @internal
  */
 export function deriveEdgeColors(input: EdgeColorInput): DerivedEdgeColors {
   const { right, bottom } = deriveEdgeColor(input.faceColor);

@@ -5,6 +5,7 @@ import type { ScrollView, View } from 'react-native';
  * Scrolls a referenced element into view within a ScrollView.
  *
  * @returns { scrollViewRef, targetRef, scrollIntoView }
+ * @internal
  *
  * @example
  * const { scrollViewRef, targetRef, scrollIntoView } = useScrollIntoView();

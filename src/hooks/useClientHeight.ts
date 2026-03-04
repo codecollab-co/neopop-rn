@@ -5,6 +5,7 @@ import type { LayoutChangeEvent } from 'react-native';
  * Measures and tracks the height of a component via onLayout.
  *
  * @returns [height, onLayout] — attach onLayout to a View
+ * @internal
  *
  * @example
  * const [height, onLayout] = useClientHeight();

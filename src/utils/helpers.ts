@@ -3,8 +3,11 @@ import { LINE_HEIGHT_MULTIPLIER, LETTER_SPACING_MAP, TEXT_TRANSFORM_MAP } from '
 import type { TextStyle } from 'react-native';
 
 // ─── isEmpty ──────────────────────────────────────────────────────────────────
-/** Returns true if value is null, undefined, empty string, empty array,
- *  empty object, empty Map, or empty Set. */
+/**
+ * Returns true if value is null, undefined, empty string, empty array,
+ * empty object, empty Map, or empty Set.
+ * @internal
+ */
 export function isEmpty(value: unknown): boolean {
   if (value === null || value === undefined) return true;
   if (typeof value === 'string') return value.trim().length === 0;
@@ -15,14 +18,20 @@ export function isEmpty(value: unknown): boolean {
 }
 
 // ─── isObject ─────────────────────────────────────────────────────────────────
-/** Type guard — returns true only for plain objects (not arrays, Maps, etc.). */
+/**
+ * Type guard — returns true only for plain objects (not arrays, Maps, etc.).
+ * @internal
+ */
 export function isObject(item: unknown): item is Record<string, unknown> {
   return typeof item === 'object' && item !== null && !Array.isArray(item);
 }
 
 // ─── mergeDeep ────────────────────────────────────────────────────────────────
-/** Recursively deep-merges source objects into a target.
- *  Used by NeoPopProvider to merge theme overrides. */
+/**
+ * Recursively deep-merges source objects into a target.
+ * Used by NeoPopProvider to merge theme overrides.
+ * @internal
+ */
 export function mergeDeep<T extends Record<string, unknown>>(
   target: T,
   ...sources: Partial<T>[]
@@ -46,14 +55,20 @@ export function mergeDeep<T extends Record<string, unknown>>(
 }
 
 // ─── getRandomInt ─────────────────────────────────────────────────────────────
-/** Returns a random integer between min and max (both inclusive). */
+/**
+ * Returns a random integer between min and max (both inclusive).
+ * @internal
+ */
 export function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // ─── isImageLoaded ────────────────────────────────────────────────────────────
-/** Web-only: returns a Promise that resolves when an image has loaded,
- *  or rejects if it fails. No-ops on native. */
+/**
+ * Web-only: returns a Promise that resolves when an image has loaded,
+ * or rejects if it fails. No-ops on native.
+ * @internal
+ */
 export function isImageLoaded(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -64,7 +79,10 @@ export function isImageLoaded(src: string): Promise<void> {
 }
 
 // ─── currencyFormatter ────────────────────────────────────────────────────────
-/** Formats a number as a currency string (INR or USD). */
+/**
+ * Formats a number as a currency string (INR or USD).
+ * @internal
+ */
 export function currencyFormatter(
   amount: number | string,
   fallback: string = '',
@@ -85,7 +103,10 @@ export function currencyFormatter(
 }
 
 // ─── generateTextStyle ────────────────────────────────────────────────────────
-/** Generate a React Native TextStyle object from NeoPop typography tokens. */
+/**
+ * Generate a React Native TextStyle object from NeoPop typography tokens.
+ * @internal
+ */
 export function generateTextStyle(
   fontType: FontType,
   fontSize: number,
