@@ -3,6 +3,7 @@ import React, {
   useImperativeHandle,
   useEffect,
   useCallback,
+  useState,
 } from 'react';
 import { View, Pressable, StyleSheet, Platform } from 'react-native';
 import Animated, {
@@ -116,9 +117,13 @@ export const NeoPopBottomSheet = forwardRef<NeoPopBottomSheetRef, NeoPopBottomSh
     // Whether the sheet is logically "mounted" (visible at all)
     const isVisible = useSharedValue(defaultOpen ? 1 : 0);
 
+    // ── JS-side open tracking for accessibilityViewIsModal ───────────────────
+    const [isModalOpen, setIsModalOpen] = useState(defaultOpen);
+
     // ── Open / close helpers (JS-thread safe wrappers) ──────────────────────
     const openSheet = useCallback(() => {
       isVisible.value = 1;
+      setIsModalOpen(true);
       translateY.value = withSpring(0, {
         damping: BUTTON_RELEASE_DAMPING,
         stiffness: BUTTON_RELEASE_STIFFNESS,
@@ -129,6 +134,7 @@ export const NeoPopBottomSheet = forwardRef<NeoPopBottomSheetRef, NeoPopBottomSh
 
     const closeSheet = useCallback(() => {
       if (onBeforeClose) onBeforeClose();
+      setIsModalOpen(false);
       translateY.value = withTiming(sheetHeight, { duration: BUTTON_PRESS_DURATION_MS * 3 }, (finished) => {
         if (finished) {
           isVisible.value = 0;
@@ -230,6 +236,7 @@ export const NeoPopBottomSheet = forwardRef<NeoPopBottomSheetRef, NeoPopBottomSh
                 sheetAnimStyle,
               ]}
               onLayout={onLayout}
+              accessibilityViewIsModal={isModalOpen}
             >
               {/* Drag notch */}
               {shouldShowNotch && (

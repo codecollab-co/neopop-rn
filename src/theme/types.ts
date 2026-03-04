@@ -156,6 +156,33 @@ export interface NeoPopAccordionColorConfig {
   edgeColor?: string;
 }
 
+export interface NeoPopStepperColorConfig {
+  background?: string;
+  buttonColor?: string;
+  buttonEdgeColor?: string;
+  textColor?: string;
+  disabledColor?: string;
+}
+
+export interface NeoPopCarouselColorConfig {
+  dotColor?: string;
+  activeDotColor?: string;
+}
+
+export interface NeoPopDatePickerColorConfig {
+  background?: string;
+  textColor?: string;
+  selectedTextColor?: string;
+  selectedBackground?: string;
+  separatorColor?: string;
+}
+
+export interface NeoPopSwipeRowColorConfig {
+  background?: string;
+  leftActionBackground?: string;
+  rightActionBackground?: string;
+}
+
 // ─── Full Theme Config ────────────────────────────────────────────────────────
 
 export interface ThemeConfig {
@@ -183,6 +210,10 @@ export interface ThemeConfig {
   otpInput?: NeoPopOTPInputColorConfig;
   progressBar?: NeoPopProgressBarColorConfig;
   accordion?: NeoPopAccordionColorConfig;
+  stepper?: NeoPopStepperColorConfig;
+  carousel?: NeoPopCarouselColorConfig;
+  datePicker?: NeoPopDatePickerColorConfig;
+  swipeRow?: NeoPopSwipeRowColorConfig;
 }
 
 export interface NeoPopContextValue extends ThemeConfig {}

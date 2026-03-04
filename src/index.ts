@@ -145,3 +145,15 @@ export type { NeoPopProgressBarProps, NeoPopProgressBarColorConfig, ProgressBarV
 
 export { NeoPopAccordion } from './components/NeoPopAccordion';
 export type { NeoPopAccordionProps, NeoPopAccordionColorConfig } from './components/NeoPopAccordion';
+
+export { NeoPopStepper } from './components/NeoPopStepper';
+export type { NeoPopStepperProps, NeoPopStepperColorConfig } from './components/NeoPopStepper';
+
+export { NeoPopSwipeRow } from './components/NeoPopSwipeRow';
+export type { NeoPopSwipeRowProps, NeoPopSwipeRowColorConfig } from './components/NeoPopSwipeRow';
+
+export { NeoPopCarousel } from './components/NeoPopCarousel';
+export type { NeoPopCarouselProps, NeoPopCarouselColorConfig, NeoPopCarouselRef } from './components/NeoPopCarousel';
+
+export { NeoPopDatePicker } from './components/NeoPopDatePicker';
+export type { NeoPopDatePickerProps, NeoPopDatePickerColorConfig } from './components/NeoPopDatePicker';

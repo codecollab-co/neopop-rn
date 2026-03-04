@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
@@ -91,9 +91,11 @@ export function NeoPopSlider({
   const trackWidth = useRef(0);
 
   // The current logical value (used for snapping, callback dedup)
-  const lastValue = useRef(
-    snapToStep(controlledValue ?? defaultValue ?? min, min, max, step),
-  );
+  const initialValue = snapToStep(controlledValue ?? defaultValue ?? min, min, max, step);
+  const lastValue = useRef(initialValue);
+
+  // JS-side current value exposed to accessibilityValue
+  const [currentA11yValue, setCurrentA11yValue] = useState(initialValue);
 
   // translateX: thumb offset from left edge, clamped to [0, trackWidth - thumbSize]
   const translateX = useSharedValue(0);
@@ -134,6 +136,7 @@ export function NeoPopSlider({
       if (val !== lastValue.current) {
         if (enableHaptics) triggerHaptic('selection');
         lastValue.current = val;
+        setCurrentA11yValue(val);
         onValueChange?.(val);
       }
     },
@@ -261,6 +264,7 @@ export function NeoPopSlider({
               thumbAnimStyle,
             ]}
             accessibilityRole="adjustable"
+            accessibilityValue={{ min, max, now: currentA11yValue }}
           />
         </GestureDetector>
       </View>
