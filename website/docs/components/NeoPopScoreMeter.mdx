@@ -1,0 +1,104 @@
+---
+id: NeoPopScoreMeter
+title: NeoPopScoreMeter
+---
+
+# NeoPopScoreMeter
+
+A semi-circular arc gauge drawn on a **Skia Canvas**. The filled stroke animates
+from `oldReading` to `reading` using Reanimated `withTiming` + `useDerivedValue`,
+producing a smooth sweep with no JS-thread involvement.
+
+The arc spans 180° (left → right). Score range maps linearly to arc fill
+percentage: `lowerLimit` = 0 %, `upperLimit` = 100 %.
+
+## Dark mode
+
+```tsx
+import { NeoPopScoreMeter } from '@codecollab.co/neopop-rn';
+
+<NeoPopScoreMeter
+  reading={720}
+  oldReading={0}
+  type="excellent"
+  scoreDesc="Great score!"
+  lowerLimit={300}
+  upperLimit={900}
+  showLegends
+  showIndicators
+/>
+```
+
+## Light mode with colorConfig override
+
+```tsx
+<NeoPopScoreMeter
+  reading={480}
+  oldReading={300}
+  type="average"
+  scoreDesc="Room to improve"
+  lowerLimit={300}
+  upperLimit={900}
+  colorConfig={{
+    trackColor: '#E0E0E0',
+    scoreTextColor: '#0D0D0D',
+    descTextColor: '#555555',
+  }}
+/>
+```
+
+## Auto-type (derived from reading ratio)
+
+If `type` is omitted, the stroke color is auto-derived from the score's position
+in the range: bottom third → poor, middle third → average, top third → excellent.
+
+```tsx
+<NeoPopScoreMeter
+  reading={reading}
+  oldReading={prevReading}
+  lowerLimit={300}
+  upperLimit={900}
+  onAnimationComplete={() => console.log('sweep done')}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `reading` | `number` | — | **Required.** Current score value (target of the animation). |
+| `oldReading` | `number` | — | **Required.** Previous score — arc animates from here to `reading`. |
+| `type` | `'excellent' \| 'average' \| 'poor'` | auto | Overrides stroke color. If omitted, color is derived from the score ratio. |
+| `scoreDesc` | `string` | — | Optional description shown below the numeric score. |
+| `showIndicators` | `boolean` | `true` | Whether to show the dot at the arc tip. |
+| `showLegends` | `boolean` | `true` | Whether to show the Poor / Average / Excellent legend row. |
+| `lowerLimit` | `number` | `300` | Minimum score value (maps to 0 % arc fill). |
+| `upperLimit` | `number` | `900` | Maximum score value (maps to 100 % arc fill). |
+| `size` | `number` | `220` | Width of the canvas (height is half + stroke overhang). |
+| `strokeWidth` | `number` | `14` | Stroke width of both the track and the filled arc. |
+| `colorMode` | `'dark' \| 'light'` | from provider | Color mode override. |
+| `colorConfig` | `NeoPopScoreMeterColorConfig` | — | Per-instance color overrides (see below). |
+| `onAnimationComplete` | `() => void` | — | Called when the sweep animation finishes. |
+| `style` | `StyleProp<ViewStyle>` | — | Extra styles applied to the outer container. |
+
+## colorConfig
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `excellentColor` | `string` | `SEMANTIC_SUCCESS[4]` (#06C270) | Stroke color for excellent readings. |
+| `averageColor` | `string` | `#F5A623` | Stroke color for average readings. |
+| `poorColor` | `string` | `SEMANTIC_ERROR[4]` (#EE4D37) | Stroke color for poor readings. |
+| `trackColor` | `string` | `#3D3D3D` | Background arc track color. |
+| `indicatorColor` | `string` | `#ffffff` | Color of the dot indicator at the arc tip. |
+| `scoreTextColor` | `string` | `#ffffff` | Color of the numeric score label. |
+| `descTextColor` | `string` | `#8A8A8A` | Color of the `scoreDesc` label. |
+
+## Notes
+
+- Requires `@shopify/react-native-skia >= 1.0.0` and `react-native-reanimated >= 3.0.0`.
+- Uses `useDerivedValue` to derive a `SkPath` shared value on the UI thread — no
+  bridge calls per frame.
+- The canvas height is automatically `size / 2 + strokeWidth + 4` to display only
+  the top half of the circle.
+- `onAnimationComplete` is marshalled from the UI thread to the JS thread via
+  `runOnJS`.
