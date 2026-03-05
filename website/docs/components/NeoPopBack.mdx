@@ -1,0 +1,57 @@
+---
+id: NeoPopBack
+title: NeoPopBack
+---
+
+# NeoPopBack
+
+A back-navigation row with a chevron icon, an optional heading, and an optional right-side element.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopBack } from 'neopop-rn';
+
+<NeoPopBack
+  heading="My Account"
+  colorMode="dark"
+  onPress={() => navigation.goBack()}
+/>
+```
+
+```tsx
+// light mode example
+import { NeoPopBack } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<NeoPopBack
+  heading="Settings"
+  color="#0d0d0d"
+  colorMode="light"
+  rightElement={<Text style={{ color: '#0d0d0d' }}>Skip</Text>}
+  onPress={() => navigation.goBack()}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onPress` | `() => void` | — | Required. Called when the back row is tapped. |
+| `heading` | `string` | — | Optional text label shown to the right of the chevron. |
+| `color` | `string` | — | Color applied to the chevron icon and heading text. |
+| `rightElement` | `React.ReactNode` | — | Arbitrary element rendered at the trailing end of the row. |
+| `textStyle` | `StyleProp<TextStyle>` | — | Additional style applied to the heading text. |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode used when `color` is not provided. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+
+## colorConfig
+
+NeoPopBack does not accept a `colorConfig` prop. Use the `color` prop to override the chevron and text color.
+
+## Notes
+
+- The chevron direction is always `'west'` (pointing left) and is not configurable via props.
+- `rightElement` is pushed to the far trailing edge using `justifyContent: 'space-between'`.
+- When `heading` is omitted, only the chevron is rendered.

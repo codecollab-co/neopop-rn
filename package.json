@@ -1,7 +1,7 @@
 {
   "name": "@codecollab.co/neopop-rn",
-  "version": "0.6.0",
-  "description": "NeoPop design system for React Native — unified iOS, Android, Web & Flutter features in one Expo-compatible package",
+  "version": "1.0.0",
+  "description": "NeoPop design system for React Native \u2014 unified iOS, Android, Web & Flutter features in one Expo-compatible package",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -13,6 +13,7 @@
   ],
   "sideEffects": false,
   "license": "Apache-2.0",
+  "homepage": "https://codecollab-co.github.io/neopop-rn/",
   "repository": {
     "type": "git",
     "url": "https://github.com/codecollab-co/neopop-rn.git"
@@ -42,7 +43,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "example": "npm --prefix example",
-    "release": "release-it"
+    "release": "release-it",
+    "tokens": "node token-build/build.js"
   },
   "peerDependencies": {
     "@shopify/react-native-skia": ">=1.0.0",

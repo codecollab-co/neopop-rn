@@ -1,0 +1,98 @@
+---
+id: NeoPopSlider
+title: NeoPopSlider
+---
+
+# NeoPopSlider
+
+A gesture-driven horizontal range slider with step snapping, spring thumb animation, and configurable track and thumb appearance.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopSlider } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [value, setValue] = useState(0);
+
+  return (
+    <NeoPopSlider
+      min={0}
+      max={100}
+      step={5}
+      value={value}
+      colorMode="dark"
+      enableHaptics
+      onValueChange={setValue}
+      onSlidingComplete={(v) => console.log('final value:', v)}
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopSlider } from 'neopop-rn';
+
+<NeoPopSlider
+  min={0}
+  max={1000}
+  step={50}
+  defaultValue={500}
+  colorMode="light"
+  thumbConfig={{ size: 24, color: '#0d0d0d', borderColor: '#0d0d0d' }}
+  trackConfig={{ height: 6, activeColor: '#0d0d0d', inactiveColor: '#cccccc', borderRadius: 3 }}
+  onValueChange={(v) => console.log(v)}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `min` | `number` | — | Required. Minimum value (inclusive). |
+| `max` | `number` | — | Required. Maximum value (inclusive). |
+| `step` | `number` | — | Required. Granularity; thumb snaps to the nearest multiple of `step`. |
+| `value` | `number` | — | Controlled value. When provided, the slider reflects this value and calls `onValueChange` on drag. |
+| `defaultValue` | `number` | `min` | Initial value for uncontrolled usage. |
+| `thumbConfig` | `NeoPopThumbConfig` | — | Shape and color overrides for the thumb circle (see below). |
+| `trackConfig` | `NeoPopTrackConfig` | — | Shape and color overrides for the track bar (see below). |
+| `onValueChange` | `(value: number) => void` | — | Called on every step change during drag. |
+| `onSlidingStart` | `(value: number) => void` | — | Called when the pan gesture begins. |
+| `onSlidingComplete` | `(value: number) => void` | — | Called when the pan gesture ends (snapped value). |
+| `disabled` | `boolean` | `false` | Disables the pan gesture; applies 40% opacity to the track. |
+| `enableHaptics` | `boolean` | `false` | Fires a selection haptic on each step change. |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode (reserved for future theme integration). |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+
+### NeoPopThumbConfig
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `size` | `number` | `20` | Diameter of the thumb in logical pixels. |
+| `color` | `string` | `'#06C270'` | Fill color of the thumb. |
+| `borderColor` | `string` | `'#06C270'` | Border stroke color of the thumb. |
+| `borderWidth` | `number` | `0` | Border width of the thumb. |
+| `activeColor` | `string` | — | Color of the thumb when actively dragging (not yet used by the renderer). |
+
+### NeoPopTrackConfig
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `height` | `number` | `4` | Height of the track bar. |
+| `activeColor` | `string` | `'#06C270'` | Color of the filled (left of thumb) portion. |
+| `inactiveColor` | `string` | `'#3D3D3D'` | Color of the unfilled (right of thumb) portion. |
+| `borderRadius` | `number` | `height / 2` | Border radius applied to both track segments. |
+
+## colorConfig
+
+NeoPopSlider does not accept a `colorConfig` prop at the top level. Use `thumbConfig` and `trackConfig` for color overrides.
+
+## Notes
+
+- The thumb position is initialised after the first layout event; the slider occupies zero width until layout fires.
+- `enableHaptics` fires a `'selection'` haptic only when the value changes (deduped); rapid dragging over the same step does not re-fire.
+- Requires `react-native-gesture-handler` for the pan gesture and `react-native-reanimated` for the spring snap animation.
+- The `activeColor` field in `NeoPopThumbConfig` is declared in the type but not yet consumed by the renderer.

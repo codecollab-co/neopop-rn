@@ -1,0 +1,56 @@
+---
+id: Cross
+title: Cross
+---
+
+# Cross
+
+A dismiss/close icon (×) with an optional press handler and configurable hit slop.
+
+## Usage
+
+```tsx
+// dark mode example
+import { Cross } from 'neopop-rn';
+
+<Cross
+  size={20}
+  color="#ffffff"
+  strokeWidth={2}
+  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+  onPress={() => console.log('dismissed')}
+/>
+```
+
+```tsx
+// light mode example
+import { Cross } from 'neopop-rn';
+
+<Cross
+  size={16}
+  color="#0d0d0d"
+  strokeWidth={1.5}
+  onPress={() => navigation.goBack()}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `number` | — | Width and height of the icon bounding box in logical pixels. |
+| `color` | `string` | — | Stroke color of the two crossing lines. |
+| `strokeWidth` | `number` | — | Thickness of the cross stroke. |
+| `onPress` | `() => void` | — | When provided, wraps the icon in a `Pressable`; otherwise it is a static icon. |
+| `hitSlop` | `{ top?: number; bottom?: number; left?: number; right?: number }` | — | Extra touchable area around the icon (only effective when `onPress` is set). |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the icon wrapper. |
+
+## colorConfig
+
+Cross is an icon primitive and does not accept a `colorConfig` prop. Use the `color` prop for stroke color.
+
+## Notes
+
+- When `onPress` is omitted, the component renders as a static non-interactive SVG; no `Pressable` is added.
+- `hitSlop` is passed directly to the underlying `Pressable`; it does not affect the visual size of the icon.
+- Use `size` and `hitSlop` together to keep the icon small while ensuring an accessible tap target (minimum 44×44 pt recommended by Apple/Google HIG).

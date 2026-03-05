@@ -1,0 +1,118 @@
+---
+id: NeoPopInputField
+title: NeoPopInputField
+---
+
+# NeoPopInputField
+
+A NeoPop-styled text input with floating label, focus/error border states, character count, and multiline support.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopInputField } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [value, setValue] = useState('');
+
+  return (
+    <NeoPopInputField
+      label="Mobile number"
+      placeholder="Enter 10-digit number"
+      value={value}
+      inputMode="tel"
+      maxLength={10}
+      showCharacterCount
+      colorMode="dark"
+      onChange={setValue}
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopInputField } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+
+  return (
+    <NeoPopInputField
+      label="Email"
+      placeholder="you@example.com"
+      value={value}
+      inputMode="email"
+      hasError={error}
+      errorMessage="Invalid email address"
+      colorMode="light"
+      colorConfig={{
+        containerBorderColor: '#cccccc',
+        focusedBorderColor: '#0d0d0d',
+        errorBorderColor: '#EE4D37',
+        labelColor: '#555555',
+        inputTextColor: '#0d0d0d',
+        placeholderColor: '#999999',
+        backgroundColor: '#ffffff',
+      }}
+      onChange={setValue}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Floating label text. |
+| `placeholder` | `string` | — | Placeholder shown inside the input when empty. |
+| `value` | `string` | — | Controlled input value. |
+| `defaultValue` | `string` | — | Initial value for uncontrolled usage. |
+| `name` | `string` | — | Form field name (for accessibility / form libraries). |
+| `id` | `string` | — | Unique identifier for the input element. |
+| `maxLength` | `number` | — | Maximum character length. |
+| `showCharacterCount` | `boolean` | — | Displays a `current/max` character counter below the input. |
+| `isDisabled` | `boolean` | — | Disables the input field. |
+| `hasError` | `boolean` | — | Applies error border styling. |
+| `errorMessage` | `string` | — | Error text displayed below the input when `hasError` is `true`. |
+| `inputMode` | `InputMode` | — | Keyboard type. One of: `'text'`, `'search'`, `'tel'`, `'url'`, `'email'`, `'numeric'`, `'decimal'`, `'password'`, `'none'`. |
+| `autoComplete` | `string` | — | Maps to React Native's `autoComplete` prop. |
+| `autoFocus` | `boolean` | — | Auto-focuses the input on mount. |
+| `returnKeyType` | `ReturnKeyTypeOptions` | — | Return key label (e.g. `'done'`, `'next'`, `'search'`). |
+| `multiline` | `boolean` | — | Enables multiline text entry. |
+| `numberOfLines` | `number` | — | Visible line count for multiline inputs. |
+| `onChange` | `(value: string) => void` | — | Called on every keystroke with the current text value. |
+| `onBlur` | `() => void` | — | Called when the input loses focus. |
+| `onFocus` | `() => void` | — | Called when the input gains focus. |
+| `onSubmitEditing` | `() => void` | — | Called when the return key is pressed. |
+| `scrollIntoView` | `boolean` | — | Scrolls the input into view on focus (requires `scrollRef`). |
+| `scrollRef` | `React.RefObject<ScrollView>` | — | Ref to the parent `ScrollView` used for `scrollIntoView`. |
+| `colorConfig` | `NeoPopInputFieldColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style for the outer container. |
+| `inputStyle` | `StyleProp<TextStyle>` | — | Additional style for the `TextInput` element. |
+| `labelStyle` | `StyleProp<TextStyle>` | — | Additional style for the label text. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `containerBorderColor` | Default border color of the input container. |
+| `focusedBorderColor` | Border color when the input is focused. |
+| `errorBorderColor` | Border color when `hasError` is `true`. |
+| `labelColor` | Color of the floating label. |
+| `inputTextColor` | Color of the typed text. |
+| `placeholderColor` | Placeholder text color. |
+| `backgroundColor` | Background fill of the input container. |
+| `disabledBackgroundColor` | Background color when `isDisabled` is `true`. |
+
+## Notes
+
+- `showCharacterCount` requires `maxLength` to be set; without it, the counter shows `currentLength / undefined`.
+- `inputMode: 'password'` sets `secureTextEntry` automatically; do not use `multiline` with `password` mode.
+- `scrollIntoView` only works when a valid `scrollRef` pointing to a `ScrollView` ancestor is provided.

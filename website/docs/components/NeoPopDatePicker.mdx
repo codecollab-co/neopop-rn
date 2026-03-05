@@ -1,0 +1,80 @@
+---
+id: NeoPopDatePicker
+title: NeoPopDatePicker
+---
+
+# NeoPopDatePicker
+
+An inline scroll-wheel date picker with day, month, and year columns, configurable date bounds, and haptic feedback.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopDatePicker } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [date, setDate] = useState(new Date());
+
+  return (
+    <NeoPopDatePicker
+      value={date}
+      minDate={new Date('2000-01-01')}
+      maxDate={new Date('2030-12-31')}
+      colorMode="dark"
+      enableHaptics
+      onDateChange={setDate}
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopDatePicker } from 'neopop-rn';
+
+<NeoPopDatePicker
+  defaultValue={new Date('1990-06-15')}
+  colorMode="light"
+  colorConfig={{
+    background: '#ffffff',
+    textColor: '#0d0d0d',
+    selectedTextColor: '#ffffff',
+    selectedBackground: '#0d0d0d',
+    separatorColor: '#cccccc',
+  }}
+  onDateChange={(date) => console.log(date.toISOString())}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date` | — | Controlled date value. |
+| `defaultValue` | `Date` | — | Initial date for uncontrolled usage. |
+| `minDate` | `Date` | — | Earliest selectable date (inclusive). |
+| `maxDate` | `Date` | — | Latest selectable date (inclusive). |
+| `onDateChange` | `(date: Date) => void` | — | Called whenever the selected date changes. |
+| `enableHaptics` | `boolean` | — | Fires a selection haptic when the date changes. |
+| `colorConfig` | `NeoPopDatePickerColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `background` | Background color of the picker container. |
+| `textColor` | Default text color for unselected rows. |
+| `selectedTextColor` | Text color of the selected row. |
+| `selectedBackground` | Background highlight color of the selected row. |
+| `separatorColor` | Color of the top and bottom separator lines flanking the selected row. |
+
+## Notes
+
+- The picker renders three independent scroll columns: day, month, and year. Scrolling one column does not reset the others.
+- `minDate` and `maxDate` constrain each column independently; invalid combinations (e.g., February 31) are excluded from the scrollable items.
+- When both `value` and `defaultValue` are omitted, the picker initialises to the current date.
+- Controlled mode (`value`) requires the parent to update the prop via `onDateChange`; failure to do so will cause the picker to snap back to `value` after each scroll.

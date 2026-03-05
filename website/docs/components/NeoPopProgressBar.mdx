@@ -1,0 +1,77 @@
+---
+id: NeoPopProgressBar
+title: NeoPopProgressBar
+---
+
+# NeoPopProgressBar
+
+A progress indicator available in a horizontal bar variant and a circular arc variant, with optional percentage label.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopProgressBar } from 'neopop-rn';
+
+<NeoPopProgressBar
+  progress={0.65}
+  variant="horizontal"
+  showLabel
+  colorMode="dark"
+  colorConfig={{
+    trackColor: '#3D3D3D',
+    fillColor: '#06C270',
+    labelColor: '#ffffff',
+  }}
+/>
+```
+
+```tsx
+// light mode example
+import { NeoPopProgressBar } from 'neopop-rn';
+
+<NeoPopProgressBar
+  progress={0.4}
+  variant="circular"
+  size={100}
+  strokeWidth={10}
+  showLabel
+  label="40%"
+  colorMode="light"
+  colorConfig={{
+    trackColor: '#eeeeee',
+    fillColor: '#0d0d0d',
+    labelColor: '#0d0d0d',
+  }}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `progress` | `number` | — | Required. Progress value between `0` and `1` (0 = empty, 1 = full). |
+| `variant` | `'horizontal' \| 'circular'` | `'horizontal'` | Render mode: horizontal bar or circular arc. |
+| `showLabel` | `boolean` | `false` | Displays a percentage label (or custom `label` string). |
+| `label` | `string` | — | Custom label text. When provided, overrides the auto-computed percentage string. |
+| `size` | `number` | `8` (horizontal) / `80` (circular) | Bar height for `horizontal`; diameter for `circular`. |
+| `strokeWidth` | `number` | `8` | Arc stroke width for the `circular` variant (ignored for `horizontal`). |
+| `colorConfig` | `NeoPopProgressBarColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default colors. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+| `labelStyle` | `StyleProp<TextStyle>` | — | Additional style applied to the label text. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `trackColor` | Color of the unfilled (background) portion of the bar or arc. |
+| `fillColor` | Color of the filled (progress) portion. |
+| `labelColor` | Color of the label text. |
+
+## Notes
+
+- `progress` is clamped to `[0, 1]` internally; values outside this range are safe to pass but will render as 0% or 100%.
+- For the `circular` variant, `size` sets the outer diameter of the SVG canvas; `strokeWidth` must be less than `size / 2` to avoid clipping the arc.
+- `showLabel` + `label` lets you pass a custom string (e.g., `"Loading…"`) instead of the computed percentage.
+- The horizontal bar animates its fill width using `react-native-reanimated` when `progress` changes.

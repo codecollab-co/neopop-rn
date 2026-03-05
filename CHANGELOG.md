@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-03-05
+
+### Added (MS-16 — Docusaurus docs site)
+- `website/` — Docusaurus 3.x documentation site with NeoPop dark theme
+- Homepage hero with feature grid, component count, and platform support
+- Full sidebar with all 27 components, layout helpers, and icon docs
+- All `docs/components/*.md` migrated to MDX at `website/docs/components/`
+- `docs/THEMING.md`, `TOKENS.md`, `CONTRIBUTING.md`, `MIGRATION.md` migrated to MDX
+- `website/docs/getting-started.mdx` — installation, setup, peer deps, quick example
+- `.github/workflows/docs.yml` — deploys to GitHub Pages on every `v*` tag push
+- `package.json` `homepage` field points to `https://codecollab-co.github.io/neopop-rn/`
+
+### Added (MS-17 — Design token export)
+- `token-build/` — Style Dictionary v4 config exporting `src/primitives/` tokens to 4 formats
+- `tokens/css/variables.css` — all tokens as CSS custom properties (`--neopop-*`)
+- `tokens/figma/tokens.json` — Figma Tokens plugin-compatible JSON
+- `tokens/android/colors.xml` + `dimens.xml` — Android resource files
+- `tokens/ios/NeoPopTokens.swift` — iOS Swift class with `UIColor` + `CGFloat` constants
+- `npm run tokens` script to regenerate all token output files
+
+### Changed (MS-18 — v1.0 GA)
+- **Stable API guarantee**: all public exports in `src/index.ts` are now semver-stable
+- README: v1.0 stability banner, docs site link, token export table
+- `package.json` `homepage` field added
+
 ## [0.6.0] - 2026-03-04
 
 ### Fixed (CI)

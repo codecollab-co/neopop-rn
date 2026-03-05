@@ -1,0 +1,82 @@
+---
+id: NeoPopShimmer
+title: NeoPopShimmer
+---
+
+# NeoPopShimmer
+
+A wrapper component that sweeps a diagonal double-strip shimmer overlay across its children.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopShimmer } from 'neopop-rn';
+import { View, Text } from 'react-native';
+
+<NeoPopShimmer
+  enabled={true}
+  config={{
+    color: 'rgba(255,255,255,0.35)',
+    duration: 1200,
+    delay: 400,
+    repeatDelay: 1000,
+  }}
+>
+  <View style={{ width: 200, height: 60, backgroundColor: '#1a1a1a' }}>
+    <Text style={{ color: '#fff' }}>Loading…</Text>
+  </View>
+</NeoPopShimmer>
+```
+
+```tsx
+// light mode example
+import { NeoPopShimmer } from 'neopop-rn';
+import { View, Text } from 'react-native';
+
+<NeoPopShimmer
+  enabled={true}
+  config={{
+    color: 'rgba(255,255,255,0.5)',
+    duration: 1000,
+    delay: 200,
+    angle: 20,
+  }}
+>
+  <View style={{ width: 200, height: 60, backgroundColor: '#e0e0e0' }}>
+    <Text style={{ color: '#0d0d0d' }}>Loading…</Text>
+  </View>
+</NeoPopShimmer>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | — | Required. The content over which the shimmer is overlaid. |
+| `enabled` | `boolean` | `true` | Starts or stops the shimmer animation. When set to `false`, the animation is cancelled and the overlay is removed. |
+| `config` | `NeoPopShimmerConfig` | `{}` | Shape and timing configuration for the shimmer (see table below). |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the clipping container (`overflow: 'hidden'`). |
+
+### NeoPopShimmerConfig
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `color` | `string` | `'rgba(255,255,255,0.35)'` | Color of the shimmer strips. |
+| `width` | `number` | `SHIMMER_WIDTH` | Width of the primary shimmer strip in logical pixels. |
+| `gap` | `number` | `SHIMMER_GAP_WIDTH` | Gap between the primary and secondary shimmer strips. |
+| `duration` | `number` | `SHIMMER_DURATION_MS` | Duration of a single sweep in milliseconds. |
+| `delay` | `number` | `SHIMMER_DELAY_MS` | Initial delay before the first sweep starts. |
+| `repeatDelay` | `number` | `SHIMMER_DELAY_MS` | Pause between repeated sweeps. |
+| `angle` | `number` | `20` | Skew angle of the shimmer strips in degrees. |
+
+## colorConfig
+
+NeoPopShimmer does not accept a `colorConfig` object. Use `config.color` to override the shimmer strip color.
+
+## Notes
+
+- The container uses `overflow: 'hidden'` to clip the shimmer; avoid nesting the component inside a view that already clips with a border radius, as this may cause visual artefacts on Android.
+- The shimmer overlay has `pointerEvents="none"` so it does not interfere with touch events on the children.
+- The secondary strip is rendered at 50% of the primary `width`.
+- When `enabled` transitions from `true` to `false`, the shared value is reset to `-200` (off-screen left).

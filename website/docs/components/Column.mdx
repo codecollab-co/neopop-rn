@@ -1,0 +1,55 @@
+---
+id: Column
+title: Column
+---
+
+# Column
+
+A lightweight `flexDirection: 'column'` layout primitive with alignment, justification, gap, and flex controls.
+
+## Usage
+
+```tsx
+// dark mode example
+import { Column } from 'neopop-rn';
+import { Text } from 'react-native';
+
+<Column align="flex-start" justify="center" gap={16}>
+  <Text style={{ color: '#ffffff', fontSize: 18, fontWeight: '700' }}>Heading</Text>
+  <Text style={{ color: '#aaaaaa' }}>Subtext below the heading</Text>
+</Column>
+```
+
+```tsx
+// light mode example
+import { Column } from 'neopop-rn';
+import { View } from 'react-native';
+
+<Column flex={1} align="stretch" justify="space-between">
+  <View style={{ height: 48, backgroundColor: '#eeeeee' }} />
+  <View style={{ height: 48, backgroundColor: '#dddddd' }} />
+  <View style={{ height: 48, backgroundColor: '#cccccc' }} />
+</Column>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | — | Content stacked vertically. |
+| `align` | `'flex-start' \| 'flex-end' \| 'center' \| 'stretch' \| 'baseline'` | — | `alignItems` value for cross-axis (horizontal) alignment. |
+| `justify` | `'flex-start' \| 'flex-end' \| 'center' \| 'space-between' \| 'space-around' \| 'space-evenly'` | — | `justifyContent` value for main-axis (vertical) distribution. |
+| `gap` | `number` | — | Gap between children in logical pixels. |
+| `flex` | `number` | — | `flex` value applied to the container. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style overrides applied last. |
+
+## colorConfig
+
+Column is a layout primitive and does not accept a `colorConfig` prop. Apply background colors via `style`.
+
+## Notes
+
+- `Column` sets `flexDirection: 'column'` (the React Native default) and is otherwise a plain `View`.
+- Unlike `Row`, `Column` does not have a `wrap` prop because column wrapping is uncommon in vertical lists.
+- Use `flex={1}` together with a parent that has a defined height for the column to fill available vertical space.
+- `gap` requires React Native 0.71+ or a gap polyfill.

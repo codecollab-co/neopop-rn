@@ -1,0 +1,51 @@
+/**
+ * NeoPop design system — Docusaurus theme overrides
+ * Primary: #EDD514 (NeoPop yellow)  Secondary: #7C5CFC (purple)
+ */
+
+:root {
+  --ifm-color-primary: #d4b800;
+  --ifm-color-primary-dark: #bfa600;
+  --ifm-color-primary-darker: #b59d00;
+  --ifm-color-primary-darkest: #948100;
+  --ifm-color-primary-light: #e9ca00;
+  --ifm-color-primary-lighter: #eed100;
+  --ifm-color-primary-lightest: #f5dc0a;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #EDD514;
+  --ifm-color-primary-dark: #d4be0d;
+  --ifm-color-primary-darker: #c9b40c;
+  --ifm-color-primary-darkest: #a6940a;
+  --ifm-color-primary-light: #f0da2c;
+  --ifm-color-primary-lighter: #f1dd38;
+  --ifm-color-primary-lightest: #f4e465;
+  --ifm-background-color: #0D0D0D;
+  --ifm-background-surface-color: #141414;
+  --ifm-navbar-background-color: #0D0D0D;
+  --ifm-footer-background-color: #0D0D0D;
+  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.15);
+}
+
+/* Navbar border */
+[data-theme='dark'] .navbar {
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* Code blocks */
+[data-theme='dark'] .prism-code {
+  background: #1a1a1a !important;
+}
+
+/* Hero section */
+.hero--primary {
+  background: #0D0D0D;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+[data-theme='dark'] .hero--primary {
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a1200 100%);
+}

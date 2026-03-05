@@ -5,6 +5,9 @@
 [![npm version](https://img.shields.io/npm/v/@codecollab.co/neopop-rn.svg)](https://www.npmjs.com/package/@codecollab.co/neopop-rn)
 [![license](https://img.shields.io/npm/l/@codecollab.co/neopop-rn.svg)](./LICENSE)
 [![CI](https://github.com/codecollab-co/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/codecollab-co/neopop-rn/actions)
+[![docs](https://img.shields.io/badge/docs-live-EDD514?labelColor=0D0D0D)](https://codecollab-co.github.io/neopop-rn/)
+
+> **v1.0 — stable API.** This release marks the first semver-guaranteed, production-ready version of neopop-rn. See the [Migration Guide](./docs/MIGRATION.md) if upgrading from v0.x.
 
 ---
 
@@ -180,12 +183,28 @@ addToast({ content: 'Payment successful!', type: 'success', autoCloseTime: 3000 
 
 ## Documentation
 
+Full documentation is available at **[codecollab-co.github.io/neopop-rn](https://codecollab-co.github.io/neopop-rn/)**.
+
 | Guide | Description |
 |---|---|
+| [Getting Started](https://codecollab-co.github.io/neopop-rn/docs/getting-started) | Installation, setup, quick examples |
 | [THEMING.md](./docs/THEMING.md) | NeoPopProvider, mergeDeep system, dark/light themes, colorConfig deep-dive |
 | [TOKENS.md](./docs/TOKENS.md) | All color, spacing, typography, opacity, and button tokens |
 | [CONTRIBUTING.md](./docs/CONTRIBUTING.md) | Dev setup, commit conventions, PR checklist, how to add a component |
 | [MIGRATION.md](./docs/MIGRATION.md) | v0.x → v1.0 migration guide, deprecated props, removed exports |
+
+### Design Token Exports
+
+Tokens from `src/primitives/` are exported in four platform formats via [Style Dictionary](./token-build/):
+
+| Format | Output file |
+|---|---|
+| CSS custom properties | `tokens/css/variables.css` |
+| Figma Tokens JSON | `tokens/figma/tokens.json` |
+| Android resources | `tokens/android/colors.xml`, `tokens/android/dimens.xml` |
+| iOS Swift constants | `tokens/ios/NeoPopTokens.swift` |
+
+Regenerate with `npm run tokens` (requires `cd token-build && npm install` once).
 
 ---
 

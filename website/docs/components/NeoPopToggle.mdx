@@ -1,0 +1,84 @@
+---
+id: NeoPopToggle
+title: NeoPopToggle
+---
+
+# NeoPopToggle
+
+A NeoPop-styled on/off toggle switch with animated thumb, customisable track and thumb colors, and optional custom drawables.
+
+## Usage
+
+```tsx
+// dark mode example
+import { NeoPopToggle } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [isOn, setIsOn] = useState(false);
+
+  return (
+    <NeoPopToggle
+      isChecked={isOn}
+      onValueChange={setIsOn}
+      colorMode="dark"
+      enableHaptics
+    />
+  );
+}
+```
+
+```tsx
+// light mode example
+import { NeoPopToggle } from 'neopop-rn';
+import { useState } from 'react';
+
+function Example() {
+  const [isOn, setIsOn] = useState(false);
+
+  return (
+    <NeoPopToggle
+      isChecked={isOn}
+      onValueChange={setIsOn}
+      colorMode="light"
+      colorConfig={{
+        trackCheckedColor: '#06C270',
+        trackUncheckedColor: '#cccccc',
+        thumbCheckedColor: '#ffffff',
+        thumbUncheckedColor: '#ffffff',
+        borderColor: '#aaaaaa',
+      }}
+    />
+  );
+}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `isChecked` | `boolean` | — | Required. Current on/off state. |
+| `onValueChange` | `(value: boolean) => void` | — | Required. Called with the new boolean when toggled. |
+| `colorMode` | `'dark' \| 'light'` | — | Theme mode for default color selection. |
+| `colorConfig` | `NeoPopToggleColorConfig` | — | Per-token color overrides (see colorConfig table). |
+| `trackDrawable` | `React.ReactNode` | — | Custom content rendered inside the track background. |
+| `thumbDrawable` | `React.ReactNode` | — | Custom content rendered inside the thumb circle. |
+| `disabled` | `boolean` | — | Disables interaction. |
+| `enableHaptics` | `boolean` | — | Fires a haptic on each toggle. |
+| `style` | `StyleProp<ViewStyle>` | — | Additional style applied to the outer container. |
+
+## colorConfig
+
+| Key | Description |
+|-----|-------------|
+| `trackCheckedColor` | Track background color when `isChecked` is `true`. |
+| `trackUncheckedColor` | Track background color when `isChecked` is `false`. |
+| `thumbCheckedColor` | Thumb circle color when checked. |
+| `thumbUncheckedColor` | Thumb circle color when unchecked. |
+| `borderColor` | Border color of the track. |
+
+## Notes
+
+- `trackDrawable` and `thumbDrawable` replace the default background fills; when provided, `colorConfig` track/thumb colors may not be visible.
+- The thumb slides between the left and right positions using a Reanimated spring animation.
+- When `disabled` is `true`, the component ignores all press events.
