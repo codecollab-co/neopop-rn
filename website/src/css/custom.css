@@ -1,8 +1,12 @@
 /**
- * NeoPop design system — Docusaurus theme overrides
- * Primary: #EDD514 (NeoPop yellow)  Secondary: #7C5CFC (purple)
+ * NeoPop × CRED Design Language
+ * Pure black canvas, white type, Gilroy-inspired wide tracking, NeoPop yellow accent.
  */
 
+/* ─── Google Fonts — Inter as Gilroy stand-in ─────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ─── Light mode (fallback — same dark palette, CRED is always dark) ────────── */
 :root {
   --ifm-color-primary: #d4b800;
   --ifm-color-primary-dark: #bfa600;
@@ -11,10 +15,28 @@
   --ifm-color-primary-light: #e9ca00;
   --ifm-color-primary-lighter: #eed100;
   --ifm-color-primary-lightest: #f5dc0a;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.1);
+  --ifm-code-font-size: 93%;
+  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.08);
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* CRED-style spacing & radius */
+  --ifm-global-radius: 0px;
+  --ifm-button-border-radius: 0px;
+  --ifm-card-border-radius: 0px;
+
+  /* Subtle text */
+  --neopop-text-muted: rgba(255, 255, 255, 0.45);
+  --neopop-text-secondary: rgba(255, 255, 255, 0.65);
+  --neopop-border: rgba(255, 255, 255, 0.08);
+  --neopop-border-hover: rgba(237, 213, 20, 0.5);
+  --neopop-surface: #0a0a0a;
+  --neopop-surface-hover: #111111;
+  --neopop-yellow: #EDD514;
+  --neopop-purple: #7C5CFC;
 }
 
+/* ─── Dark mode (primary palette) ──────────────────────────────────────────── */
 [data-theme='dark'] {
   --ifm-color-primary: #EDD514;
   --ifm-color-primary-dark: #d4be0d;
@@ -23,29 +45,298 @@
   --ifm-color-primary-light: #f0da2c;
   --ifm-color-primary-lighter: #f1dd38;
   --ifm-color-primary-lightest: #f4e465;
-  --ifm-background-color: #0D0D0D;
-  --ifm-background-surface-color: #141414;
-  --ifm-navbar-background-color: #0D0D0D;
-  --ifm-footer-background-color: #0D0D0D;
-  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.15);
+
+  /* Pure black — CRED's signature */
+  --ifm-background-color: #000000;
+  --ifm-background-surface-color: #0a0a0a;
+  --ifm-navbar-background-color: #000000;
+  --ifm-footer-background-color: #000000;
+
+  --ifm-color-content: #ffffff;
+  --ifm-color-content-secondary: rgba(255, 255, 255, 0.65);
+  --ifm-heading-color: #ffffff;
+
+  --ifm-toc-border-color: rgba(255, 255, 255, 0.08);
+  --ifm-menu-color: rgba(255, 255, 255, 0.7);
+  --ifm-menu-color-active: #EDD514;
+  --ifm-menu-color-background-active: rgba(237, 213, 20, 0.08);
+  --ifm-sidebar-border-color: rgba(255, 255, 255, 0.06);
+
+  --docusaurus-highlighted-code-line-bg: rgba(237, 213, 20, 0.10);
+
+  --neopop-border: rgba(255, 255, 255, 0.08);
+  --neopop-border-hover: rgba(237, 213, 20, 0.5);
+  --neopop-surface: #0a0a0a;
+  --neopop-surface-hover: #111111;
 }
 
-/* Navbar border */
+/* ─── Global typography ─────────────────────────────────────────────────────── */
+body {
+  font-family: var(--ifm-font-family-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
+
+/* Headings — wide tracking, heavy weight, CRED editorial style */
+h1, h2, h3, h4, h5, h6,
+.markdown h1, .markdown h2, .markdown h3 {
+  font-family: var(--ifm-font-family-base);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+h1, .markdown h1 { letter-spacing: 0.03em; }
+h2, .markdown h2 { letter-spacing: 0.025em; }
+
+/* ─── Navbar ────────────────────────────────────────────────────────────────── */
 [data-theme='dark'] .navbar {
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--neopop-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-/* Code blocks */
+.navbar__title {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.navbar__link {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--neopop-yellow) !important;
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────────── */
+.button {
+  border-radius: 0 !important;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 0.75rem 1.75rem;
+  transition: all 0.15s ease;
+}
+
+.button--primary {
+  background: var(--neopop-yellow);
+  color: #000000;
+  border: 2px solid var(--neopop-yellow);
+}
+
+.button--primary:hover {
+  background: #f5e030;
+  border-color: #f5e030;
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+.button--outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.button--outline:hover {
+  border-color: var(--neopop-yellow);
+  color: var(--neopop-yellow);
+  background: transparent;
+}
+
+/* ─── Sidebar ───────────────────────────────────────────────────────────────── */
+[data-theme='dark'] .menu {
+  background: #000000;
+}
+
+[data-theme='dark'] .menu__link {
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  border-radius: 0;
+}
+
+[data-theme='dark'] .menu__link:hover {
+  background: rgba(237, 213, 20, 0.06);
+  color: var(--neopop-yellow);
+}
+
+[data-theme='dark'] .menu__link--active {
+  color: var(--neopop-yellow);
+  background: rgba(237, 213, 20, 0.08);
+  font-weight: 700;
+}
+
+[data-theme='dark'] .menu__list-item-collapsible:hover {
+  background: rgba(237, 213, 20, 0.06);
+}
+
+/* Category labels */
+[data-theme='dark'] .menu__list-item > .menu__link--sublist {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Table of contents ─────────────────────────────────────────────────────── */
+[data-theme='dark'] .table-of-contents__link {
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--neopop-text-secondary);
+}
+
+[data-theme='dark'] .table-of-contents__link:hover,
+[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--neopop-yellow);
+}
+
+/* ─── Code blocks ───────────────────────────────────────────────────────────── */
 [data-theme='dark'] .prism-code {
-  background: #1a1a1a !important;
+  background: #080808 !important;
+  border: 1px solid var(--neopop-border);
+  border-radius: 0 !important;
 }
 
-/* Hero section */
+[data-theme='dark'] .theme-code-block {
+  border-radius: 0 !important;
+}
+
+code {
+  border-radius: 0 !important;
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+}
+
+[data-theme='dark'] code {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--neopop-yellow);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Tables ────────────────────────────────────────────────────────────────── */
+[data-theme='dark'] table {
+  border-collapse: collapse;
+  border: 1px solid var(--neopop-border);
+}
+
+[data-theme='dark'] th {
+  background: #0a0a0a;
+  color: var(--neopop-yellow);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-color: var(--neopop-border);
+}
+
+[data-theme='dark'] td {
+  border-color: var(--neopop-border);
+  font-size: 0.88rem;
+}
+
+[data-theme='dark'] tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ─── Cards / admonitions ───────────────────────────────────────────────────── */
+[data-theme='dark'] .alert {
+  border-radius: 0;
+  border-left: 3px solid var(--neopop-yellow);
+  background: rgba(237, 213, 20, 0.04);
+}
+
+/* ─── Hero ──────────────────────────────────────────────────────────────────── */
 .hero--primary {
-  background: #0D0D0D;
-  border-bottom: 1px solid #2a2a2a;
+  background: #000000;
+  border-bottom: 1px solid var(--neopop-border);
 }
 
 [data-theme='dark'] .hero--primary {
-  background: linear-gradient(135deg, #0D0D0D 0%, #1a1200 100%);
+  background: #000000;
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────────────── */
+[data-theme='dark'] .footer {
+  border-top: 1px solid var(--neopop-border);
+}
+
+[data-theme='dark'] .footer__title {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .footer__link-item {
+  font-size: 0.83rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.02em;
+}
+
+[data-theme='dark'] .footer__link-item:hover {
+  color: var(--neopop-yellow);
+}
+
+[data-theme='dark'] .footer__copyright {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.04em;
+}
+
+/* ─── Docs article ──────────────────────────────────────────────────────────── */
+[data-theme='dark'] .markdown {
+  --ifm-heading-color: #ffffff;
+}
+
+[data-theme='dark'] .markdown a {
+  color: var(--neopop-yellow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(237, 213, 20, 0.25);
+  transition: border-color 0.15s;
+}
+
+[data-theme='dark'] .markdown a:hover {
+  border-bottom-color: var(--neopop-yellow);
+}
+
+/* ─── Pagination ────────────────────────────────────────────────────────────── */
+[data-theme='dark'] .pagination-nav__link {
+  border: 1px solid var(--neopop-border);
+  border-radius: 0;
+  transition: border-color 0.15s;
+}
+
+[data-theme='dark'] .pagination-nav__link:hover {
+  border-color: var(--neopop-yellow);
+}
+
+/* ─── Gradient text utility ─────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text--yellow {
+  background: linear-gradient(135deg, #EDD514 0%, rgba(237, 213, 20, 0.65) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Thin horizontal rule ──────────────────────────────────────────────────── */
+[data-theme='dark'] hr {
+  border-color: var(--neopop-border);
 }

@@ -40,8 +40,8 @@ const config: Config = {
   themeConfig: {
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     image: 'img/neopop-social.png',
     navbar: {
