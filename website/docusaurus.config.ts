@@ -58,7 +58,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://codecollab-co.github.io/neopop-rn/storybook/',
+          href: 'https://codecollab-co.github.io/neopop-rn/storybook/index.html',
           label: 'Playground',
           position: 'left',
         },
@@ -98,7 +98,7 @@ const config: Config = {
         {
           title: 'Playground',
           items: [
-            {label: 'Component Playground', href: 'https://codecollab-co.github.io/neopop-rn/storybook/'},
+            {label: 'Component Playground', href: 'https://codecollab-co.github.io/neopop-rn/storybook/index.html'},
           ],
         },
         {
