@@ -1,0 +1,35 @@
+name: Deploy Storybook
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Storybook dependencies
+        run: npm install --prefix storybook --legacy-peer-deps
+
+      - name: Build Storybook
+        run: npm run build --prefix storybook
+
+      - name: Deploy Storybook to GitHub Pages (/storybook/ subfolder)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook/build
+          destination_dir: storybook
+          keep_files: true

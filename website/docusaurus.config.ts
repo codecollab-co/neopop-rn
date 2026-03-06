@@ -58,6 +58,11 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          href: 'https://codecollab-co.github.io/neopop-rn/storybook/',
+          label: 'Playground',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/codecollab-co/neopop-rn',
           label: 'GitHub',
           position: 'right',
@@ -88,6 +93,12 @@ const config: Config = {
             {label: 'NeoPopCard', to: '/docs/components/NeoPopCard'},
             {label: 'NeoPopBottomSheet', to: '/docs/components/NeoPopBottomSheet'},
             {label: 'All Components →', to: '/docs/components/NeoPopButton'},
+          ],
+        },
+        {
+          title: 'Playground',
+          items: [
+            {label: 'Component Playground', href: 'https://codecollab-co.github.io/neopop-rn/storybook/'},
           ],
         },
         {

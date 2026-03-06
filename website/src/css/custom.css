@@ -342,9 +342,9 @@ tr:hover td {
   background: var(--neopop-accent-subtle);
 }
 
-/* ─── Main content area — force black in dark mode ─────────────────────────── */
-[data-theme='dark'] main {
-  background: #000000;
+/* ─── Main content area — matches theme background ─────────────────────────── */
+main {
+  background: var(--ifm-background-color);
 }
 
 /* ─── Hero ──────────────────────────────────────────────────────────────────── */

@@ -110,7 +110,7 @@
   border-top: 1px solid var(--neopop-border);
   border-bottom: 1px solid var(--neopop-border);
   overflow: hidden;
-  background: #000000;
+  background: var(--ifm-background-color);
 }
 
 .statItem {
@@ -146,7 +146,7 @@
 /* ─── Features section ──────────────────────────────────────────────────────── */
 .features {
   padding: 6rem 0 5rem;
-  background: #000000;
+  background: var(--ifm-background-color);
 }
 
 .featuresHeading {
@@ -244,7 +244,7 @@
   padding: 5rem 0;
   border-top: 1px solid var(--neopop-border);
   text-align: center;
-  background: #000000;
+  background: var(--ifm-background-color);
 }
 
 .platformLabel {
