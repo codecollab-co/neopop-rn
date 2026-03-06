@@ -342,6 +342,11 @@ tr:hover td {
   background: var(--neopop-accent-subtle);
 }
 
+/* ─── Main content area — force black in dark mode ─────────────────────────── */
+[data-theme='dark'] main {
+  background: #000000;
+}
+
 /* ─── Hero ──────────────────────────────────────────────────────────────────── */
 .hero--primary {
   border-bottom: 1px solid var(--neopop-border);
