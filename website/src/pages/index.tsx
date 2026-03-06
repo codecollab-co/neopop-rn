@@ -18,9 +18,9 @@ function HomepageHero() {
           for iOS, Android &amp; Web — powered by Skia and Reanimated.
         </p>
         <div className={styles.badges}>
-          <img src="https://img.shields.io/npm/v/@codecollab.co/neopop-rn?style=flat-square&color=EDD514&labelColor=000000" alt="npm version" />
-          <img src="https://img.shields.io/npm/l/@codecollab.co/neopop-rn?style=flat-square&color=EDD514&labelColor=000000" alt="license" />
-          <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android%20%7C%20Web-EDD514?style=flat-square&labelColor=000000" alt="platforms" />
+          <img src="https://img.shields.io/npm/v/@codecollab.co/neopop-rn?style=flat-square&color=0066FF&labelColor=000000" alt="npm version" />
+          <img src="https://img.shields.io/npm/l/@codecollab.co/neopop-rn?style=flat-square&color=0066FF&labelColor=000000" alt="license" />
+          <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android%20%7C%20Web-0066FF?style=flat-square&labelColor=000000" alt="platforms" />
         </div>
         <div className={styles.buttons}>
           <Link className="button button--primary button--lg" to="/docs/getting-started">
