@@ -1,15 +1,17 @@
 /**
  * NeoPop × CRED Design Language
+ * Font: Outfit (Gilroy alternative) — geometric, wide, premium
  * Accent: Electric Blue #0066FF (dark) / #0052CC (light)
  * Canvas: #000000 dark / #FFFFFF light
+ * Typography: CRED scale — 0.25em tracking on caps, 800 weight headings
  */
 
-/* ─── Google Fonts — Inter ──────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* ─── Outfit (Gilroy alternative) ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ─── Design tokens ─────────────────────────────────────────────────────────── */
+/* ─── Design tokens — light mode ────────────────────────────────────────────── */
 :root {
-  /* Blue primary scale (light mode) */
+  /* Blue primary scale */
   --ifm-color-primary: #0052CC;
   --ifm-color-primary-dark: #0047b3;
   --ifm-color-primary-darker: #0043a8;
@@ -21,30 +23,32 @@
   --ifm-code-font-size: 93%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 82, 204, 0.08);
 
-  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Outfit as global font — CRED Gilroy feel */
+  --ifm-font-family-base: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ifm-font-family-monospace: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --ifm-heading-font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Zero radius — sharp geometry throughout */
+  /* Sharp geometry — zero radius throughout */
   --ifm-global-radius: 0px;
   --ifm-button-border-radius: 0px;
   --ifm-card-border-radius: 0px;
+  --ifm-code-border-radius: 0px;
+  --ifm-alert-border-radius: 0px;
 
-  /* Light mode tokens */
+  /* Light mode surface tokens */
   --neopop-accent: #0052CC;
   --neopop-accent-hover: #0047b3;
-  --neopop-accent-subtle: rgba(0, 82, 204, 0.08);
-  --neopop-accent-border: rgba(0, 82, 204, 0.3);
+  --neopop-accent-subtle: rgba(0, 82, 204, 0.07);
+  --neopop-accent-border: rgba(0, 82, 204, 0.25);
   --neopop-border: rgba(0, 0, 0, 0.08);
-  --neopop-border-hover: rgba(0, 82, 204, 0.4);
-  --neopop-surface: #f8f8f8;
-  --neopop-text-secondary: rgba(0, 0, 0, 0.55);
-  --neopop-text-muted: rgba(0, 0, 0, 0.35);
-  --neopop-purple: #7C5CFC;
+  --neopop-surface: #f6f6f6;
+  --neopop-text-secondary: rgba(0, 0, 0, 0.5);
+  --neopop-text-muted: rgba(0, 0, 0, 0.3);
 }
 
-/* ─── Dark mode ─────────────────────────────────────────────────────────────── */
+/* ─── Design tokens — dark mode ─────────────────────────────────────────────── */
 [data-theme='dark'] {
-  /* Blue primary scale (dark mode — brighter for black bg) */
+  /* Brighter blue for pure black canvas */
   --ifm-color-primary: #0066FF;
   --ifm-color-primary-dark: #005ce6;
   --ifm-color-primary-darker: #0057d9;
@@ -53,76 +57,108 @@
   --ifm-color-primary-lighter: #2680ff;
   --ifm-color-primary-lightest: #4d96ff;
 
-  /* Pure black canvas */
+  /* Pure black canvas — CRED signature */
   --ifm-background-color: #000000;
-  --ifm-background-surface-color: #0a0a0a;
+  --ifm-background-surface-color: #0d0d0d;
   --ifm-navbar-background-color: #000000;
   --ifm-footer-background-color: #000000;
 
   --ifm-color-content: #ffffff;
-  --ifm-color-content-secondary: rgba(255, 255, 255, 0.65);
+  --ifm-color-content-secondary: rgba(255, 255, 255, 0.6);
   --ifm-heading-color: #ffffff;
 
   --ifm-toc-border-color: rgba(255, 255, 255, 0.07);
-  --ifm-menu-color: rgba(255, 255, 255, 0.65);
+  --ifm-menu-color: rgba(255, 255, 255, 0.6);
   --ifm-menu-color-active: #0066FF;
-  --ifm-menu-color-background-active: rgba(0, 102, 255, 0.1);
+  --ifm-menu-color-background-active: rgba(0, 102, 255, 0.09);
   --ifm-sidebar-border-color: rgba(255, 255, 255, 0.06);
 
   --docusaurus-highlighted-code-line-bg: rgba(0, 102, 255, 0.12);
 
-  /* Dark mode tokens */
+  /* Dark mode surface tokens */
   --neopop-accent: #0066FF;
   --neopop-accent-hover: #1a75ff;
-  --neopop-accent-subtle: rgba(0, 102, 255, 0.1);
-  --neopop-accent-border: rgba(0, 102, 255, 0.4);
+  --neopop-accent-subtle: rgba(0, 102, 255, 0.09);
+  --neopop-accent-border: rgba(0, 102, 255, 0.35);
   --neopop-border: rgba(255, 255, 255, 0.07);
-  --neopop-border-hover: rgba(0, 102, 255, 0.5);
-  --neopop-surface: #0a0a0a;
-  --neopop-text-secondary: rgba(255, 255, 255, 0.55);
-  --neopop-text-muted: rgba(255, 255, 255, 0.35);
+  --neopop-surface: #0d0d0d;
+  --neopop-text-secondary: rgba(255, 255, 255, 0.5);
+  --neopop-text-muted: rgba(255, 255, 255, 0.28);
 }
 
-/* ─── Global typography ─────────────────────────────────────────────────────── */
+/* ─── Global typography — CRED scale ────────────────────────────────────────── */
 body {
   font-family: var(--ifm-font-family-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/*
+ * CRED uses Gilroy with wide tracking for ALL display text.
+ * Matching: letter-spacing ~0.25em on uppercase caps, 800 weight.
+ */
+h1, h2, h3, h4, h5, h6,
+.markdown h1, .markdown h2, .markdown h3, .markdown h4 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+h1, .markdown h1 {
+  font-size: 2.75rem;
+  letter-spacing: 0.06em;
+  font-weight: 900;
+}
+
+h2, .markdown h2 {
+  font-size: 1.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 800;
+}
+
+h3, .markdown h3 {
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.7;
   letter-spacing: 0.01em;
 }
-
-h1, h2, h3, h4, h5, h6,
-.markdown h1, .markdown h2, .markdown h3 {
-  font-family: var(--ifm-font-family-base);
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  line-height: 1.15;
-}
-
-h1, .markdown h1 { letter-spacing: 0.03em; }
-h2, .markdown h2 { letter-spacing: 0.025em; }
 
 /* ─── Navbar ────────────────────────────────────────────────────────────────── */
 .navbar {
   border-bottom: 1px solid var(--neopop-border);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .navbar {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #000000;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
+/* CRED-style: navbar brand in wide caps */
 .navbar__title {
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 900;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .navbar__link {
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  font-size: 0.82rem;
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
   text-transform: uppercase;
 }
 
@@ -133,16 +169,16 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
 
 /* ─── Buttons ───────────────────────────────────────────────────────────────── */
 .button {
+  font-family: var(--ifm-heading-font-family);
   border-radius: 0 !important;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   padding: 0.75rem 1.75rem;
   transition: all 0.15s ease;
 }
 
-/* Dark mode primary: filled blue, black text */
 [data-theme='dark'] .button--primary {
   background: #0066FF;
   color: #ffffff;
@@ -156,7 +192,6 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
   transform: translateY(-1px);
 }
 
-/* Light mode primary: filled blue, white text */
 [data-theme='light'] .button--primary {
   background: #0052CC;
   color: #ffffff;
@@ -170,10 +205,9 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
   transform: translateY(-1px);
 }
 
-/* Outline — dark */
 [data-theme='dark'] .button--outline {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: #ffffff;
 }
 
@@ -183,7 +217,6 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
   background: rgba(0, 102, 255, 0.06);
 }
 
-/* Outline — light */
 [data-theme='light'] .button--outline {
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.18);
@@ -202,7 +235,8 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
 }
 
 .menu__link {
-  font-size: 0.82rem;
+  font-family: var(--ifm-font-family-base);
+  font-size: 0.8rem;
   letter-spacing: 0.03em;
   font-weight: 500;
   border-radius: 0 !important;
@@ -223,10 +257,11 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
   background: var(--neopop-accent-subtle);
 }
 
-/* Category labels */
+/* Category labels — CRED style: tiny caps, wide tracking */
 .menu__list-item > .menu__link--sublist {
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--neopop-text-muted);
@@ -234,7 +269,7 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
 
 /* ─── Table of contents ─────────────────────────────────────────────────────── */
 .table-of-contents__link {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: var(--neopop-text-secondary);
 }
@@ -246,48 +281,46 @@ h2, .markdown h2 { letter-spacing: 0.025em; }
 
 /* ─── Code blocks ───────────────────────────────────────────────────────────── */
 [data-theme='dark'] .prism-code {
-  background: #06090f !important;
+  background: #06080f !important;
   border: 1px solid var(--neopop-border);
-  border-radius: 0 !important;
 }
 
-[data-theme='light'] .prism-code {
-  border-radius: 0 !important;
-}
-
-.theme-code-block {
+.theme-code-block,
+.prism-code {
   border-radius: 0 !important;
 }
 
 code {
   border-radius: 0 !important;
-  font-size: 0.85em;
+  font-size: 0.84em;
   padding: 0.15em 0.4em;
 }
 
 [data-theme='dark'] code {
-  background: rgba(0, 102, 255, 0.1);
-  color: #4d96ff;
-  border: 1px solid rgba(0, 102, 255, 0.2);
+  background: rgba(0, 102, 255, 0.09);
+  color: #5a9fff;
+  border: 1px solid rgba(0, 102, 255, 0.18);
 }
 
 [data-theme='light'] code {
   background: rgba(0, 82, 204, 0.07);
   color: #0047b3;
-  border: 1px solid rgba(0, 82, 204, 0.15);
+  border: 1px solid rgba(0, 82, 204, 0.14);
 }
 
 /* ─── Tables ────────────────────────────────────────────────────────────────── */
 table {
   border-collapse: collapse;
   border: 1px solid var(--neopop-border);
+  border-radius: 0;
 }
 
 th {
+  font-family: var(--ifm-heading-font-family);
   background: var(--neopop-surface);
   color: var(--neopop-accent);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 700;
   border-color: var(--neopop-border);
@@ -295,7 +328,7 @@ th {
 
 td {
   border-color: var(--neopop-border);
-  font-size: 0.88rem;
+  font-size: 0.875rem;
 }
 
 tr:hover td {
@@ -304,7 +337,7 @@ tr:hover td {
 
 /* ─── Admonitions ───────────────────────────────────────────────────────────── */
 .alert {
-  border-radius: 0;
+  border-radius: 0 !important;
   border-left: 3px solid var(--neopop-accent);
   background: var(--neopop-accent-subtle);
 }
@@ -312,6 +345,7 @@ tr:hover td {
 /* ─── Hero ──────────────────────────────────────────────────────────────────── */
 .hero--primary {
   border-bottom: 1px solid var(--neopop-border);
+  box-shadow: none;
 }
 
 [data-theme='dark'] .hero--primary {
@@ -322,36 +356,51 @@ tr:hover td {
   background: #ffffff;
 }
 
-/* ─── Footer ────────────────────────────────────────────────────────────────── */
+/* ─── Footer — force black, override Docusaurus teal default ────────────────── */
 .footer {
-  border-top: 1px solid var(--neopop-border);
+  border-top: 1px solid var(--neopop-border) !important;
+  background: #000000 !important;
+}
+
+[data-theme='light'] .footer {
+  background: #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 
 .footer__title {
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--neopop-text-muted);
 }
 
 .footer__link-item {
-  font-size: 0.83rem;
+  font-size: 0.82rem;
+  font-weight: 400;
   color: var(--neopop-text-secondary);
   letter-spacing: 0.02em;
 }
 
 .footer__link-item:hover {
   color: var(--neopop-accent);
+  text-decoration: none;
 }
 
-.footer__copyright {
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  opacity: 0.35;
+[data-theme='dark'] .footer__copyright {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.06em;
 }
 
-/* ─── Docs article ──────────────────────────────────────────────────────────── */
+[data-theme='light'] .footer__copyright {
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.25);
+  letter-spacing: 0.06em;
+}
+
+/* ─── Docs article links ────────────────────────────────────────────────────── */
 .markdown a {
   color: var(--neopop-accent);
   text-decoration: none;
@@ -361,12 +410,13 @@ tr:hover td {
 
 .markdown a:hover {
   border-bottom-color: var(--neopop-accent);
+  text-decoration: none;
 }
 
 /* ─── Pagination ────────────────────────────────────────────────────────────── */
 .pagination-nav__link {
   border: 1px solid var(--neopop-border);
-  border-radius: 0;
+  border-radius: 0 !important;
   transition: border-color 0.15s;
 }
 
@@ -374,29 +424,20 @@ tr:hover td {
   border-color: var(--neopop-accent);
 }
 
-/* ─── Gradient text utility ─────────────────────────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(160deg, #ffffff 30%, rgba(255, 255, 255, 0.45) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-[data-theme='light'] .gradient-text {
-  background: linear-gradient(160deg, #000000 30%, rgba(0, 0, 0, 0.45) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text--accent {
-  background: linear-gradient(135deg, #0066FF 0%, #4d96ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.pagination-nav__label {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* ─── HR ────────────────────────────────────────────────────────────────────── */
 hr {
   border-color: var(--neopop-border);
+}
+
+/* ─── Breadcrumbs ───────────────────────────────────────────────────────────── */
+.breadcrumbs__item {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

@@ -17,11 +17,14 @@ function HomepageHero() {
           3D surfaces, fluid animations, and tactile interactions
           for iOS, Android &amp; Web — powered by Skia and Reanimated.
         </p>
-        <div className={styles.badges}>
-          <img src="https://img.shields.io/npm/v/@codecollab.co/neopop-rn?style=flat-square&color=0066FF&labelColor=000000" alt="npm version" />
-          <img src="https://img.shields.io/npm/l/@codecollab.co/neopop-rn?style=flat-square&color=0066FF&labelColor=000000" alt="license" />
-          <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20Android%20%7C%20Web-0066FF?style=flat-square&labelColor=000000" alt="platforms" />
+
+        {/* Text pills — no external images, always renders correctly */}
+        <div className={styles.pills}>
+          <span className={styles.pill}>v2.0.0-alpha.1</span>
+          <span className={styles.pill}>Apache 2.0</span>
+          <span className={styles.pill}>iOS · Android · Web</span>
         </div>
+
         <div className={styles.buttons}>
           <Link className="button button--primary button--lg" to="/docs/getting-started">
             Get Started

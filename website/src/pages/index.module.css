@@ -6,74 +6,96 @@
   overflow: hidden;
 }
 
-/* Radial glow behind hero — blue tint */
+/* Subtle blue radial glow */
 .heroBanner::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse 60% 50% at 50% -10%, rgba(0, 102, 255, 0.08) 0%, transparent 70%);
+  background-image: radial-gradient(
+    ellipse 60% 50% at 50% -10%,
+    rgba(0, 102, 255, 0.07) 0%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 
 :global([data-theme='light']) .heroBanner::before {
-  background-image:
-    radial-gradient(ellipse 60% 50% at 50% -10%, rgba(0, 82, 204, 0.06) 0%, transparent 70%);
+  background-image: radial-gradient(
+    ellipse 60% 50% at 50% -10%,
+    rgba(0, 82, 204, 0.05) 0%,
+    transparent 70%
+  );
 }
 
+/* ─── Eyebrow label — CRED wide-tracked caps ────────────────────────────────── */
 .heroEyebrow {
   display: inline-block;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--neopop-accent);
   margin-bottom: 1.5rem;
-  padding: 0.35rem 0.9rem;
+  padding: 0.3rem 0.85rem;
   border: 1px solid var(--neopop-accent-border);
 }
 
-/* Dark mode hero title: white → muted white gradient */
+/* ─── Hero title — Outfit 900, wide tracking, gradient ──────────────────────── */
 .heroTitle {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(3rem, 9vw, 6.5rem);
   font-weight: 900;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: 0;
-  background: linear-gradient(160deg, #ffffff 30%, rgba(255, 255, 255, 0.45) 100%);
+  /* Dark mode: white → muted white (CRED-style gradient) */
+  background: linear-gradient(160deg, #ffffff 25%, rgba(255, 255, 255, 0.4) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Light mode hero title: black → muted black gradient */
 :global([data-theme='light']) .heroTitle {
-  background: linear-gradient(160deg, #000000 30%, rgba(0, 0, 0, 0.45) 100%);
+  background: linear-gradient(160deg, #000000 25%, rgba(0, 0, 0, 0.4) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* ─── Hero subtitle ─────────────────────────────────────────────────────────── */
 .heroSubtitle {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--neopop-text-secondary);
-  margin: 1.75rem auto 2.5rem;
-  max-width: 480px;
-  line-height: 1.7;
+  margin: 1.75rem auto 2.25rem;
+  max-width: 460px;
+  line-height: 1.75;
   letter-spacing: 0.02em;
 }
 
-.badges {
+/* ─── Text pills — replaces broken shield badge images ──────────────────────── */
+.pills {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.25rem;
   flex-wrap: wrap;
-  opacity: 0.8;
 }
 
+.pill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--neopop-accent);
+  background: var(--neopop-accent-subtle);
+  border: 1px solid var(--neopop-accent-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+/* ─── CTA buttons ───────────────────────────────────────────────────────────── */
 .buttons {
   display: flex;
   gap: 1rem;
@@ -85,7 +107,6 @@
 .statsStrip {
   display: flex;
   justify-content: center;
-  gap: 0;
   border-top: 1px solid var(--neopop-border);
   border-bottom: 1px solid var(--neopop-border);
   overflow: hidden;
@@ -106,22 +127,22 @@
   display: block;
   font-size: 2rem;
   font-weight: 900;
+  letter-spacing: 0.05em;
   color: var(--neopop-accent);
-  letter-spacing: 0.04em;
   line-height: 1;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 
 .statLabel {
   display: block;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--neopop-text-muted);
 }
 
-/* ─── Features grid ─────────────────────────────────────────────────────────── */
+/* ─── Features section ──────────────────────────────────────────────────────── */
 .features {
   padding: 6rem 0 5rem;
 }
@@ -133,18 +154,19 @@
 
 .featuresEyebrow {
   display: block;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--neopop-text-muted);
   margin-bottom: 0.75rem;
 }
 
+/* "Built to Ship" heading — Outfit 800, CRED wide tracking */
 .featuresTitle {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0;
 }
@@ -163,7 +185,7 @@
   cursor: default;
 }
 
-/* Top-edge reveal on hover */
+/* Top-edge accent reveal on hover */
 .featureCard::before {
   content: '';
   position: absolute;
@@ -184,29 +206,33 @@
   background: var(--neopop-accent);
 }
 
+/* Card sequence number — 01, 02 … */
 .featureNumber {
   display: block;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   color: var(--neopop-accent);
   opacity: 0.5;
   margin-bottom: 1rem;
   font-variant-numeric: tabular-nums;
 }
 
+/* Card title — Outfit 700, uppercase, tracked */
 .featureCard h3 {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
+/* Card body — regular weight, muted */
 .featureCard p {
   font-size: 0.85rem;
+  font-weight: 400;
   color: var(--neopop-text-secondary);
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
   letter-spacing: 0.01em;
 }
@@ -219,27 +245,26 @@
 }
 
 .platformLabel {
-  font-size: 0.62rem;
+  display: block;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--neopop-text-muted);
   margin-bottom: 2rem;
-  display: block;
 }
 
 .platformGrid {
   display: flex;
   justify-content: center;
-  gap: 0;
 }
 
 .platformItem {
-  padding: 1.25rem 2.5rem;
+  padding: 1.1rem 2.5rem;
   border: 1px solid var(--neopop-border);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--neopop-text-secondary);
 }
