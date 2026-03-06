@@ -254,6 +254,22 @@ See [docs/TOKENS.md](./docs/TOKENS.md) for the complete token reference.
 
 ---
 
+## Performance
+
+All animated components run on the **UI thread** via Reanimated 3 worklets — zero JS bridge calls during animations, even at 60 FPS.
+
+| Metric | Value |
+|--------|-------|
+| Animated components | 18 / 27 use Reanimated worklets |
+| Skia canvas components | 8 (NeoPop3DSurface, TiltedButton, ScoreMeter, ProgressBar circular, Chevron, Cross, Pointer) |
+| JS thread work per frame | < 1 ms |
+| Full library size (ESM, gzip) | < 50 KB (peer deps excluded) |
+| `sideEffects` | `false` — fully tree-shakeable |
+
+See [`perf/BENCHMARKS.md`](./perf/BENCHMARKS.md) for the full benchmark report.
+
+---
+
 ## Contributing
 
 See [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md) for the full contributor guide.

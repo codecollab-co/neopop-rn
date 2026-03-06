@@ -1,0 +1,56 @@
+name: New Architecture Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  new-arch-audit:
+    name: New Architecture compatibility audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --ignore-scripts
+
+      - name: TypeScript check (strict)
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Audit for deprecated bridge APIs
+        run: |
+          echo "Scanning for deprecated New Architecture APIs..."
+          FOUND=0
+
+          for PATTERN in "findNodeHandle" "UIManager\." "requireNativeComponent" "setNativeProps" "dispatchViewManagerCommand" "unstable_batchedUpdates" "unstable_flushAllWithoutAsserting"; do
+            MATCHES=$(grep -r "$PATTERN" src/ --include="*.ts" --include="*.tsx" -l 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              echo "❌ Found deprecated API '$PATTERN' in:"
+              echo "$MATCHES"
+              FOUND=1
+            else
+              echo "✅ No usage of '$PATTERN'"
+            fi
+          done
+
+          if [ "$FOUND" -eq 1 ]; then
+            echo ""
+            echo "❌ Deprecated bridge APIs found — remove before v2.0 GA"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All checks passed — no deprecated bridge APIs found"
+
+      - name: Test suite
+        run: npm test -- --passWithNoTests

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-alpha.1] - 2026-03-06
+
+### Changed (MS-19 — New Architecture)
+- Peer dependency floors raised for v2.0 New Architecture support:
+  react >= 18.3, react-native >= 0.76, @shopify/react-native-skia >= 1.3,
+  react-native-reanimated >= 3.6, react-native-gesture-handler >= 2.14,
+  expo-haptics >= 14
+- `docs/ARCHITECTURE.md` rewritten with full New Architecture compatibility
+  matrix for all 27 components
+- `docs/MIGRATION.md` — v1.x → v2.0 upgrade guide appended
+- Confirmed zero usage of deprecated bridge APIs (findNodeHandle, UIManager,
+  setNativeProps, requireNativeComponent, unstable_*) across all 27 components
+
 ## [1.0.0] - 2026-03-05
 
 ### Added (MS-16 — Docusaurus docs site)

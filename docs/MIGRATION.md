@@ -267,3 +267,76 @@ Use this checklist when migrating a project from v0.x to v1.0:
       `deriveEdgeColors`, `computeTiltGeometry`, and `SkiaLoadingGuard`
       removed or replaced with the alternatives described above
 - [ ] TypeScript compilation passes with no errors after the migration
+
+---
+
+## Upgrading from v1.x to v2.0
+
+### Peer dependency floor changes
+
+v2.0 raises the minimum peer dependency versions:
+
+| Package | v1.x minimum | v2.0 minimum |
+|---|---|---|
+| react | >= 18.0.0 | >= 18.3.0 |
+| react-native | >= 0.71.0 | >= 0.76.0 |
+| @shopify/react-native-skia | >= 1.0.0 | >= 1.3.0 |
+| react-native-reanimated | >= 3.0.0 | >= 3.6.0 |
+| react-native-gesture-handler | >= 2.0.0 | >= 2.14.0 |
+| expo-haptics (optional) | >= 13.0.0 | >= 14.0.0 |
+
+### New Architecture (Fabric + Turbo Modules)
+
+v2.0 is fully compatible with the React Native New Architecture. All components
+run on Fabric; all animations run on the UI thread via Reanimated worklets;
+all gestures run natively via RNGH v2 native driver.
+
+No changes to your app code are required when enabling New Architecture. Simply
+set `newArchEnabled=true` in your gradle.properties / Podfile and upgrade the
+peer dependencies above.
+
+**Android (`android/gradle.properties`):**
+
+```properties
+newArchEnabled=true
+```
+
+**iOS (`ios/Podfile`):**
+
+```ruby
+ENV['RCT_NEW_ARCH_ENABLED'] = '1'
+```
+
+### Removed APIs
+
+All symbols marked `@internal` in v0.5.0 are removed from the public exports
+in v2.0. These were already absent from the stable v1.0 API guarantee, but
+v2.0 removes them entirely so they cannot be imported even transitively.
+
+| Symbol | Module | Use instead |
+|---|---|---|
+| `isEmpty` | `src/utils/helpers.ts` | Standard null/undefined check |
+| `isObject` | `src/utils/helpers.ts` | `typeof value === 'object' && value !== null` |
+| `mergeDeep` | `src/utils/helpers.ts` | Pass partial overrides to `NeoPopProvider`'s `theme` prop |
+| `getRandomInt` | `src/utils/helpers.ts` | `Math.floor(Math.random() * (max - min + 1)) + min` |
+| `isImageLoaded` | `src/utils/helpers.ts` | RN `Image` `onLoad` / `onError` callbacks |
+| `currencyFormatter` | `src/utils/helpers.ts` | `Intl.NumberFormat` |
+| `generateTextStyle` | `src/utils/helpers.ts` | `NeoPopTypography` component or manual `TextStyle` |
+| `useAutoFocus` | `src/hooks/useAutoFocus.ts` | Internal hook — no public replacement |
+| `useClientHeight` | `src/hooks/useClientHeight.ts` | Internal hook — no public replacement |
+| `useDelayMount` | `src/hooks/useDelayMount.ts` | Internal hook — no public replacement |
+| `useScrollIntoView` | `src/hooks/useScrollIntoView.ts` | Internal hook — no public replacement |
+| `deriveEdgeColors` | `src/skia/EdgeColorDeriver.ts` | Pass explicit `colorConfig` to each component |
+| `computeTiltGeometry` | `src/skia/NeoPopTiltGeometry.ts` | Internal to `NeoPopTiltedButton` — no public replacement |
+| `SkiaLoadingGuard` | `src/skia/SkiaLoadingGuard.ts` | Internal Skia wrapper — no public replacement |
+
+### Summary checklist
+
+- [ ] Upgrade react to >= 18.3.0
+- [ ] Upgrade react-native to >= 0.76.0
+- [ ] Upgrade @shopify/react-native-skia to >= 1.3.0
+- [ ] Upgrade react-native-reanimated to >= 3.6.0
+- [ ] Upgrade react-native-gesture-handler to >= 2.14.0
+- [ ] Enable newArchEnabled=true in gradle.properties
+- [ ] Remove any usage of @internal symbols listed above
+- [ ] TypeScript compilation passes with no errors
