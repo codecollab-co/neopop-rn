@@ -35,6 +35,12 @@
   --ifm-code-border-radius: 0px;
   --ifm-alert-border-radius: 0px;
 
+  /* Light mode canvas — pin to pure white to match hero and footer */
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-footer-background-color: #ffffff;
+
   /* Light mode surface tokens */
   --neopop-accent: #0052CC;
   --neopop-accent-hover: #0047b3;

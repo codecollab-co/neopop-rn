@@ -183,6 +183,7 @@
   border-radius: 0;
   height: 100%;
   position: relative;
+  background: var(--ifm-background-color);
   transition: border-color 0.2s ease, background 0.2s ease;
   cursor: default;
 }
