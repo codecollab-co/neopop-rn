@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'neopop-rn',
   tagline: 'NeoPop design system for React Native — 3D, tactile, animated UI components',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   url: 'https://codecollab-co.github.io',
   baseUrl: '/neopop-rn/',
