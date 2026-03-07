@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-03-07
+
+### Added
+- Published to npm as `@codecollab.co/neopop-rn@2.1.0`
+- NeoPop web Storybook playground with 29 stories (Foundation + all 27 components)
+- Docusaurus documentation site with full CRED-inspired dark theme
+- Design token export (CSS, Figma, Android XML, iOS Swift)
+- New Architecture (React Native 0.76+ Fabric/JSI) compatibility audit
+- Performance benchmarks for all 27 components (<1ms render budget, <50KB bundle)
+
+### Changed
+- Accent color updated to Electric Blue (`#0066FF`)
+- Typography updated to Outfit (geometric, CRED-style)
+- Peer dependencies raised to React Native ≥0.76, Skia ≥1.3, Reanimated ≥3.6
+
 ## [2.0.0-alpha.1] - 2026-03-06
 
 ### Changed (MS-19 — New Architecture)
