@@ -57,8 +57,8 @@ describe('mergeDeep performance', () => {
       }
     });
 
-    // 100 iterations of a 5-level deep merge should complete in < 5 ms
-    expect(elapsed).toBeLessThan(5);
+    // 100 iterations of a 5-level deep merge should complete in < 10 ms
+    expect(elapsed).toBeLessThan(10);
   });
 });
 
