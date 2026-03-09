@@ -18,6 +18,117 @@ NeoPop is CRED's "next generation of beautiful, affirmative design" — a 3D vis
 
 ---
 
+## Demo
+
+### NeoPopButton
+
+#### Elevated Button
+
+3D extruded button with depth — presses down into the surface on tap.
+
+<p align="center">
+  <img src=".github/images/elevated.png" alt="Elevated button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/elevated-demo.gif" alt="Elevated button press animation" width="300" />
+</p>
+
+#### Flat Button
+
+Flat 3D surface with subtle edge colors — compresses on press.
+
+<p align="center">
+  <img src=".github/images/flat.png" alt="Flat button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/flat-demo.gif" alt="Flat button press animation" width="300" />
+</p>
+
+#### Flat Button with Strokes
+
+Outlined variant with stroke borders — ideal for secondary actions on dark backgrounds.
+
+<p align="center">
+  <img src=".github/images/flat-strokes.png" alt="Flat strokes button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/flat-strokes-demo.gif" alt="Flat strokes button press animation" width="300" />
+</p>
+
+#### Adjacent Buttons
+
+Buttons that share edges — vertical and horizontal arrangements with connected 3D surfaces.
+
+<p align="center">
+  <img src=".github/images/adjacent-buttons.png" alt="Adjacent buttons — vertical and horizontal" width="400" />
+</p>
+<p align="center">
+  <img src=".github/images/adjacent-buttons-vertical-demo.gif" alt="Adjacent buttons vertical demo" width="200" />
+  &nbsp;&nbsp;&nbsp;
+  <img src=".github/images/adjacent-buttons-horizontal-demo.gif" alt="Adjacent buttons horizontal demo" width="300" />
+</p>
+
+#### Surface Layout
+
+The NeoPop 3D surface model — five faces (center, top, right, bottom, left) composited via Skia.
+
+<p align="center">
+  <img src=".github/images/poplayout.png" alt="NeoPop 3D surface layout diagram" width="600" />
+</p>
+
+### NeoPopTiltedButton
+
+#### Floating Tilted Button
+
+Skewed parallelogram with shadow — floats above the surface and flattens on press.
+
+<p align="center">
+  <img src=".github/images/float.png" alt="Floating tilted button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/float-demo.gif" alt="Floating tilted button press animation" width="300" />
+</p>
+
+#### Non-Floating Tilted Button
+
+Grounded parallelogram with 3D edge — compresses into the surface on press.
+
+<p align="center">
+  <img src=".github/images/non-float.png" alt="Non-floating tilted button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/non-float-demo.gif" alt="Non-floating tilted button press animation" width="300" />
+</p>
+
+#### Tilted Button with Strokes
+
+Outlined tilted variant with colored stroke edges.
+
+<p align="center">
+  <img src=".github/images/strokes.png" alt="Tilted strokes button — normal and pressed states" width="600" />
+</p>
+<p align="center">
+  <img src=".github/images/strokes-demo.gif" alt="Tilted strokes button press animation" width="300" />
+</p>
+
+#### Tilted Button Layout
+
+The tilted button surface model — center, bottom, and shadow layers.
+
+<p align="center">
+  <img src=".github/images/tilt-layout.png" alt="Tilted button layout diagram" width="400" />
+</p>
+
+### NeoPopShimmer
+
+Diagonal sweep shimmer effect — wraps any component for a loading or attention-drawing animation.
+
+<p align="center">
+  <img src=".github/images/shimmer-demo.gif" alt="Shimmer animation demo" width="300" />
+</p>
+
+---
+
 ## Features
 
 - **27 components** — buttons, form controls, navigation, feedback, display, and more
