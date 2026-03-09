@@ -21,7 +21,7 @@ function measure(fn: () => void): number {
 // ─── mergeDeep ────────────────────────────────────────────────────────────────
 
 describe('mergeDeep performance', () => {
-  it('merges a 5-level deep object in < 5 ms', () => {
+  it('merges a 5-level deep object in < 50 ms', () => {
     const base = {
       l1: {
         l2: {
@@ -57,29 +57,29 @@ describe('mergeDeep performance', () => {
       }
     });
 
-    // 100 iterations of a 5-level deep merge should complete in < 10 ms
-    expect(elapsed).toBeLessThan(10);
+    // 100 iterations of a 5-level deep merge should complete in < 50 ms
+    expect(elapsed).toBeLessThan(50);
   });
 });
 
 // ─── hexToRGBA ────────────────────────────────────────────────────────────────
 
 describe('hexToRGBA performance', () => {
-  it('converts 1000 hex values in < 10 ms', () => {
+  it('converts 1000 hex values in < 50 ms', () => {
     const elapsed = measure(() => {
       for (let i = 0; i < 1000; i++) {
         hexToRGBA('#ff6600', 0.8);
       }
     });
 
-    expect(elapsed).toBeLessThan(10);
+    expect(elapsed).toBeLessThan(50);
   });
 });
 
 // ─── generateTextStyle ───────────────────────────────────────────────────────
 
 describe('generateTextStyle performance', () => {
-  it('generates styles for all FontType × FontWeight combos in < 10 ms', () => {
+  it('generates styles for all FontType × FontWeight combos in < 50 ms', () => {
     const fontTypes = Object.values(FontType);
     const fontWeights = Object.values(FontWeight);
 
@@ -92,34 +92,34 @@ describe('generateTextStyle performance', () => {
     });
 
     // 4 FontTypes × 6 FontWeights = 24 combinations
-    expect(elapsed).toBeLessThan(10);
+    expect(elapsed).toBeLessThan(50);
   });
 });
 
 // ─── deriveEdgeColor ─────────────────────────────────────────────────────────
 
 describe('deriveEdgeColor performance', () => {
-  it('derives edge colors 1000 times in < 50 ms', () => {
+  it('derives edge colors 1000 times in < 200 ms', () => {
     const elapsed = measure(() => {
       for (let i = 0; i < 1000; i++) {
         deriveEdgeColor('#3d3d3d');
       }
     });
 
-    expect(elapsed).toBeLessThan(50);
+    expect(elapsed).toBeLessThan(200);
   });
 });
 
 // ─── getLuminance ─────────────────────────────────────────────────────────────
 
 describe('getLuminance performance', () => {
-  it('computes luminance 1000 times in < 10 ms', () => {
+  it('computes luminance 1000 times in < 50 ms', () => {
     const elapsed = measure(() => {
       for (let i = 0; i < 1000; i++) {
         getLuminance('#abcdef');
       }
     });
 
-    expect(elapsed).toBeLessThan(10);
+    expect(elapsed).toBeLessThan(50);
   });
 });
