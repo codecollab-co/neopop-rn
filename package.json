@@ -1,7 +1,7 @@
 {
   "name": "@codecollab.co/neopop-rn",
   "version": "2.3.0",
-  "description": "NeoPop design system for React Native \u2014 unified iOS, Android, Web & Flutter features in one Expo-compatible package",
+  "description": "NeoPop design system for React Native — unified iOS, Android, Web & Flutter features in one Expo-compatible package",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -70,6 +70,7 @@
     "@storybook/addon-ondevice-notes": "^7.6.17",
     "@storybook/react-native": "^7.6.17",
     "@testing-library/react-native": "^12.4.0",
+    "@types/jest": "^30.0.0",
     "@types/react": "^18.2.0",
     "@types/react-native": "^0.73.0",
     "commitlint": "^18.6.0",
