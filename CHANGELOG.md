@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-03-09
+
+### Added
+- Full test coverage: 36 suites, 389 tests, ~79% statement coverage (MS-21)
+- WCAG 2.1 AA accessibility audit with `accessibilityRole`, `accessibilityState`, `accessibilityValue` on all 27 components (MS-22)
+- `docs/ACCESSIBILITY.md` — formal a11y contract per component, contrast ratios, screen reader testing matrix
+- `docs/PERFORMANCE.md` — FPS profiling, Skia render time, JS thread budget, bundle size analysis
+- Performance regression tests (`__tests__/perf/performance.test.ts`) for `mergeDeep`, `hexToRGBA`, `generateTextStyle`, `deriveEdgeColor`, `getLuminance`
+- Codecov badge in README.md
+- `docs/components/NeoPopScoreMeter.md` — missing component doc
+- `docs/phases/PHASE-9.md` — Phase 9 deliverables and checklists
+- Accessibility props: `accessibilityLabel` on Chevron/Cross/Pointer icons, `accessibilityRole="progressbar"` + `accessibilityValue` on NeoPopScoreMeter, per-slide labels on NeoPopCarousel dots, column labels on NeoPopDatePicker, action panel labels on NeoPopSwipeRow, shimmer overlay hidden from screen readers
+
+### Changed
+- `@internal` exports (utils, hooks, Skia internals) marked as deprecated for v3.0 removal (previously said v1.0)
+- `docs/CONTRIBUTING.md` — corrected coverage thresholds, peer dep versions, test file paths
+- `docs/THEMING.md` — added theme integration levels section (theme-aware vs colorConfig-only)
+- `docs/MIGRATION.md` — "removed APIs" → "deprecated APIs" (still exported in v2.x)
+- `docs/ARCHITECTURE.md` — added storybook.yml workflow, corrected story/test counts
+- `docs/DISCUSSION.md`, `docs/PLAN.md` — corrected story count (30 web), test counts (36 suites, 389 tests)
+- `docs/MILESTONES.md` — MS-20 through MS-24 marked complete
+
 ## [2.2.0] - 2026-03-07
 
 ### Added

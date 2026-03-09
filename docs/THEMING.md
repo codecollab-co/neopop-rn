@@ -321,32 +321,54 @@ side by side.
 Every entry in `ThemeConfig` maps directly to a typed interface exported from
 `src/theme/types.ts`. The table below lists every interface and its fields.
 
+### Theme integration levels
+
+Components fall into two categories based on how they consume color configuration:
+
+**Theme-aware components** — these call `useNeoPopTheme()` internally and read
+default colors from the theme provider. Passing a `colorConfig` prop overrides
+the theme values:
+
+`NeoPopButton`, `NeoPopCard`, `NeoPopCheckbox`, `NeoPopRadio`, `NeoPopToggle`,
+`NeoPopInputField`, `NeoPopDropdown`, `NeoPopTags`, `NeoPopBottomSheet`,
+`NeoPopFloatingButton`, `NeoPopTiltedButton`, `NeoPopScoreMeter`
+
+**colorConfig-only components** — these accept a `colorConfig` prop but do
+**not** read from `NeoPopProvider`. They use built-in defaults when
+`colorConfig` is omitted. The `ThemeConfig` interface defines keys for these
+components for forward-compatibility, but they are not currently consumed
+via the provider:
+
+`NeoPopOTPInput`, `NeoPopProgressBar`, `NeoPopAccordion`, `NeoPopStepper`,
+`NeoPopCarousel`, `NeoPopDatePicker`, `NeoPopSwipeRow`, `NeoPopShimmer`,
+`NeoPopToast`
+
 ### `ThemeConfig` top-level keys
 
-| Key              | Interface                          | Required |
-|------------------|------------------------------------|----------|
-| `colorMode`      | `'dark' \| 'light'`               | Yes      |
-| `colors`         | global surface object (see below)  | No       |
-| `button`         | `NeoPopButtonColorConfig`          | No       |
-| `card`           | `NeoPopCardColorConfig`            | No       |
-| `shimmer`        | `NeoPopShimmerColorConfig`         | No       |
-| `checkbox`       | `NeoPopCheckboxColorConfig`        | No       |
-| `radio`          | `NeoPopRadioColorConfig`           | No       |
-| `toggle`         | `NeoPopToggleColorConfig`          | No       |
-| `inputField`     | `NeoPopInputFieldColorConfig`      | No       |
-| `dropdown`       | `NeoPopDropdownColorConfig`        | No       |
-| `tags`           | `NeoPopTagsColorConfig`            | No       |
-| `bottomSheet`    | `NeoPopBottomSheetColorConfig`     | No       |
-| `floatingButton` | `NeoPopFloatingButtonColorConfig`  | No       |
-| `tiltedButton`   | `NeoPopTiltedButtonColorConfig`    | No       |
-| `scoreMeter`     | `NeoPopScoreMeterColorConfig`      | No       |
-| `otpInput`       | `NeoPopOTPInputColorConfig`        | No       |
-| `progressBar`    | `NeoPopProgressBarColorConfig`     | No       |
-| `accordion`      | `NeoPopAccordionColorConfig`       | No       |
-| `stepper`        | `NeoPopStepperColorConfig`         | No       |
-| `carousel`       | `NeoPopCarouselColorConfig`        | No       |
-| `datePicker`     | `NeoPopDatePickerColorConfig`      | No       |
-| `swipeRow`       | `NeoPopSwipeRowColorConfig`        | No       |
+| Key              | Interface                          | Required | Theme-aware |
+|------------------|------------------------------------|----------|-------------|
+| `colorMode`      | `'dark' \| 'light'`               | Yes      | —           |
+| `colors`         | global surface object (see below)  | No       | Yes         |
+| `button`         | `NeoPopButtonColorConfig`          | No       | Yes         |
+| `card`           | `NeoPopCardColorConfig`            | No       | Yes         |
+| `shimmer`        | `NeoPopShimmerColorConfig`         | No       | No          |
+| `checkbox`       | `NeoPopCheckboxColorConfig`        | No       | Yes         |
+| `radio`          | `NeoPopRadioColorConfig`           | No       | Yes         |
+| `toggle`         | `NeoPopToggleColorConfig`          | No       | Yes         |
+| `inputField`     | `NeoPopInputFieldColorConfig`      | No       | Yes         |
+| `dropdown`       | `NeoPopDropdownColorConfig`        | No       | Yes         |
+| `tags`           | `NeoPopTagsColorConfig`            | No       | Yes         |
+| `bottomSheet`    | `NeoPopBottomSheetColorConfig`     | No       | Yes         |
+| `floatingButton` | `NeoPopFloatingButtonColorConfig`  | No       | Yes         |
+| `tiltedButton`   | `NeoPopTiltedButtonColorConfig`    | No       | Yes         |
+| `scoreMeter`     | `NeoPopScoreMeterColorConfig`      | No       | Yes         |
+| `otpInput`       | `NeoPopOTPInputColorConfig`        | No       | No          |
+| `progressBar`    | `NeoPopProgressBarColorConfig`     | No       | No          |
+| `accordion`      | `NeoPopAccordionColorConfig`       | No       | No          |
+| `stepper`        | `NeoPopStepperColorConfig`         | No       | No          |
+| `carousel`       | `NeoPopCarouselColorConfig`        | No       | No          |
+| `datePicker`     | `NeoPopDatePickerColorConfig`      | No       | No          |
+| `swipeRow`       | `NeoPopSwipeRowColorConfig`        | No       | No          |
 
 ### `colors` (global surface)
 
@@ -462,6 +484,8 @@ Contains two sub-objects, each of type `NeoPopToggleOnOffColors`.
 | `color`      | `string` |
 
 ### `NeoPopToastColorConfig`
+
+> **Note:** NeoPopToast does not read from the theme provider. Pass `colorConfig` directly as a prop. No default theme values are applied via `NeoPopProvider`.
 
 | Field        | Type     |
 |--------------|----------|

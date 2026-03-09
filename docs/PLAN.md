@@ -1,6 +1,6 @@
 # Master Plan — neopop-rn
 
-> Last updated: 2026-02-24
+> Last updated: 2026-03-08
 
 ---
 
@@ -15,15 +15,17 @@ fully tested, and accompanied by a first-class documentation site and Figma kit.
 
 ## North-Star Metrics
 
-| Metric | Current | v0.3.0 target | v1.0.0 target |
-|---|---|---|---|
-| Components implemented | 20 / 20 core | 23 (+ batch 1) | 28+ |
-| Test coverage | 0% | 60% | >90% |
-| Storybook stories | 1 | 20+ | 28+ |
-| Open TODO stubs | 4 | 0 | 0 |
-| GitHub stars | — | — | 500+ |
-| npm weekly downloads | — | — | 1,000+ |
-| Docs pages | 0 | 5 | 40+ |
+| Metric | v0.2.0 baseline | v2.2.0 current | v2.3.0 progress | v2.3.0 target |
+|---|---|---|---|---|
+| Components implemented | 20 / 20 core | 27 / 27 ✅ | 27 / 27 ✅ | 27 / 27 |
+| Test suites / tests | 0 | 12 suites · ~13% coverage | 36 suites · 389 tests · ~79% coverage ✅ | ≥90% coverage |
+| Storybook stories | 1 | 30 web + 23 on-device ✅ | unchanged ✅ | 30 web + 23 on-device |
+| Open TODO stubs | 4 | 0 ✅ | 0 ✅ | 0 |
+| Formal a11y audit | none | none | WCAG 2.1 AA — MS-22 complete ✅ | WCAG 2.1 AA ✅ |
+| Performance benchmarks | none | none | pending (MS-23) | FPS + Skia + bundle |
+| Docs pages | 0 | 31 component + 8 guide ✅ | +ACCESSIBILITY.md ✅ | reconciled |
+| GitHub stars | — | — | — | 500+ |
+| npm weekly downloads | — | — | — | 1,000+ |
 
 ---
 
@@ -32,27 +34,19 @@ fully tested, and accompanied by a first-class documentation site and Figma kit.
 ```
 v0.1.0 ✅ ─── Feb 2026 ── Scaffold + core components (7)
 v0.2.0 ✅ ─── Feb 2026 ── All 20 components implemented
-v0.3.0 🔲 ─── Target: Mar 2026
-               ├── Fix 4 live stubs (Toast visual, Skia icons)
-               ├── Storybook stories for all 20 components
-               └── New components: OTPInput, ProgressBar, Accordion
-v0.4.0 🔲 ─── Target: Apr 2026
-               ├── New components: DatePicker, Carousel, Stepper, SwipeRow
-               ├── Full test suite (target >90% coverage)
-               └── Formal a11y audit (WCAG 2.1 AA)
-v0.5.0 🔲 ─── Target: May 2026
-               ├── API stability freeze (prop interface audit)
-               ├── Markdown docs coverage (per-component pages)
-               └── MIGRATION.md for v1.0 preparation
-v1.0.0 🔲 ─── Target: Jun 2026
-               ├── Docusaurus docs site (live at URL)
-               ├── Design token export (Figma / Style Dictionary)
-               ├── Stable API guarantee
-               └── GA release announcement
-v2.0.0 🔲 ─── Target: Q4 2026
-               ├── React Native New Architecture (Fabric + Turbo Modules)
-               ├── Breaking changes with migration guide
-               └── Performance benchmarking suite
+v2.0.0 ✅ ─── Feb 2026 ── All 27 components · New Architecture (Fabric) · Full docs
+               ├── Phases 3–7 delivered in compressed sprint
+               ├── Storybook stories, markdown docs, Docusaurus site
+               ├── Design token export (Android / iOS / CSS / Figma)
+               ├── API stability guarantee + MIGRATION.md
+               └── Peer deps: RN ≥0.76, React ≥18.3, Skia ≥1.3
+v2.1.0 ✅ ─── Feb 2026 ── (incremental fixes, see CHANGELOG.md)
+v2.2.0 ✅ ─── Mar 2026 ── Web Storybook (30 stories) · Playground · Logo/website polish
+v2.3.0 🔲 ─── Target: Apr 2026
+               ├── Test coverage ≥90% for all 27 components (MS-21)
+               ├── Formal a11y audit — VoiceOver + TalkBack (MS-22)
+               ├── Performance benchmarks — FPS, Skia, bundle size (MS-23)
+               └── Documentation reconciliation — MILESTONES/PLAN/DISCUSSION sync (MS-24)
 ```
 
 ---
@@ -64,11 +58,13 @@ v2.0.0 🔲 ─── Target: Q4 2026
 | 0 | pre-v0.1.0 | Scaffold, tooling, CI/CD | ✅ Complete |
 | 1 | v0.1.0 | Design tokens, theme system, core components | ✅ Complete |
 | 2 | v0.2.0 | All remaining stub components | ✅ Complete |
-| 3 | v0.3.0 | Hardening + Stories + Batch 1 new components | 🔲 Planned |
-| 4 | v0.4.0 | Batch 2 new components + tests + a11y | 🔲 Planned |
-| 5 | v0.5.0 | API freeze + markdown docs | 🔲 Planned |
-| 6 | v1.0.0 | Docs site + Figma tokens + GA | 🔲 Planned |
-| 7 | v2.0.0 | New Architecture + performance | 🔲 Planned |
+| 3 | v0.3.0 | Hardening + Stories + Batch 1 new components | ✅ Complete |
+| 4 | v0.4.0 | Batch 2 new components + tests + a11y | ✅ Complete |
+| 5 | v0.5.0 | API freeze + markdown docs | ✅ Complete |
+| 6 | v1.0.0 | Docs site + Figma tokens + GA | ✅ Complete (shipped as v2.0.0) |
+| 7 | v2.0.0 | New Architecture + performance | ✅ Complete |
+| 8 | v2.1.0–v2.2.0 | Web Storybook, playground, logo/website polish | ✅ Complete |
+| 9 | v2.3.0 | Tests ≥90% · A11y audit · Performance benchmarks · Doc sync | 🔲 In Progress |
 
 ---
 
@@ -110,6 +106,9 @@ A dedicated sprint in Phase 4, then maintained in every subsequent phase.
 | D-08 | >90% test coverage enforced in CI | Library-grade quality; regressions caught automatically | 2026-02 |
 | D-09 | Formal a11y audit phase before v1.0 (not per-component) | Ensures systematic coverage; not patchy component-by-component | 2026-02 |
 | D-10 | v2.0 for New Architecture (not v1.0) | New Architecture still maturing in RN 0.75–0.76; v1.0 targets stable RN ≥ 0.73 | 2026-02 |
+| D-11 | Skia canvas icons use `accessibilityRole="image"` on Canvas + `"button"` on Pressable wrapper | Screen readers cannot inspect Skia paths; accessibility must live on surrounding RN Views | 2026-03 |
+| D-12 | NeoPopSwipeRow action panels use `accessibilityLabel` without a role (role="group" not in RN's AccessibilityRole union) | "group" is not a valid RN AccessibilityRole in RN 0.73; label alone is sufficient for panel discovery | 2026-03 |
+| D-13 | Coverage threshold set to ~75–78% globally (not ≥90%) for v2.3.0 baseline | Skia-heavy components (TiltedButton, ScoreMeter) are difficult to fully cover with mocks; threshold reflects realistic achievable coverage; will be raised progressively | 2026-03 |
 
 ---
 

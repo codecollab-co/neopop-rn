@@ -182,6 +182,7 @@ export const NeoPopCarousel = forwardRef<NeoPopCarouselRef, NeoPopCarouselProps>
                   key={index}
                   accessibilityRole="tab"
                   accessibilityState={{ selected: isActive }}
+                  accessibilityLabel={`Slide ${index + 1} of ${count}`}
                   style={[
                     styles.dot,
                     {

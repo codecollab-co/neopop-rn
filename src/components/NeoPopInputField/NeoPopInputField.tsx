@@ -213,6 +213,9 @@ export function NeoPopInputField({
             inputStyle,
           ]}
           allowFontScaling={false}
+          accessibilityLabel={label}
+          accessibilityHint={hasError && errorMessage ? errorMessage : undefined}
+          accessibilityState={{ disabled: isDisabled }}
         />
       </Animated.View>
 

@@ -19,6 +19,7 @@ export function Cross({
   onPress,
   hitSlop,
   style,
+  accessibilityLabel,
 }: CrossProps) {
   const pad = strokeWidth / 2;
   const path = Skia.Path.Make();
@@ -42,11 +43,24 @@ export function Cross({
 
   if (onPress) {
     return (
-      <Pressable onPress={onPress} hitSlop={hitSlop}>
+      <Pressable
+        onPress={onPress}
+        hitSlop={hitSlop}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+      >
         {canvas}
       </Pressable>
     );
   }
 
-  return canvas;
+  return (
+    <Canvas
+      style={[{ width: size, height: size }, style]}
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel}
+    >
+      <Path path={path} paint={paint} />
+    </Canvas>
+  );
 }

@@ -46,6 +46,7 @@ interface ColumnProps {
   selectedBackground: string;
   separatorColor: string;
   enableHaptics: boolean;
+  label?: string;
 }
 
 function PickerColumn({
@@ -57,6 +58,7 @@ function PickerColumn({
   selectedBackground,
   separatorColor,
   enableHaptics,
+  label,
 }: ColumnProps) {
   const flatListRef = useRef<FlatList<string>>(null);
   const lastIndex = useRef(selectedIndex);
@@ -117,7 +119,10 @@ function PickerColumn({
   const centerOffset = ITEM_HEIGHT * Math.floor(VISIBLE_ITEMS / 2);
 
   return (
-    <View style={[styles.columnWrapper, { height: columnHeight }]}>
+    <View
+      style={[styles.columnWrapper, { height: columnHeight }]}
+      accessibilityLabel={label}
+    >
       {/* Selected row highlight */}
       <View
         style={[
@@ -287,6 +292,7 @@ export function NeoPopDatePicker({
         items={dayItems}
         selectedIndex={dayIndex}
         onIndexChange={handleDayChange}
+        label="Day"
         {...columnProps}
       />
 
@@ -295,6 +301,7 @@ export function NeoPopDatePicker({
         items={monthItems}
         selectedIndex={monthIndex}
         onIndexChange={handleMonthChange}
+        label="Month"
         {...columnProps}
       />
 
@@ -303,6 +310,7 @@ export function NeoPopDatePicker({
         items={yearItems}
         selectedIndex={yearIndex}
         onIndexChange={handleYearChange}
+        label="Year"
         {...columnProps}
       />
     </View>

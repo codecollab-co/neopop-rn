@@ -1,7 +1,7 @@
 # Discussion — neopop-rn
 
 > Design decisions, trade-offs, open questions, and alternatives considered.
-> Last updated: 2026-02-24
+> Last updated: 2026-03-08
 
 ---
 
@@ -76,19 +76,21 @@ These are the canonical NeoPop press-feel parameters, derived from the original 
 - Skia `Path` draws an arbitrary polygon — 4 arbitrary points, filled with a solid color. Pixel-accurate, no child distortion.
 - Skia `addArc()` for `NeoPopScoreMeter` gives a true SVG-quality arc that `react-native-svg` could also do, but Skia is already a dependency and avoids adding yet another peer.
 
-**Why View-based for Chevron/Cross/Pointer (current):**
-- These are simple shapes (L-shaped line + rotation for Chevron, two crossed lines for Cross) achievable with `View` + `transform: [{ rotate }]`.
-- Adding Skia Canvas overhead for a 20×20 icon is disproportionate.
-- **Phase 3 migration:** These will move to Skia `Path` rendering to support variable stroke width, color, and consistent cross-platform rendering. The API surface (props) won't change.
+**Chevron/Cross/Pointer — now Skia-rendered (migrated in v2.0):**
+- All three icons were migrated from View-based to `Skia.Path.Make()` rendering in v2.0 (MS-08).
+- Chevron: rotation via `Skia.Matrix()` transforms. Cross: two diagonal `lineTo` paths. Pointer: shaft + filled arrowhead.
+- Variable stroke width and cross-platform consistency are now supported.
+- API surface (props) unchanged from original View-based version.
+- In v2.3.0 (MS-22): `accessibilityRole="button"/"image"` and `accessibilityLabel` prop added to all three.
 
 **`SkiaLoadingGuard`:**
 - On Expo Web, `@shopify/react-native-skia` initializes asynchronously (WASM module loading). Without a guard, the first render throws.
 - `SkiaLoadingGuard` subscribes to Skia's ready signal and delays rendering Skia-dependent components until the WASM module is initialized.
 - On native, the ready signal fires synchronously — zero overhead.
 
-**`useSharedValueEffect` concern:**
-- `NeoPopScoreMeter` bridges Reanimated → Skia via `useSharedValueEffect` + `useValue`. This API is `@shopify/react-native-skia`'s internal hook for driving Skia values from Reanimated shared values.
-- **Risk:** this API's stability across Skia ≥1.0 versions is not guaranteed. An alternative is driving the arc sweep from JS-thread state + `useDerivedValue` to a Skia `useValue`. If `useSharedValueEffect` is removed in a future Skia version, we will fall back to this approach.
+**`useSharedValueEffect` — resolved (v2.0):**
+- `NeoPopScoreMeter` was originally planned to use `useSharedValueEffect` + `useValue`. In v2.0, we adopted `useDerivedValue` instead: a `SharedValue<SkPath>` is derived directly from the sweep animation and passed to `<Path path={...}>` as an `AnimatedProp<T>`.
+- `@shopify/react-native-skia` ≥1.3 accepts `SharedValue<SkPath>` directly — no `useSharedValueEffect` required. This resolves the stability risk entirely. See OQ-02 below.
 
 ---
 
@@ -198,15 +200,21 @@ The `"react-native"` and `"source"` fields point directly to `src/`, meaning the
 
 ## 8. Storybook strategy
 
-**Decision:** On-device Storybook via `@storybook/react-native` 7.x inside the `example/` Expo app.
+**Decision:** Dual Storybook setup — on-device (`@storybook/react-native` 7.x in `example/`) for native fidelity + web Storybook (`storybook/`) for CI-friendly review.
 
 **Why on-device Storybook:**
 - NeoPop components have physical animations (press, spring, levitation) that are best validated on real device hardware, not a web renderer.
 - The Storybook React Native server mode streams stories to the device over the Metro bundler connection — no separate build step.
 
-**Current state:**
-- Only `NeoPopButton.stories.tsx` exists (Phase 1 scaffold).
-- Phase 3 (MS-09) adds stories for all 20 components.
+**Why web Storybook (added v2.2.0):**
+- Web Storybook enables story review without a physical device or simulator.
+- 30 web stories in `storybook/stories/` cover all Foundation tokens + all 27 components.
+- Deployed as a static site alongside the Docusaurus docs site.
+
+**Current state (v2.2.0):**
+- 30 web stories (`storybook/stories/`) + 23 on-device stories (`example/`).
+- 5 Foundation stories: Introduction, Colors, Icons, Layout, Spacing, Typography.
+- All 27 components have at least one story with dark/light mode variants.
 
 **Stories structure per component:**
 ```tsx
@@ -224,35 +232,37 @@ export const Stroke = () => <NeoPopButton buttonFace="stroke" ... />;
 
 ## 9. Test strategy
 
-**Decision:** Jest (`jest-expo` preset) + `@testing-library/react-native`. Coverage gate: >90% enforced in CI from Phase 4.
+**Decision:** Jest (`react-native` preset) + `@testing-library/react-native`. Coverage gate enforced in CI.
 
-**Why `jest-expo` preset:**
-- Handles Expo module mocking and Babel transforms automatically.
-- `transformIgnorePatterns` is pre-configured to transform `react-native-*`, `@expo/*`, `@shopify/react-native-skia` — libraries that ship untransformed ESM.
+**Why `react-native` preset (not `jest-expo`):**
+- The `jest-expo` preset was originally planned but the project uses the `react-native` preset with custom `transformIgnorePatterns` to handle ESM packages.
+- `transformIgnorePatterns` configured to transform `react-native-reanimated`, `react-native-gesture-handler`, `@shopify/react-native-skia`, and `expo-haptics`.
 
-**Test layers planned (Phase 4, MS-12):**
+**Test layers (completed in MS-21, v2.3.0):**
 
-| Layer | Scope | Tool |
-|---|---|---|
-| Unit — utilities | `colorUtils`, `helpers`, `haptics` | Jest |
-| Unit — hooks | `useAutoFocus`, `useClientHeight`, `useDelayMount`, `useScrollIntoView` | RNTL `renderHook` |
-| Unit — theme | `NeoPopProvider`, `mergeDeep`, `defaultDark/LightTheme` | Jest |
-| Component — render | All 20+ components, snapshot + prop validation | RNTL `render` |
-| Component — interaction | Press, toggle, gesture via `fireEvent` | RNTL `fireEvent` |
-| Animation — mocked | `useSharedValue` mocked; assert final values | Jest + Reanimated mocks |
+| Layer | Scope | Tool | Status |
+|---|---|---|---|
+| Unit — utilities | `colorUtils`, `helpers`, `haptics` | Jest | ✅ |
+| Unit — hooks | `useAutoFocus`, `useClientHeight`, `useDelayMount`, `useScrollIntoView` | RNTL `renderHook` | ✅ |
+| Unit — theme | `NeoPopProvider`, `mergeDeep`, `defaultDark/LightTheme` | Jest | ✅ |
+| Component — render | All 27 components, prop validation | RNTL `render` | ✅ |
+| Component — interaction | Press, toggle, gesture via `fireEvent` + gesture mocks | RNTL `fireEvent` | ✅ |
+| Component — a11y props | `UNSAFE_getByProps` for role/state/value | RNTL | ✅ |
 
 **Reanimated mocking:**
-- `react-native-reanimated` ships a Jest mock (`@mocks/reanimated`). This replaces shared values with plain JS objects and runs `withTiming`/`withSpring` synchronously.
-- This makes animation state testable without a real Reanimated runtime.
+- `jest.mock('react-native-reanimated', () => require('react-native-reanimated/mock'))` — replaces shared values with plain JS objects; `withTiming`/`withSpring` run synchronously.
 
 **Skia mocking:**
-- `@shopify/react-native-skia` has a Jest mock package. Skia `Canvas`, `Path`, etc. render as `null` or stubs in tests.
-- Tests for Skia components validate prop passing and visibility, not pixel output.
+- `@shopify/react-native-skia` is manually mocked per test file: `Canvas`, `Path`, `Circle` return stubs; `Skia.Path.Make()`, `Skia.Paint()`, `Skia.Color()`, `Skia.Matrix()` return jest function chains.
+- `useDerivedValue` is mocked to return `{ current: 0 }`.
 
-**Coverage gate progression:**
-- Phase 3 (v0.3.0): no gate (tests are being written)
-- Phase 4 (v0.4.0): >90% gate enforced in CI — build fails below threshold
-- Codecov badge in README showing live coverage.
+**Gesture Handler mocking:**
+- `react-native-gesture-handler` is mocked: `Gesture.Pan()` returns a chainable mock object with `onBegin`, `onUpdate`, `onEnd`, `onFinalize` etc. all returning `this`.
+
+**Coverage achieved (v2.3.0):**
+- 36 test suites · 389 tests · zero failures
+- ~79% statements · ~74% branches · ~71% functions · ~81% lines
+- Jest `coverageThreshold` enforced: 75% statements, 70% branches, 65% functions, 78% lines
 
 ---
 
@@ -274,10 +284,12 @@ export const Stroke = () => <NeoPopButton buttonFace="stroke" ... />;
 - `accessibilityLiveRegion="polite"` on `NeoPopToast` for screen reader announcements
 - Focus trap in `NeoPopBottomSheet` when open
 
-**Current a11y state:**
-- Basic `accessibilityRole` and `accessibilityState` are present in implemented components (architectural contract, section 5 in ARCHITECTURE.md).
-- No systematic audit or screen reader testing has been done yet.
-- Phase 4 (MS-13) is the formal audit.
+**Current a11y state (v2.3.0):**
+- MS-22 formal audit complete. All 27 components have correct `accessibilityRole`, `accessibilityState`, `accessibilityValue`, and `accessibilityLabel` where required.
+- 9 components received fixes in v2.3.0: NeoPopInputField, NeoPopScoreMeter, NeoPopSwipeRow, NeoPopCarousel, NeoPopDatePicker, NeoPopShimmer, Chevron, Cross, Pointer.
+- Contrast ratio check complete; all key default-theme pairs pass WCAG 2.1 AA.
+- `docs/ACCESSIBILITY.md` published with full audit results, screen reader testing matrix, and consumer guide.
+- On-device VoiceOver/TalkBack smoke tests pending (require physical devices; documented in ACCESSIBILITY.md).
 
 ---
 
@@ -290,22 +302,26 @@ export const Stroke = () => <NeoPopButton buttonFace="stroke" ... />;
 - Markdown files in `docs/` are version-controlled alongside code and require no build pipeline. They're immediately available to contributors.
 - At v1.0, when the API is frozen, invest in a Docusaurus site with interactive prop tables, versioned docs, and Algolia search.
 
-**Docs structure:**
+**Docs structure (current — v2.3.0):**
 ```
 docs/
-├── ARCHITECTURE.md   ← Technical architecture (this session)
-├── MILESTONES.md     ← All milestones with ✅/🔲 status
-├── PLAN.md           ← Master plan, roadmap, workstreams
-├── DISCUSSION.md     ← This file
-├── phases/           ← Per-phase detailed plans
-│   ├── PHASE-0.md through PHASE-7.md
-├── components/       ← Per-component docs (Phase 5+)
-│   └── NeoPopButton.md, NeoPopCard.md, ...
-├── THEMING.md        ← Comprehensive theming guide (Phase 5)
-├── TOKENS.md         ← Full design token reference (Phase 5)
-├── CONTRIBUTING.md   ← Contributor guide (Phase 5)
-└── MIGRATION.md      ← v0.x → v1.0 migration guide (Phase 5)
+├── ARCHITECTURE.md     ← Technical architecture (v2.2.0)
+├── MILESTONES.md       ← All milestones MS-01 through MS-24 with status
+├── PLAN.md             ← Master plan, roadmap, workstreams, decision log
+├── DISCUSSION.md       ← This file
+├── ACCESSIBILITY.md    ← A11y contract, contrast ratios, SR testing matrix (v2.3.0)
+├── THEMING.md          ← Comprehensive theming guide ✅
+├── TOKENS.md           ← Full design token reference ✅
+├── CONTRIBUTING.md     ← Contributor guide ✅
+├── MIGRATION.md        ← v0.x → v2.0 migration guide ✅
+├── phases/             ← Per-phase detailed plans
+│   ├── PHASE-0.md through PHASE-7.md ✅
+│   └── PHASE-9.md ✅ (in progress)
+└── components/         ← Per-component docs ✅ (30 pages)
+    └── NeoPopButton.md, NeoPopCard.md, ... (all 27 components + icons + layout)
 ```
+
+**Docusaurus site (v2.0+):** Live at `https://codecollab-co.github.io/neopop-rn/`. Served from `website/` directory; auto-deployed on release tag via GitHub Actions.
 
 ---
 
@@ -353,13 +369,13 @@ docs/
 
 ## 14. Open Questions
 
-| # | Question | Status | Owner |
+| # | Question | Status | Resolution |
 |---|---|---|---|
-| OQ-01 | Should `NeoPopToast` support a queue of multiple toasts, or replace-and-dismiss? | Open | Phase 3 |
-| OQ-02 | `useSharedValueEffect` Skia bridge — will it remain in `@shopify/react-native-skia` ≥2.0? | Open | Monitor Skia changelog |
-| OQ-03 | Should icon components (Chevron/Cross/Pointer) accept a `style` prop in addition to `color`/`size`? | Open | Phase 3 API audit |
-| OQ-04 | `NeoPopFloatingButton.delayTouchEvents` prop is declared in types but not implemented — remove or implement? | Open | Phase 3 |
-| OQ-05 | Should `NeoPopSlider` support a range (two thumbs) variant, or is that a separate component? | Open | Phase 4 planning |
-| OQ-06 | `NeoPopOTPInput` — should it support biometric/autofill integration (one-time-code keyboard type)? | Open | Phase 3 MS-10 |
-| OQ-07 | Should design token export (Style Dictionary) run in library CI or as a separate tool? | Open | Phase 6 planning |
-| OQ-08 | `NeoPopProgressBar` — circular vs. horizontal — should these be `variant` prop or two separate components? | Open | Phase 3 MS-10 |
+| OQ-01 | Should `NeoPopToast` support a queue of multiple toasts, or replace-and-dismiss? | ✅ Resolved | Queue supported via `maxToasts` prop on `ToastProvider`. Default is replace-and-dismiss (maxToasts=1); consumers set higher values for queuing. |
+| OQ-02 | `useSharedValueEffect` Skia bridge — will it remain in `@shopify/react-native-skia` ≥2.0? | ✅ Resolved | Eliminated entirely. `NeoPopScoreMeter` now uses `useDerivedValue` → `SharedValue<SkPath>` passed directly to `<Path path={...}>` as `AnimatedProp<T>`. Compatible with Skia ≥1.3; no internal API dependency. |
+| OQ-03 | Should icon components (Chevron/Cross/Pointer) accept a `style` prop in addition to `color`/`size`? | ✅ Resolved | `style` prop added (`StyleProp<ViewStyle>`) — passed to the wrapping `Canvas`. Consumers can position icons via `style`. |
+| OQ-04 | `NeoPopFloatingButton.delayTouchEvents` prop — remove or implement? | ✅ Resolved | Removed before v2.0. Not present in the public types (`NeoPopFloatingButtonProps`). No consumer-facing deprecation needed as this was never documented. |
+| OQ-05 | Should `NeoPopSlider` support a range (two thumbs) variant? | ⏸ Deferred | Single-thumb slider ships in v2.0. Two-thumb range variant deferred to a future minor version. Would be a new component (`NeoPopRangeSlider`) rather than a `variant` prop to avoid complexity. |
+| OQ-06 | `NeoPopOTPInput` — biometric/autofill integration? | ✅ Resolved | `keyboardType="number-pad"` and `textContentType="oneTimeCode"` (iOS) applied. SMS autofill works on iOS 12+ via system integration. Android autofill via `autoComplete="sms-otp"` is set. |
+| OQ-07 | Should design token export (Style Dictionary) run in library CI or as a separate tool? | ✅ Resolved | `npm run tokens` script (`token-build/build.js`) generates all formats into `tokens/`. CI does not auto-run tokens on every push — only on release. Token outputs are committed to the repo so consumers can use them without running the build. |
+| OQ-08 | `NeoPopProgressBar` — `variant` prop or two separate components? | ✅ Resolved | Single `NeoPopProgressBar` component with `variant="horizontal" \| "circular"` prop. Implemented in MS-10 (v2.0). Both variants share animation logic and color resolution; the canvas geometry differs. |

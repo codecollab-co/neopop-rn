@@ -15,6 +15,7 @@ export function Pointer({
   color = '#ffffff',
   strokeWidth = 2,
   style,
+  accessibilityLabel,
 }: PointerProps) {
   const cy = size / 2;
   const headW = size * 0.38;
@@ -44,7 +45,11 @@ export function Pointer({
   fillPaint.setAntiAlias(true);
 
   return (
-    <Canvas style={[{ width: size, height: size }, style]}>
+    <Canvas
+      style={[{ width: size, height: size }, style]}
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel}
+    >
       <Path path={shaft} paint={strokePaint} />
       <Path path={head} paint={fillPaint} />
     </Canvas>

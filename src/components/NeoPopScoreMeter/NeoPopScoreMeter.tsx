@@ -188,7 +188,11 @@ export function NeoPopScoreMeter({
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <View style={[styles.container, style]}>
+    <View
+      style={[styles.container, style]}
+      accessibilityRole="progressbar"
+      accessibilityValue={{ min: lowerLimit, max: upperLimit, now: reading }}
+    >
       {/* Arc canvas */}
       <Canvas style={{ width: canvasWidth, height: canvasHeight }}>
         {/* Background track (full 180°) */}

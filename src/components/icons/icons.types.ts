@@ -9,6 +9,7 @@ export interface ChevronProps {
   strokeWidth?: number;
   animated?: boolean;
   style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
 }
 
 export interface PointerProps {
@@ -16,6 +17,7 @@ export interface PointerProps {
   color?: string;
   strokeWidth?: number;
   style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
 }
 
 export interface CrossProps {
@@ -25,4 +27,5 @@ export interface CrossProps {
   onPress?: () => void;
   hitSlop?: { top?: number; bottom?: number; left?: number; right?: number };
   style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
 }

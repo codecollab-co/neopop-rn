@@ -1,6 +1,6 @@
 {
   "name": "@codecollab.co/neopop-rn",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "NeoPop design system for React Native \u2014 unified iOS, Android, Web & Flutter features in one Expo-compatible package",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -147,10 +147,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 13,
-        "branches": 12,
-        "functions": 8,
-        "lines": 13
+        "statements": 75,
+        "branches": 70,
+        "functions": 65,
+        "lines": 78
       },
       "./src/utils/": {
         "statements": 85,

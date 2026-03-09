@@ -27,6 +27,7 @@ export function Chevron({
   animated: _animated = false,
   style,
   onPress,
+  accessibilityLabel,
 }: ChevronProps & { onPress?: () => void }) {
   const degrees = DIRECTION_DEGREES[direction] ?? 180;
   const cx = size / 2;
@@ -66,8 +67,24 @@ export function Chevron({
   );
 
   if (onPress) {
-    return <Pressable onPress={onPress}>{canvas}</Pressable>;
+    return (
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+      >
+        {canvas}
+      </Pressable>
+    );
   }
 
-  return canvas;
+  return (
+    <Canvas
+      style={[{ width: size, height: size }, style]}
+      accessibilityRole="image"
+      accessibilityLabel={accessibilityLabel}
+    >
+      <Path path={path} paint={paint} />
+    </Canvas>
+  );
 }

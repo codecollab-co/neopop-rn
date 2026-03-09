@@ -5,6 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/@codecollab.co/neopop-rn.svg)](https://www.npmjs.com/package/@codecollab.co/neopop-rn)
 [![license](https://img.shields.io/npm/l/@codecollab.co/neopop-rn.svg)](./LICENSE)
 [![CI](https://github.com/codecollab-co/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/codecollab-co/neopop-rn/actions)
+[![codecov](https://codecov.io/gh/codecollab-co/neopop-rn/branch/main/graph/badge.svg)](https://codecov.io/gh/codecollab-co/neopop-rn)
 [![docs](https://img.shields.io/badge/docs-live-EDD514?labelColor=0D0D0D)](https://codecollab-co.github.io/neopop-rn/)
 
 > **v1.0 — stable API.** This release marks the first semver-guaranteed, production-ready version of neopop-rn. See the [Migration Guide](./docs/MIGRATION.md) if upgrading from v0.x.

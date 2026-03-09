@@ -109,6 +109,7 @@ export function NeoPopSwipeRow({
             styles.leftPanel,
             { backgroundColor: leftBg, width: MAX_REVEAL, height: rowHeight },
           ]}
+          accessibilityLabel="Swipe right actions"
         >
           {leftActions}
         </View>
@@ -122,6 +123,7 @@ export function NeoPopSwipeRow({
             styles.rightPanel,
             { backgroundColor: rightBg, width: MAX_REVEAL, height: rowHeight },
           ]}
+          accessibilityLabel="Swipe left actions"
         >
           {rightActions}
         </View>

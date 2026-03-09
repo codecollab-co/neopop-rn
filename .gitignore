@@ -11,3 +11,6 @@ coverage/
 example/node_modules/
 example/.expo/
 example/dist/
+
+# OpenMemory - IDE/Assistant specific rules
+.cursor/rules/openmemory.mdc

@@ -307,11 +307,13 @@ newArchEnabled=true
 ENV['RCT_NEW_ARCH_ENABLED'] = '1'
 ```
 
-### Removed APIs
+### Deprecated APIs
 
-All symbols marked `@internal` in v0.5.0 are removed from the public exports
-in v2.0. These were already absent from the stable v1.0 API guarantee, but
-v2.0 removes them entirely so they cannot be imported even transitively.
+All symbols marked `@internal` in v0.5.0 are **deprecated** and will be
+removed in a future major version (v3.0). These are still exported in v2.x
+for backwards compatibility, but they are not part of the stable public API
+and should not be relied upon. Migrate away from them at your earliest
+convenience.
 
 | Symbol | Module | Use instead |
 |---|---|---|

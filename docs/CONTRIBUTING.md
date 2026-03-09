@@ -36,12 +36,12 @@ Peer dependencies that must be available in the example app:
 
 | Package                       | Minimum version |
 |-------------------------------|-----------------|
-| `react`                       | 18.0.0          |
-| `react-native`                | 0.73.0          |
-| `@shopify/react-native-skia`  | 1.0.0           |
-| `react-native-reanimated`     | 3.0.0           |
-| `react-native-gesture-handler`| 2.0.0           |
-| `expo-haptics` (optional)     | 13.0.0          |
+| `react`                       | 18.3.0          |
+| `react-native`                | 0.76.0          |
+| `@shopify/react-native-skia`  | 1.3.0           |
+| `react-native-reanimated`     | 3.6.0           |
+| `react-native-gesture-handler`| 2.14.0          |
+| `expo-haptics` (optional)     | 14.0.0          |
 
 ---
 
@@ -120,7 +120,7 @@ barrel `index.ts` files). The project enforces minimum thresholds:
 
 | Scope                          | Statements | Branches | Functions | Lines |
 |-------------------------------|-----------|----------|-----------|-------|
-| Global (all of `src/`)        | 13 %      | 12 %     | 8 %       | 13 %  |
+| Global (all of `src/`)        | 75 %      | 70 %     | 65 %      | 78 %  |
 | `src/utils/`                   | 85 %      | 75 %     | 80 %      | 90 %  |
 | `src/hooks/`                   | 90 %      | 80 %     | 85 %      | 90 %  |
 | `src/theme/NeoPopProvider.tsx` | 95 %      | 75 %     | 95 %      | 95 %  |
@@ -131,15 +131,24 @@ current thresholds.
 
 ### Test file location
 
-Place test files adjacent to the source file they cover, using the
-`.test.tsx` or `.test.ts` suffix:
+Place test files in the `__tests__/` directory, mirroring the source structure:
 
 ```
-src/components/NeoPopButton/
-  NeoPopButton.tsx
-  NeoPopButton.test.tsx   <-- tests go here
-  NeoPopButton.types.ts
-  index.ts
+__tests__/
+  components/
+    NeoPopButton.test.tsx     <-- component tests go here
+    NeoPopCard.test.tsx
+    icons.test.tsx
+    layout.test.tsx
+  hooks/
+    useAutoFocus.test.ts
+  utils/
+    colorUtils.test.ts
+    helpers.test.ts
+  theme/
+    NeoPopProvider.test.tsx
+  perf/
+    performance.test.ts       <-- performance regression tests
 ```
 
 ---
@@ -346,7 +355,7 @@ by existing stories (see `NeoPopButton.stories.tsx` for reference).
 
 ### 6. Write tests
 
-Create `src/components/NeoPopBadge/NeoPopBadge.test.tsx` and cover at minimum:
+Create `__tests__/components/NeoPopBadge.test.tsx` and cover at minimum:
 
 - Renders with default props
 - Applies `colorConfig` overrides

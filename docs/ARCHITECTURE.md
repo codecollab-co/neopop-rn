@@ -1,6 +1,6 @@
 # Architecture — neopop-rn
 
-> Last updated: 2026-03-06 · Version: 2.0.0-alpha.1
+> Last updated: 2026-03-08 · Version: 2.2.0
 
 ---
 
@@ -557,6 +557,43 @@ checkout → node 20 → npm ci
     → npm publish --access public
 ```
 
+### `storybook.yml` — runs on `v*` tags
+
+Deploys the web Storybook to the `/storybook/` subfolder of GitHub Pages.
+
+```
+checkout → node 20 → npm ci (in storybook/)
+    → npx storybook build
+    → deploy to GitHub Pages /storybook/
+```
+
+---
+
+## What changed in v2.1 → v2.2
+
+**v2.1.0 (Feb 2026)**
+- Incremental fixes and polish; see `CHANGELOG.md` for full detail.
+
+**v2.2.0 (Mar 2026)**
+- Web Storybook: 30 stories added to `storybook/` directory (Storybook 7.x web build), replacing on-device-only story coverage.
+- Playground: 30 interactive web stories covering all Foundation tokens + all 27 components.
+- Logo: 3D blue cube (`#0066FF`) replaces earlier yellow cube in README, docs, and playground.
+- Website: light mode background pinned to `#ffffff` across all sections; custom 404 page; `keep_files` on docs deploy to preserve static assets across releases.
+- No API changes — all props, types, and component interfaces are unchanged from v2.0.
+
+---
+
+## Phase 9 — Quality Hardening (v2.3.0, in progress)
+
+The following quality initiatives are being tracked in `docs/phases/PHASE-9.md`:
+
+| Milestone | Status | Summary |
+|---|---|---|
+| MS-21 · Full test suite | ✅ Complete | 36 suites · 389 tests · ~79% coverage · Jest threshold enforced |
+| MS-22 · A11y audit | ✅ Complete | WCAG 2.1 AA · 9 components fixed · `docs/ACCESSIBILITY.md` published |
+| MS-23 · Performance benchmarks | 🔲 Pending | FPS profiling · Skia render time · bundle size · CI regression gates |
+| MS-24 · Doc reconciliation | 🚧 In progress | MILESTONES/PLAN/DISCUSSION/ARCHITECTURE sync |
+
 ---
 
 ## Versioning policy
@@ -566,7 +603,7 @@ checkout → node 20 → npm ci
 | Version range | Guarantee |
 |---|---|
 | `0.x.y` | No stability guarantee — props may change between minor versions |
-| `1.0.0` | Stable public API — breaking changes only in major versions |
+| `1.0.0` | Stable public API — breaking changes only in major versions (shipped as v2.0.0) |
 | `2.0.0+` | Major = breaking (prop renames, removed components, RN peer dep bumps) |
 
 The v2.0 line targets React Native New Architecture exclusively. A deprecation

@@ -98,7 +98,12 @@ export function NeoPopShimmer({
     >
       {children}
       {enabled && (
-        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        <View
+          style={StyleSheet.absoluteFill}
+          pointerEvents="none"
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+        >
           <Animated.View style={[styles.shimmerTrack, shimmerStyle]}>
             {/* First strip */}
             <View

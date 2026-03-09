@@ -55,14 +55,14 @@ export {
 export { triggerHaptic } from './utils/haptics';
 export type { HapticType } from './utils/haptics';
 
-// ─── Utils (@internal — subject to removal in v1.0) ──────────────────────────
+// ─── Utils (@internal — deprecated, subject to removal in v3.0) ──────────────
 /** @internal */
 export {
   isEmpty, isObject, mergeDeep, getRandomInt,
   isImageLoaded, currencyFormatter, generateTextStyle,
 } from './utils/helpers';
 
-// ─── Hooks (@internal — subject to removal in v1.0) ──────────────────────────
+// ─── Hooks (@internal — deprecated, subject to removal in v3.0) ──────────────
 /** @internal */
 export { useAutoFocus }      from './hooks/useAutoFocus';
 /** @internal */
@@ -76,7 +76,7 @@ export { useScrollIntoView } from './hooks/useScrollIntoView';
 export { NeoPop3DSurface }     from './skia/NeoPop3DSurface';
 export type { NeoPop3DSurfaceProps } from './skia/NeoPop3DSurface';
 
-// ─── Skia internals (@internal — subject to removal in v1.0) ─────────────────
+// ─── Skia internals (@internal — deprecated, subject to removal in v3.0) ─────
 /** @internal */
 export { deriveEdgeColors }    from './skia/EdgeColorDeriver';
 /** @internal */
