@@ -394,6 +394,16 @@ npm install --legacy-peer-deps
 npm run typecheck && npm run lint && npm test
 ```
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=codecollab-co%2Fneopop-rn&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=codecollab-co/neopop-rn&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=codecollab-co/neopop-rn&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=codecollab-co/neopop-rn&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ---
 
 ## License
