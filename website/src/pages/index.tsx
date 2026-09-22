@@ -1,141 +1,142 @@
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
+const componentPreviews = [
+  {
+    title: 'Buttons with a physical response',
+    detail: 'Five-face surfaces turn a press into visible depth.',
+    image: 'img/neopop-elevated.png',
+    alt: 'NeoPop elevated button in normal and pressed states',
+  },
+  {
+    title: 'Motion that stays off the JS thread',
+    detail: 'Reanimated worklets keep taps, swipes, and transitions responsive.',
+    image: 'img/neopop-floating.png',
+    alt: 'NeoPop floating button in normal and pressed states',
+  },
+  {
+    title: 'Depth that is part of the system',
+    detail: 'A single surface model keeps every component consistent.',
+    image: 'img/neopop-surface-model.png',
+    alt: 'NeoPop five-face surface model diagram',
+  },
+];
+
 function HomepageHero() {
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <span className={styles.heroEyebrow}>NeoPop Design System</span>
-        <Heading as="h1" className={styles.heroTitle}>
-          neopop-rn
-        </Heading>
-        <p className={styles.heroSubtitle}>
-          3D surfaces, fluid animations, and tactile interactions
-          for iOS, Android &amp; Web — powered by Skia and Reanimated.
-        </p>
-
-        {/* Text pills — no external images, always renders correctly */}
-        <div className={styles.pills}>
-          <span className={styles.pill}>v2.0.0-alpha.1</span>
-          <span className={styles.pill}>Apache 2.0</span>
-          <span className={styles.pill}>iOS · Android · Web</span>
+    <header className={styles.hero}>
+      <div className={styles.heroGrid}>
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrow}>NeoPop for React Native</span>
+          <Heading as="h1" className={styles.heroTitle}>
+            Make interfaces<br />
+            <span>feel real.</span>
+          </Heading>
+          <p className={styles.heroDescription}>
+            A tactile, Skia-powered component kit for React Native teams shipping on iOS, Android, and web.
+          </p>
+          <div className={styles.actions}>
+            <Link className="button button--primary button--lg" to="/docs/getting-started">
+              Start building
+            </Link>
+            <Link className={styles.textLink} to="/docs/components/NeoPopButton">
+              Explore components <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <p className={styles.installHint}>
+            <code>npm install @codecollab.co/neopop-rn</code>
+          </p>
         </div>
 
-        <div className={styles.buttons}>
-          <Link className="button button--primary button--lg" to="/docs/getting-started">
-            Get Started
-          </Link>
-          <Link className="button button--outline button--lg" to="/docs/components/NeoPopButton">
-            View Components
-          </Link>
+        <div className={styles.heroVisual}>
+          <img src="img/neopop-hero.jpg" alt="A sculptural NeoPop interface surface" />
+          <span className={styles.visualCaption}>Touch has a point of view.</span>
         </div>
       </div>
     </header>
   );
 }
 
-function StatsStrip() {
-  const stats = [
-    { number: '27', label: 'Components' },
-    { number: '18', label: 'UI-Thread Animated' },
-    { number: '8', label: 'Skia Canvas' },
-    { number: '< 1ms', label: 'JS Thread / Frame' },
-    { number: '< 50KB', label: 'ESM Gzip' },
+function Foundation() {
+  const foundation = [
+    ['27', 'purpose-built components'],
+    ['Skia', 'rendered 3D surfaces'],
+    ['UI', 'thread-first animation'],
   ];
 
   return (
-    <div className={styles.statsStrip}>
-      {stats.map((s) => (
-        <div key={s.label} className={styles.statItem}>
-          <span className={styles.statNumber}>{s.number}</span>
-          <span className={styles.statLabel}>{s.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const features = [
-  {
-    title: '3D Surfaces',
-    description: 'Real parallelogram rendering via @shopify/react-native-skia. Five-face depth model, crisp at any pixel density.',
-  },
-  {
-    title: 'Fluid Animations',
-    description: 'Reanimated 3 worklets on the UI thread. Zero JS bridge calls per frame, even at 120 FPS.',
-  },
-  {
-    title: 'Complete Token System',
-    description: 'Exported color palettes, spacing scale, typography — plus Style Dictionary output for CSS, Figma, Android, and iOS.',
-  },
-  {
-    title: 'Gesture-Driven',
-    description: 'Pan sliders, swipe rows, drag-to-dismiss sheets, velocity-aware carousels — all via RNGH v2.',
-  },
-  {
-    title: 'Fully Typed',
-    description: 'Strict TypeScript throughout. Every prop interface, every colorConfig key, every theme token exported.',
-  },
-  {
-    title: 'WCAG 2.1 AA',
-    description: 'accessibilityRole, accessibilityState, and accessibilityValue on every interactive component.',
-  },
-];
-
-function HomepageFeatures() {
-  return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className={styles.featuresHeading}>
-          <span className={styles.featuresEyebrow}>What's inside</span>
-          <Heading as="h2" className={styles.featuresTitle}>Built to Ship</Heading>
-        </div>
-        <div className="row">
-          {features.map((f, i) => (
-            <div key={i} className={clsx('col col--4', styles.featureCol)}>
-              <div className={styles.featureCard}>
-                <span className={styles.featureNumber}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <Heading as="h3">{f.title}</Heading>
-                <p>{f.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+    <section className={styles.foundation}>
+      <div className={styles.foundationIntro}>
+        <p>Made for products that should feel as considered as they look.</p>
+        <Link to="/docs/theming">See the design tokens <span aria-hidden="true">↗</span></Link>
+      </div>
+      <div className={styles.foundationStats}>
+        {foundation.map(([value, label]) => (
+          <div key={label} className={styles.foundationStat}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
-function PlatformSection() {
+function ComponentShowcase() {
   return (
-    <div className={styles.platformSection}>
-      <div className="container">
-        <span className={styles.platformLabel}>Platform support</span>
-        <div className={styles.platformGrid}>
-          <div className={clsx(styles.platformItem, styles.platformItemActive)}>iOS</div>
-          <div className={clsx(styles.platformItem, styles.platformItemActive)}>Android</div>
-          <div className={clsx(styles.platformItem, styles.platformItemActive)}>Web (Expo)</div>
-        </div>
+    <section className={styles.showcase}>
+      <div className={styles.sectionLead}>
+        <Heading as="h2">Every interaction earns its place.</Heading>
+        <p>Buttons, inputs, gestures, navigation, and feedback built with a shared tactile language.</p>
       </div>
-    </div>
+      <div className={styles.previewGrid}>
+        {componentPreviews.map((preview, index) => (
+          <article className={styles.preview} key={preview.title}>
+            <div className={styles.previewImage}>
+              <img src={preview.image} alt={preview.alt} loading={index === 0 ? 'eager' : 'lazy'} />
+            </div>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <Heading as="h3">{preview.title}</Heading>
+            <p>{preview.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BuildStrip() {
+  return (
+    <section className={styles.buildStrip}>
+      <div>
+        <p>One package. Three platforms.</p>
+        <Heading as="h2">Build depth into every tap.</Heading>
+      </div>
+      <div className={styles.platforms} aria-label="Supported platforms">
+        <span>iOS</span>
+        <span>Android</span>
+        <span>Web</span>
+      </div>
+      <Link className="button button--primary button--lg" to="/docs/getting-started">
+        Read the docs
+      </Link>
+    </section>
   );
 }
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
+
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
-      <HomepageHero />
-      <StatsStrip />
       <main>
-        <HomepageFeatures />
-        <PlatformSection />
+        <HomepageHero />
+        <Foundation />
+        <ComponentShowcase />
+        <BuildStrip />
       </main>
     </Layout>
   );

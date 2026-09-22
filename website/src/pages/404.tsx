@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Layout from '@theme/Layout';
 
-export default function NotFound(): JSX.Element {
+export default function NotFound(): React.JSX.Element {
   useEffect(() => {
     // Redirect /neopop-rn/storybook/ → /neopop-rn/storybook/index.html
     if (typeof window !== 'undefined') {
@@ -23,7 +23,7 @@ export default function NotFound(): JSX.Element {
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '60vh',
-          fontFamily: "'Outfit', sans-serif",
+          fontFamily: 'var(--ifm-font-family-base)',
           textAlign: 'center',
           padding: '4rem 2rem',
         }}
