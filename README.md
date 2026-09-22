@@ -3,6 +3,8 @@
 > NeoPop design system for React Native — every feature from CRED's iOS, Android, Web, and Flutter libraries unified into one Expo-compatible TypeScript package.
 
 [![npm version](https://img.shields.io/npm/v/@codecollab.co/neopop-rn.svg)](https://www.npmjs.com/package/@codecollab.co/neopop-rn)
+[![npm total downloads](https://img.shields.io/npm/dt/@codecollab.co/neopop-rn.svg)](https://www.npmjs.com/package/@codecollab.co/neopop-rn)
+[![GitHub downloads](https://img.shields.io/github/downloads/codecollab-co/neopop-rn/total.svg)](https://github.com/codecollab-co/neopop-rn/releases)
 [![license](https://img.shields.io/npm/l/@codecollab.co/neopop-rn.svg)](./LICENSE)
 [![CI](https://github.com/codecollab-co/neopop-rn/actions/workflows/ci.yml/badge.svg)](https://github.com/codecollab-co/neopop-rn/actions)
 [![codecov](https://codecov.io/gh/codecollab-co/neopop-rn/branch/main/graph/badge.svg)](https://codecov.io/gh/codecollab-co/neopop-rn)
