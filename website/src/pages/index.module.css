@@ -110,7 +110,7 @@
   bottom: 7%;
   width: 45%;
   height: 18%;
-  background: rgba(229, 57, 46, 0.34);
+  background: rgba(0, 102, 255, 0.3);
   filter: blur(52px);
   pointer-events: none;
 }

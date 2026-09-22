@@ -1,8 +1,8 @@
 /**
- * NeoPop × CRED Design Language
+ * NeoPop Design Language with CRED-inspired restraint
  * Font: system sans — compact and high contrast
- * Accent: CRED red #e5392e
- * Canvas: #0b0b0b dark / #f7f5f1 light
+ * Accent: NeoPop blue #0066ff
+ * Canvas: #0b0b0b dark / #f5f7fb light
  * Typography: compact, high-contrast sans display
  */
 
@@ -10,16 +10,16 @@
 :root {
   --ifm-navbar-height: 4.25rem;
   --doc-sidebar-width: 17rem;
-  --ifm-color-primary: #c92620;
-  --ifm-color-primary-dark: #ad211c;
-  --ifm-color-primary-darker: #a31f1a;
-  --ifm-color-primary-darkest: #861915;
-  --ifm-color-primary-light: #dc3029;
-  --ifm-color-primary-lighter: #e43931;
-  --ifm-color-primary-lightest: #e95b55;
+  --ifm-color-primary: #0066ff;
+  --ifm-color-primary-dark: #005ce6;
+  --ifm-color-primary-darker: #0057d9;
+  --ifm-color-primary-darkest: #0048b3;
+  --ifm-color-primary-light: #1a75ff;
+  --ifm-color-primary-lighter: #3385ff;
+  --ifm-color-primary-lightest: #66a3ff;
 
   --ifm-code-font-size: 93%;
-  --docusaurus-highlighted-code-line-bg: rgba(201, 38, 32, 0.08);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 102, 255, 0.08);
 
   --ifm-font-family-base: 'Avenir Next', Avenir, 'Helvetica Neue', Arial, sans-serif;
   --ifm-font-family-monospace: 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -32,31 +32,31 @@
   --ifm-code-border-radius: 0px;
   --ifm-alert-border-radius: 0px;
 
-  --ifm-background-color: #f7f5f1;
+  --ifm-background-color: #f5f7fb;
   --ifm-background-surface-color: #ffffff;
-  --ifm-navbar-background-color: rgba(247, 245, 241, 0.92);
-  --ifm-footer-background-color: #f7f5f1;
+  --ifm-navbar-background-color: rgba(245, 247, 251, 0.92);
+  --ifm-footer-background-color: #f5f7fb;
 
   /* Light mode surface tokens */
-  --neopop-accent: #c92620;
-  --neopop-accent-hover: #ad211c;
-  --neopop-accent-subtle: rgba(201, 38, 32, 0.07);
-  --neopop-accent-border: rgba(201, 38, 32, 0.28);
+  --neopop-accent: #0066ff;
+  --neopop-accent-hover: #005ce6;
+  --neopop-accent-subtle: rgba(0, 102, 255, 0.07);
+  --neopop-accent-border: rgba(0, 102, 255, 0.28);
   --neopop-border: rgba(0, 0, 0, 0.08);
-  --neopop-surface: #ebe8e2;
+  --neopop-surface: #e9eef8;
   --neopop-text-secondary: rgba(0, 0, 0, 0.5);
   --neopop-text-muted: rgba(0, 0, 0, 0.3);
 }
 
 /* ─── Design tokens — dark mode ─────────────────────────────────────────────── */
 [data-theme='dark'] {
-  --ifm-color-primary: #e5392e;
-  --ifm-color-primary-dark: #d23229;
-  --ifm-color-primary-darker: #c62d25;
-  --ifm-color-primary-darkest: #a4251f;
-  --ifm-color-primary-light: #e95047;
-  --ifm-color-primary-lighter: #ed5c54;
-  --ifm-color-primary-lightest: #f17a74;
+  --ifm-color-primary: #0066ff;
+  --ifm-color-primary-dark: #005ce6;
+  --ifm-color-primary-darker: #0057d9;
+  --ifm-color-primary-darkest: #0048b3;
+  --ifm-color-primary-light: #1a75ff;
+  --ifm-color-primary-lighter: #3385ff;
+  --ifm-color-primary-lightest: #66a3ff;
 
   --ifm-background-color: #0b0b0b;
   --ifm-background-surface-color: #111111;
@@ -69,17 +69,17 @@
 
   --ifm-toc-border-color: rgba(255, 255, 255, 0.07);
   --ifm-menu-color: rgba(255, 255, 255, 0.6);
-  --ifm-menu-color-active: #e5392e;
-  --ifm-menu-color-background-active: rgba(229, 57, 46, 0.09);
+  --ifm-menu-color-active: #3385ff;
+  --ifm-menu-color-background-active: rgba(0, 102, 255, 0.1);
   --ifm-sidebar-border-color: rgba(255, 255, 255, 0.06);
 
-  --docusaurus-highlighted-code-line-bg: rgba(229, 57, 46, 0.12);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 102, 255, 0.14);
 
   /* Dark mode surface tokens */
-  --neopop-accent: #e5392e;
-  --neopop-accent-hover: #ed5c54;
-  --neopop-accent-subtle: rgba(229, 57, 46, 0.09);
-  --neopop-accent-border: rgba(229, 57, 46, 0.35);
+  --neopop-accent: #3385ff;
+  --neopop-accent-hover: #66a3ff;
+  --neopop-accent-subtle: rgba(0, 102, 255, 0.12);
+  --neopop-accent-border: rgba(51, 133, 255, 0.4);
   --neopop-border: rgba(255, 255, 255, 0.07);
   --neopop-surface: #0d0d0d;
   --neopop-text-secondary: rgba(255, 255, 255, 0.5);
@@ -180,27 +180,27 @@ p {
 }
 
 [data-theme='dark'] .button--primary {
-  background: #e5392e;
+  background: #0066ff;
   color: #ffffff;
-  border: 2px solid #e5392e;
+  border: 2px solid #0066ff;
 }
 
 [data-theme='dark'] .button--primary:hover {
-  background: #ed5c54;
-  border-color: #ed5c54;
+  background: #3385ff;
+  border-color: #3385ff;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
 [data-theme='light'] .button--primary {
-  background: #c92620;
+  background: #0066ff;
   color: #ffffff;
-  border: 2px solid #c92620;
+  border: 2px solid #0066ff;
 }
 
 [data-theme='light'] .button--primary:hover {
-  background: #ad211c;
-  border-color: #ad211c;
+  background: #005ce6;
+  border-color: #005ce6;
   color: #ffffff;
   transform: translateY(-1px);
 }
@@ -212,9 +212,9 @@ p {
 }
 
 [data-theme='dark'] .button--outline:hover {
-  border-color: #e5392e;
-  color: #e5392e;
-  background: rgba(229, 57, 46, 0.06);
+  border-color: #3385ff;
+  color: #3385ff;
+  background: rgba(0, 102, 255, 0.08);
 }
 
 [data-theme='light'] .button--outline {
@@ -224,9 +224,9 @@ p {
 }
 
 [data-theme='light'] .button--outline:hover {
-  border-color: #c92620;
-  color: #c92620;
-  background: rgba(201, 38, 32, 0.05);
+  border-color: #0066ff;
+  color: #0066ff;
+  background: rgba(0, 102, 255, 0.05);
 }
 
 /* ─── Sidebar ───────────────────────────────────────────────────────────────── */
@@ -297,15 +297,15 @@ code {
 }
 
 [data-theme='dark'] code {
-  background: rgba(229, 57, 46, 0.09);
-  color: #f17a74;
-  border: 1px solid rgba(229, 57, 46, 0.18);
+  background: rgba(0, 102, 255, 0.12);
+  color: #8fbdff;
+  border: 1px solid rgba(51, 133, 255, 0.25);
 }
 
 [data-theme='light'] code {
-  background: rgba(201, 38, 32, 0.07);
-  color: #ad211c;
-  border: 1px solid rgba(201, 38, 32, 0.14);
+  background: rgba(0, 102, 255, 0.07);
+  color: #0052cc;
+  border: 1px solid rgba(0, 102, 255, 0.16);
 }
 
 /* ─── Tables ────────────────────────────────────────────────────────────────── */
@@ -358,7 +358,7 @@ main {
 }
 
 [data-theme='light'] .hero--primary {
-  background: #f7f5f1;
+  background: #f5f7fb;
 }
 
 /* ─── Footer — force black, override Docusaurus teal default ────────────────── */
